@@ -2,10 +2,11 @@
 #define LEVEL_TWO_H_
 
 #include "../game/board.h"
+#include "../data/move.h"
 #include "computer.h"
 
 class Level_Two : public Computer {
-    void next_move_virtual(Board &b);
+    Move next_move_virtual(Board &b);
 };
 
 #endif // LEVEL_TWO_H_

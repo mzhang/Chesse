@@ -2,12 +2,13 @@
 #define COMPUTER_H_
 
 #include "../game/board.h"
+#include "../data/move.h"
 
 // Chess computer base class
 class Computer {
-    virtual void next_move_virtual(Board &b) = 0;
+    virtual Move next_move_virtual(Board &b) = 0;
 public:
-    void next_move(Board &b);
+    Move next_move(Board &b);
 };
 
 #endif // COMPUTER_H_
