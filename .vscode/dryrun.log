@@ -1,9 +1,0 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/u1/ymulki/cs247/Chesse'
-g++ -std=c++14 -Wall -MMD   -c -o main.o main.cc
-g++ -std=c++14 -Wall -MMD   -c -o chess.o chess.cc
-g++ -std=c++14 -Wall -MMD   -c -o game/board.o game/board.cc
-g++ -std=c++14 -Wall -MMD   -c -o game/game.o game/game.cc
-g++ -std=c++14 -Wall -MMD main.o chess.o ./game/board.o ./game/game.o -o chess.out
-make: Leaving directory '/u1/ymulki/cs247/Chesse'
- 
