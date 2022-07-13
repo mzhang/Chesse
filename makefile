@@ -5,7 +5,7 @@ OBJECTS = \
 main.o chess.o \
 ./game/board.o ./game/game.o \
 ./moveable/piece.o ./moveable/moveable.o ./moveable/decorator.o \
-./moveable/moveX.o ./moveable/moveY.o ./moveable/moveZ.o 
+./moveable/moveX.o ./moveable/moveY.o ./moveable/moveZ.o ./moveable/moveL.o 
 DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
