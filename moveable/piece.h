@@ -8,11 +8,14 @@ class Board;
 
 class Piece : public Moveable
 {
-    virtual std::vector<Position> doGetDelta() override;
-    virtual std::vector<Position> doGetValidMoves(Board b) override;
-
 public:
     Piece();
     virtual ~Piece();
+    Piece(const Piece &);
+
+    std::unique_ptr<Moveable> clone() override;
+
+    std::vector<Position> doGetDelta() override;
+    std::vector<Position> doGetValidMoves(Board b) override;
 };
 #endif

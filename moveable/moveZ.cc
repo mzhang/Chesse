@@ -10,3 +10,10 @@ using namespace std;
 MoveZ::MoveZ(Moveable *component) : Decorator{component} {};
 vector<Position> MoveZ::doGetDelta(){};
 vector<Position> MoveZ::doGetValidMoves(Board b){};
+
+MoveZ::MoveZ(const MoveZ &o) : Decorator{nullptr} {}
+
+unique_ptr<Moveable> MoveZ::clone()
+{
+    return make_unique<MoveZ>(*this);
+}

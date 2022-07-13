@@ -4,6 +4,7 @@
 #include <memory>
 
 class Moveable;
+class Position;
 
 class Board
 {
@@ -21,9 +22,13 @@ public:
 
     Board(const Board &);
     Board &operator=(const Board &);
-
     Board(Board &&);
     Board &operator=(Board &&);
+
+    void addPiece(int, int);
+    Moveable *getPiece(int, int);
+    void setPiece(int, int, Moveable *);
+    std::vector<Position> getValidMoves(int, int);
 };
 
 #endif

@@ -10,7 +10,9 @@ protected:
 
 public:
     Decorator(Moveable *component);
-    virtual ~Decorator();
+    virtual ~Decorator() = 0;
+
+    Decorator(const Decorator &);
 };
 
 #endif

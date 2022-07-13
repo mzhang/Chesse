@@ -9,9 +9,13 @@ class Position;
 class MoveX : public Decorator
 {
 public:
-    MoveX(Moveable *component);
+    explicit MoveX(Moveable *component);
+    MoveX(const MoveX &);
+
     std::vector<Position> doGetDelta() override;
     std::vector<Position> doGetValidMoves(Board b) override;
+
+    std::unique_ptr<Moveable> clone() override;
 };
 
 #endif

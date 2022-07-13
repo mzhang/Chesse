@@ -11,8 +11,8 @@ vector<Position> Moveable::doGetValidMoves(Board b) {}
 
 Moveable::Moveable(){};
 
-vector<Position> Moveable::getDelta(){};
-vector<Position> Moveable::getValidMoves(Board b){};
+// vector<Position> Moveable::getDelta(){};
+// vector<Position> Moveable::getValidMoves(Board b){};
 bool Moveable::isInBounds(const Board b){};
 void Moveable::draw(){};
 
