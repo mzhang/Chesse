@@ -1,0 +1,339 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Wed Jul 13 02:54:29 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_SESSION_CLASS = user
+# environment
+VSCODE_AGENT_FOLDER = /u1/ymulki/.vscode-server
+# environment
+XDG_SESSION_TYPE = tty
+# environment
+IBM_DB_INCLUDE = /home/db2inst2/sqllib/include
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# default
+MAKE_VERSION := 4.2.1
+# makefile
+CURDIR := /u1/ymulki/cs247/Chesse
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
+# environment
+_ = /u1/ymulki/.vscode-server/bin/b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a/node
+# makefile (from 'game/game.d', line 1)
+MAKEFILE_LIST :=  makefile main.d chess.d game/board.d game/game.d
+# 'override' directive
+GNUMAKEFLAGS := 
+# makefile (from 'makefile', line 2)
+CXXFLAGS = -std=c++14 -Wall -MMD
+# environment
+XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/9778/bus
+# environment
+VSCODE_CWD = /u1/ymulki
+# environment
+SSH_CONNECTION = 2620:101:f000:740::c62 55270 2620:101:f000:4804::37 22
+# environment
+PATH = /u1/ymulki/.vscode-server/bin/b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a/bin/remote-cli:/u1/ymulki/bin:/u/cs241/pub/bin:/usr/lib/jvm/java-8-openjdk-amd64/bin:/usr/lib/jvm/java-8-openjdk-amd64:/u/cs241/pub/wrappers:/u1/ymulki/bin:/u/cs241/pub/bin:/usr/lib/jvm/java-8-openjdk-amd64/bin:/usr/lib/jvm/java-8-openjdk-amd64:/u/cs241/pub/wrappers:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/u9/ymulki/cs348/1225/tools/:/u9/ymulki/cs348/1225/tools/:/home/db2inst2/sqllib/bin:/home/db2inst2/sqllib/adm:/home/db2inst2/sqllib/misc:/home/db2inst2/sqllib/gskit/bin
+# environment
+IBM_DB_HOME = /home/db2inst2/sqllib
+# environment
+XDG_RUNTIME_DIR = /run/user/9778
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+VSCODE_IPC_HOOK_CLI = /run/user/9778/vscode-ipc-18c09f2e-1710-4e50-9ff4-c36f5889b3df.sock
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+DB2INSTANCE = db2inst2
+# automatic
+%F = $(notdir $%)
+# environment
+IBM_DB_LIB = /home/db2inst2/sqllib/lib
+# environment
+PWD = /u1/ymulki/cs247/Chesse
+# default
+.LOADED := 
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /u1/ymulki
+# environment
+LD_LIBRARY_PATH = /home/db2inst2/sqllib/lib64:/home/db2inst2/sqllib/lib64/gskit:/home/db2inst2/sqllib/lib32
+# environment
+LOGNAME = ymulki
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# automatic
++F = $(notdir $+)
+# makefile (from 'makefile', line 5)
+DEPENDS = ${OBJECTS:.o=.d}
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+SHLVL = 1
+# environment
+JAVA_HOME = /usr/lib/jvm/java-8-openjdk-amd64
+# makefile (from 'makefile', line 3)
+EXEC = chess.out
+# environment
+XDG_SESSION_ID = 30447
+# environment
+USER = ymulki
+# makefile
+.DEFAULT_GOAL := chess.out
+# environment
+CLASSPATH = /u/cs241/pub/classes:/u/cs241/pub/classes:/home/db2inst2/sqllib/java/db2java.zip:/home/db2inst2/sqllib/java/sqlj4.zip:/home/db2inst2/sqllib/function:/home/db2inst2/sqllib/java/db2jcc_license_cu.jar:/home/db2inst2/sqllib/tools/clpplus.jar:/home/db2inst2/sqllib/tools/jline-0.9.93.jar:/home/db2inst2/sqllib/java/db2jcc4.jar:.
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+LANGUAGE = en_CA:
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_CLIENT = 2620:101:f000:740::c62 55270 22
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+DB2_HOME = /home/db2inst2/sqllib
+# environment
+BROWSER = /u1/ymulki/.vscode-server/bin/b06ae3b2d2dbfe28bca3134cc6be65935cdfea6a/bin/helpers/browser.sh
+# environment
+VSCODE_HANDLES_SIGPIPE = true
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# makefile (from 'makefile', line 1)
+CXX = g++
+# environment
+LC_ALL = C
+# environment
+DB2LIB = /home/db2inst2/sqllib/lib
+# environment
+IBM_DB_DIR = /home/db2inst2/sqllib
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# default
+.RECIPEPREFIX := 
+# makefile (from 'makefile', line 4)
+OBJECTS = main.o chess.o ./game/board.o ./game/game.o
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+LANG = C
+# environment
+MOTD_SHOWN = pam
+# variable set hash-table stats:
+# Load=79/1024=8%, Rehash=0, Collisions=9/116=8%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 58, inode 15393184269378): 19 files, no impossibilities.
+
+# 19 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+chess.out: main.o chess.o game/board.o game/game.o
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 8):
+	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
+
+# Not a target:
+all:
+#  Command line target.
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has not been updated.
+
+.PHONY: clean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+game/game.o: game/game.cc game/game.h game/board.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+game/board.o: game/board.cc game/board.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+chess.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+game/game.cc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-13 01:34:27.850565909
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+game/board.cc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+chess.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-13 01:32:46.470396157
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+main.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-13 01:32:46.182395675
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 15):
+	rm ${OBJECTS} ${DEPENDS}
+
+# Not a target:
+game/game.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+game/board.h:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+chess.o: chess.cc chess.h game/game.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+main.o: main.cc chess.h
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+game/game.d:
+#  Implicit rule search has been done.
+ 
+#  Last modified 2022-07-13 01:32:48.906400236
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+chess.cc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+main.cc:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+game/board.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-13 01:32:48.594399713
+#  File has been updated.
+#  Successfully updated.
+
+# files hash-table stats:
+# Load=22/1024=2%, Rehash=0, Collisions=0/56=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 34 / storage = 312 B / avg = 9 B
+# current buf: size = 8162 B / used = 312 B / count = 34 / avg = 9 B
+
+# strcache performance: lookups = 65 / hit rate = 47%
+# hash-table stats:
+# Load=34/8192=0%, Rehash=0, Collisions=1/65=2%
+# Finished Make data base on Wed Jul 13 02:54:29 2022
+
+ 

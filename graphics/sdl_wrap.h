@@ -5,9 +5,9 @@
 #include <string>
 #include <vector>
 #include <utility>
-struct Colour {
-  char r, g, b;
-};
+#include <memory>
+
+#include "sdl_colors.h"
 
 // This class just handles the start and end of SDL, just need to declare one at the start of your program,
 // either globally or at the begining of main, and then do nothing with it.
@@ -28,7 +28,7 @@ class SDL_Runner {
 class Screen {
   SDL_Surface *screen;
   std::string screenName;
-  std::vector<SDL_Rect*> rects;
+  std::vector<std::unique_ptr<SDL_Rect>> rects;
  public:
   Screen(int w=640, int h=480, std::string screenName="") : screen{SDL_SetVideoMode(w, h, 32, SDL_SWSURFACE)},
         screenName{screenName},  rects{} {
@@ -38,12 +38,13 @@ class Screen {
   Screen(Screen && o) : screen{o.screen}, screenName{std::move(o.screenName)}, rects{std::move(o.rects)} { o.screen = nullptr; }
   Screen &operator=(const Screen &) = delete;
   Screen &operator=(Screen &&o) = delete;
-  ~Screen() {
-    for (auto p : rects) {
-      delete p;
-    }
-  }
-  void draw_rect(short int x, short int y, short int w, short int h, Colour c);
+  ~Screen() {}
+
+  void draw_rect(short int x, short int y, unsigned short int w, unsigned short int h, const Colour c);
+  void draw_text(short int x, short int y, unsigned short int w, unsigned short int h,
+    std::string text, int font_size, Colour c);
+  void draw_image(short int x, short int y, unsigned short int w, unsigned short int h, std::string image_path);
+
   void update();
   int getWidth() { return screen->w; }
   int getHeight() { return screen->h; }
