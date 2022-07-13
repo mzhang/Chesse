@@ -1,14 +1,15 @@
 #ifndef DECORATOR_H_
 #define DECORATOR_H_
 #include "moveable.h"
+#include <memory>
 
 class Decorator : public Moveable
 {
 protected:
-    Moveable *component;
+    std::unique_ptr<Moveable> component;
 
 public:
-    Decorator(Moveable *component);
+    Decorator(std::unique_ptr<Moveable> component);
     virtual ~Decorator();
 };
 
