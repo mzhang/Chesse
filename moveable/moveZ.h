@@ -1,15 +1,15 @@
-#ifndef MOVE_X_
-#define MOVE_X_
+#ifndef MOVE_Z_
+#define MOVE_Z_
 #include <vector>
 #include "decorator.h"
 
 class Board;
 class Position;
 
-class MoveX : public Decorator
+class MoveZ : public Decorator
 {
 public:
-    MoveX(Moveable *component);
+    MoveZ(Moveable *component);
     std::vector<Position> doGetDelta() override;
     std::vector<Position> doGetValidMoves(Board b) override;
 };

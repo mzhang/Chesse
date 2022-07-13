@@ -9,7 +9,7 @@ protected:
     std::unique_ptr<Moveable> component;
 
 public:
-    Decorator(std::unique_ptr<Moveable> component);
+    Decorator(Moveable *component);
     virtual ~Decorator();
 };
 
