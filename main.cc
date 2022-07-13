@@ -1,9 +1,11 @@
 #include <iostream>
+#include "chess.h"
 
 using namespace std;
 
 int main() {
-    cout << "Chess" << endl;
+    Chess c;
+    c.play();
 
     return 0;
 }
