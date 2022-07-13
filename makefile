@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD
-EXEC = chess
+EXEC = chess.out
 OBJECTS = main.o chess.o ./game/board.o ./game/game.o
 DEPENDS = ${OBJECTS:.o=.d}
 
