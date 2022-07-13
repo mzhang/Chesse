@@ -17,7 +17,6 @@ class PieceTypeUtils
 {
 public:
     static std::string toString(PieceType pieceType);
-}
-
+};
 
 #endif
