@@ -82,5 +82,6 @@ void ChessDrawing::draw_game(Screen &screen, const Game &game) {
     
     // Draw time
 
+    screen.update();
 }
 
