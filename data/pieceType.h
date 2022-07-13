@@ -1,6 +1,8 @@
 #ifndef PIECE_TYPE_H_
 #define PIECE_TYPE_H_
 
+#include <string>
+
 enum class PieceType
 {
     KING,
@@ -10,5 +12,12 @@ enum class PieceType
     KNIGHT,
     PAWN
 };
+
+class PieceTypeUtils
+{
+public:
+    static std::string toString(PieceType pieceType);
+}
+
 
 #endif

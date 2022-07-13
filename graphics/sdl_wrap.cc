@@ -38,6 +38,7 @@ int Clock::getTicks() {
   return 0;
 }
 
+
 void Screen::draw_text(short int xloc, short int yloc, unsigned short int w, unsigned short int h, std::string text, int font_size, Colour c) {
   unique_ptr<TTF_Font> font{TTF_OpenFont("resources/Roboto-Regular.ttf", font_size)};
   unique_ptr<SDL_Surface> text_surface{TTF_RenderText_Solid(font.get(), text.c_str(), SDL_Color{c.r, c.g, c.b})};
