@@ -3,9 +3,10 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     Chess c;
-    c.play();
+    c.start();
 
     return 0;
 }
