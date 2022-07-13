@@ -1,5 +1,5 @@
-#ifndef MOVEABLES_H_
-#define MOVEABLES_H_
+#ifndef MOVEABLE_H_
+#define MOVEABLE_H_
 
 #include <vector>
 
@@ -26,8 +26,8 @@ class Moveable
     virtual void draw();
 
 public:
-    Moveables();
-    virtual ~Moveables() = 0;
+    Moveable();
+    virtual ~Moveable() = 0;
 };
 
 #endif
