@@ -6,6 +6,7 @@
 struct Move {
     Position from;
     Position to;
-}
+    Move(Position, Position);
+};
 
 #endif // MOVE_H_

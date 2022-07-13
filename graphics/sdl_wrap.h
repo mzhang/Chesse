@@ -43,7 +43,7 @@ class Screen {
   void draw_rect(short int x, short int y, unsigned short int w, unsigned short int h, const Colour c);
   void draw_text(short int x, short int y, unsigned short int w, unsigned short int h,
     std::string text, int font_size, Colour c);
-  void draw_image(short int x, short int y, unsigned short int w, unsigned short int h, std::string image_path);
+  void draw_image(short int x, short int y, unsigned short int w, unsigned short int h, const std::string &image_path);
   // void draw_circle(short int x, short int y, unsigned short int r, Colour c);
 
   void update();

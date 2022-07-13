@@ -8,6 +8,7 @@ class Game;
 class Chess
 {
     std::unique_ptr<Game> g;
+
 public:
     Chess();
     ~Chess();

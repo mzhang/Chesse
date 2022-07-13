@@ -1,13 +1,13 @@
-#ifndef SDL_COLORS_H
+#ifndef SDL_COLORS_H_
 #define SDL_COLORS_H_
 
-struct Colour {
-  char r, g, b;
+struct Colour
+{
+  unsigned char r, g, b;
 };
 
-const Colour WHITE{'\xff','\xff','\xff'};
-const Colour BLACK{'\x0', '\x0', '\x0'};
-const Colour BROWN{'\x99','\x99','\x99'};
-
+const Colour WHITE{255, 255, 255};
+const Colour BLACK{0, 0, 0};
+const Colour BROWN{150, 75, 0};
 
 #endif // SDL_COLORS_H

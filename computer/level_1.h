@@ -5,7 +5,8 @@
 #include "../data/move.h"
 #include "computer.h"
 
-class Level_One : public Computer {
+class Level_One : public Computer
+{
     Move next_move_virtual(Board &b);
 };
 

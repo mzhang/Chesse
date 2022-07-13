@@ -5,8 +5,9 @@
 #include "../data/move.h"
 #include "computer.h"
 
-class Sophisticated : public Computer {
+class Sophisticated : public Computer
+{
     Move next_move_virtual(Board &b);
 };
 
-#endif // SOPHISTICATED_H_  
+#endif // SOPHISTICATED_H_

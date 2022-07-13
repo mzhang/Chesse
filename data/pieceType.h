@@ -16,7 +16,7 @@ enum class PieceType
 class PieceTypeUtils
 {
 public:
-    static std::string toString(PieceType pieceType);
+    static std::string toString(PieceType pieceType); // used for deciding what image to display
 };
 
 #endif

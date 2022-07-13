@@ -6,7 +6,8 @@
 #include "../game/game.h"
 #include "../data/pieceType.h"
 
-class ChessDrawing {
+class ChessDrawing
+{
 public:
     void draw_game(Screen &screen, const Game &game);
     void draw_chessboard_background(Screen &screen);

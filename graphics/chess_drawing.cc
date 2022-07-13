@@ -1,11 +1,7 @@
 #include "chess_drawing.h"
 #include "sdl_wrap.h"
-// #include "sdl_colors.h"
+#include "sdl_colors.h"
 #include "../data/pieceType.h"
-
-const Colour WHITE{'\xff','\xff','\xff'};
-const Colour BLACK{'\x0', '\x0', '\x0'};
-const Colour BROWN{'\x99','\x99','\x99'};
 
 void ChessDrawing::draw_chessboard_background(Screen &screen) {
     // Draw wooden color border
