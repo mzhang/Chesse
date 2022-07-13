@@ -8,8 +8,8 @@ class Position;
 
 class Moveable
 {
-    virtual std::vector<Position> getDelta();
-    virtual std::vector<Position> getValidMoves(Board b);
+    virtual std::vector<Position> doGetDelta();
+    virtual std::vector<Position> doGetValidMoves(Board b);
     bool isInBounds(const Board b);
 
     PieceType name;
@@ -17,7 +17,14 @@ class Moveable
 
 public:
     Moveable();
+    std::vector<Position> getDelta();
+    std::vector<Position> getValidMoves(Board b);
+
     virtual ~Moveable() = 0;
+    Moveable(const Moveable &other);
+    Moveable &operator=(const Moveable &other);
+    Moveable(Moveable &&other);
+    Moveable &operator=(Moveable &&other);
 };
 
 #endif
