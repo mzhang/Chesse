@@ -1,5 +1,5 @@
-#ifndef _DECORATOR_H_
-#define _DECORATOR_H_
+#ifndef DECORATOR_H_
+#define DECORATOR_H_
 #include "moveable.h"
 
 class Decorator : public Moveable
