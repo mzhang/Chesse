@@ -4,5 +4,5 @@
 
 using namespace std;
 
-Decorator::Decorator(unique_ptr<Moveable> component){};
+Decorator::Decorator(Moveable *component) : component{component} {};
 Decorator::~Decorator(){};
