@@ -31,8 +31,7 @@ Board::Board(const Board &o) : width{o.width}, height{o.height} {
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            Moveable* p = o.board[i][j].get();
-            board[i][j] = unique_ptr<Moveable>(p);
+            board[i][j] = board[i][j]->clone();
         }
     }
 }

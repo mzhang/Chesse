@@ -2,6 +2,7 @@
 #define MOVEABLE_H_
 #include "../data/pieceType.h"
 #include <vector>
+#include <memory>
 
 class Board;
 class Position;
@@ -19,6 +20,8 @@ public:
     Moveable();
     std::vector<Position> getDelta();
     std::vector<Position> getValidMoves(Board b);
+
+    virtual std::unique_ptr<Moveable> clone() = 0;
 
     virtual ~Moveable() = 0;
     Moveable(const Moveable &other);

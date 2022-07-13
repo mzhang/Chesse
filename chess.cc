@@ -20,7 +20,7 @@ void Chess::start()
         switch (cmd)
         {
         case 'n':
-            g = make_unique<Game>(Game{boardWidth, boardHeight});
+            g = unique_ptr<Game>{new Game{boardWidth, boardHeight}};
             cin >> *g;
             break;
         case 'p':
