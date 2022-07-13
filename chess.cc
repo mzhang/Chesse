@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include "chess.h"
 #include "./game/game.h"
 
@@ -10,13 +11,16 @@ Chess::~Chess() {}
 
 void Chess::start()
 {
+    const int boardWidth = 8;
+    const int boardHeight = 8;
+
     char cmd;
     while (cin >> cmd)
     {
         switch (cmd)
         {
         case 'n':
-            g = new Game{};
+            g = make_unique<Game>(Game{boardWidth, boardHeight});
             cin >> *g;
             break;
         case 'p':

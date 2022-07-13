@@ -2,20 +2,24 @@
 #define GAME_H_
 
 #include <iostream>
+#include <memory>
 
 class Board;
 
 class Game
 {
-    const int width = 8;
-    const int height = 8;
+    int boardWidth;
+    int boardHeight;
 
-    Board *b;
+    std::unique_ptr<Board> board;
 
 public:
     Game();
+    Game(int, int);
     ~Game();
     void play();
+
+    Game(const Game &);
 
     friend std::istream &operator>>(std::istream &in, const Game &g);
     friend std::ostream &operator<<(std::ostream &out, const Game &g);

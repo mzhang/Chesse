@@ -1,17 +1,29 @@
 #ifndef BOARD_H_
 #define BOARD_H_
 #include <vector>
+#include <memory>
+
+class Moveable;
 
 class Board
 {
-    const int width;
-    const int height;
+    int width;
+    int height;
 
-    std::vector<std::vector<char>> board;
+    std::vector<std::vector<std::unique_ptr<Moveable>>> board;
+
+    void swap(Board &);
+    void resizeBoard();
 
 public:
     Board(int, int);
     ~Board();
+
+    Board(const Board &);
+    Board &operator=(const Board &);
+
+    Board(Board &&);
+    Board &operator=(Board &&);
 };
 
 #endif
