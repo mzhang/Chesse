@@ -1,14 +1,34 @@
 #include "decorator.h"
 #include "moveable.h"
+#include "../game/board.h"
+#include "../data/position.h"
 #include <memory>
 #include <iostream>
 
 using namespace std;
 
-Decorator::Decorator(Moveable *component) : component{component} { cout << "decorator ctor" << endl;};
+vector<Position> Decorator::doGetDelta()
+{
+    return component->getDelta();
+}
+vector<Position> Decorator::doGetValidMoves(Board b)
+{
+    return component->getValidMoves(b);
+}
+unique_ptr<Moveable> Decorator::doClone()
+{
+    return component->clone();
+}
+void Decorator::doDraw()
+{
+    component->draw();
+}
+
+Decorator::Decorator(Moveable *component) : component{component} { cout << "decorator ctor" << endl; };
 Decorator::~Decorator(){};
 
-Decorator::Decorator(const Decorator &o) {
+Decorator::Decorator(const Decorator &o)
+{
     cout << "decorator copy ctor" << endl;
     component = o.component->clone();
 }

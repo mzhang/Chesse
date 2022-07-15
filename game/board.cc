@@ -41,7 +41,8 @@ Board::Board(const Board &o) : width{o.width}, height{o.height}
     {
         for (int j = 0; j < width; j++)
         {
-            if (board[i][j]) { // if there is a piece at this position (aka not nullptr)
+            if (board[i][j])
+            { // if there is a piece at this position (aka not nullptr)
                 board[i][j] = board[i][j]->clone();
             }
         }
@@ -69,11 +70,13 @@ Board &Board::operator=(Board &&o)
     return *this;
 }
 
-vector<Position> Board::getValidMoves(int x, int y) {
-    return board[x][y] ? board[x][y]->doGetValidMoves(*this) : vector<Position>{};
+vector<Position> Board::getValidMoves(int x, int y)
+{
+    return board[x][y] ? board[x][y]->getValidMoves(*this) : vector<Position>{};
 }
 
-void Board::makeMove(Move move) {
+void Board::makeMove(Move move)
+{
     // TODO: implement
 }
 
@@ -85,7 +88,8 @@ void Board::addPiece(int x, int y)
 
 Moveable *Board::getPiece(int x, int y)
 {
-    if (!board[x][y]) { // if there is no piece at this position, create a new one
+    if (!board[x][y])
+    { // if there is no piece at this position, create a new one
         addPiece(x, y);
     }
 

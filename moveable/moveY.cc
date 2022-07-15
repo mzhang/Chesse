@@ -10,20 +10,19 @@ using namespace std;
 
 MoveY::MoveY(Moveable *component) : Decorator{component} { cout << "Y ctor" << endl; };
 vector<Position> MoveY::doGetDelta() {}
-vector<Position> MoveY::doGetValidMoves(Board b) 
-{ 
+vector<Position> MoveY::doGetValidMoves(Board b)
+{
     vector<Position> v{Position{1, 2}};
-    vector<Position> componentMoves = component->doGetValidMoves(b);
+    vector<Position> componentMoves = component->getValidMoves(b);
     if (!componentMoves.empty())
         v.insert(v.end(), componentMoves.begin(), componentMoves.end());
 
     return v;
 }
-
-MoveY::MoveY(const MoveY &o) : Decorator{nullptr} { cout << "Y copy ctor" << endl; }
-
-unique_ptr<Moveable> MoveY::clone()
+unique_ptr<Moveable> MoveY::doClone()
 {
     cout << "Y clone" << endl;
     return make_unique<MoveY>(*this);
 }
+
+MoveY::MoveY(const MoveY &o) : Decorator{nullptr} { cout << "Y copy ctor" << endl; }
