@@ -10,7 +10,7 @@ Piece::Piece() {}
 Piece::~Piece() {}
 
 vector<Position> Piece::doGetDelta() {}
-vector<Position> Piece::doGetValidMoves(Board b) { return vector<Position>{Position{0, 0}}; }
+vector<Position> Piece::doGetValidMoves(const Board &b) { return vector<Position>{Position{0, 0}}; }
 unique_ptr<Moveable> Piece::doClone()
 {
     return make_unique<Piece>(*this);

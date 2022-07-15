@@ -11,7 +11,7 @@ vector<Position> Decorator::doGetDelta()
 {
     return component->getDelta();
 }
-vector<Position> Decorator::doGetValidMoves(Board b)
+vector<Position> Decorator::doGetValidMoves(const Board &b)
 {
     return component->getValidMoves(b);
 }

@@ -10,7 +10,7 @@ class Position;
 class Moveable
 {
     virtual std::vector<Position> doGetDelta() = 0;
-    virtual std::vector<Position> doGetValidMoves(Board b) = 0;
+    virtual std::vector<Position> doGetValidMoves(const Board &b) = 0;
     virtual std::unique_ptr<Moveable> doClone() = 0;
     virtual void doDraw() = 0;
 
@@ -21,7 +21,7 @@ class Moveable
 public:
     Moveable();
     std::vector<Position> getDelta();
-    std::vector<Position> getValidMoves(Board b);
+    std::vector<Position> getValidMoves(const Board &b);
     std::unique_ptr<Moveable> clone();
     void draw();
 

@@ -12,7 +12,7 @@ protected:
     std::unique_ptr<Moveable> component;
 
     virtual std::vector<Position> doGetDelta() override;
-    virtual std::vector<Position> doGetValidMoves(Board b) override;
+    virtual std::vector<Position> doGetValidMoves(const Board &b) override;
     virtual std::unique_ptr<Moveable> doClone() override;
     virtual void doDraw() override;
 

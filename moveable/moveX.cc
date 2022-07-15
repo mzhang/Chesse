@@ -10,7 +10,7 @@ using namespace std;
 
 MoveX::MoveX(Moveable *component) : Decorator{component} { cout << "X ctor" << endl; };
 vector<Position> MoveX::doGetDelta() {}
-vector<Position> MoveX::doGetValidMoves(Board b)
+vector<Position> MoveX::doGetValidMoves(const Board &b)
 {
     vector<Position> v{Position{3, 4}};
     vector<Position> componentMoves = component->getValidMoves(b);

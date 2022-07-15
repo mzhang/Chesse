@@ -10,7 +10,7 @@ using namespace std;
 
 MoveY::MoveY(Moveable *component) : Decorator{component} { cout << "Y ctor" << endl; };
 vector<Position> MoveY::doGetDelta() {}
-vector<Position> MoveY::doGetValidMoves(Board b)
+vector<Position> MoveY::doGetValidMoves(const Board &b)
 {
     vector<Position> v{Position{1, 2}};
     vector<Position> componentMoves = component->getValidMoves(b);

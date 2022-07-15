@@ -9,7 +9,7 @@ using namespace std;
 
 MoveZ::MoveZ(Moveable *component) : Decorator{component} {};
 vector<Position> MoveZ::doGetDelta(){};
-vector<Position> MoveZ::doGetValidMoves(Board b){};
+vector<Position> MoveZ::doGetValidMoves(const Board &b){};
 unique_ptr<Moveable> MoveZ::doClone()
 {
     return make_unique<MoveZ>(*this);
