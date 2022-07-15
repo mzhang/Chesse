@@ -5,6 +5,7 @@
 
 class Moveable;
 class Position;
+class Move;
 
 class Board
 {
@@ -24,6 +25,8 @@ public:
     Board &operator=(const Board &);
     Board(Board &&);
     Board &operator=(Board &&);
+
+    void makeMove(Move);
 
     void addPiece(int, int);
     Moveable *getPiece(int, int);

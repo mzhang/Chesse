@@ -5,8 +5,9 @@ OBJECTS = main.o chess.o \
 ./game/board.o ./game/game.o \
 ./moveable/piece.o ./moveable/moveable.o ./moveable/decorator.o ./moveable/moveX.o ./moveable/moveY.o ./moveable/moveZ.o ./moveable/moveL.o \
 ./graphics/chess_drawing.o ./graphics/sdl_wrap.o \
+./outputs/output.o ./outputs/textDisplay.o ./outputs/visualizer.o \
 ./data/pieceType.o ./data/move.o ./data/position.o \
-./computer/computer.o ./computer/level_1.o ./computer/level_2.o ./computer/level_3.o ./computer/sophisticated.o 
+./players/player.o ./players/human.o ./players/computer1.o ./players/computer2.o ./players/computer3.o ./players/computer4.o
 
 DEPENDS = ${OBJECTS:.o=.d}
 

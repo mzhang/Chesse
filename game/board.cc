@@ -6,6 +6,7 @@
 #include "../moveable/moveable.h"
 #include "../moveable/piece.h"
 #include "../data/position.h"
+#include "../data/move.h"
 
 using namespace std;
 
@@ -70,6 +71,10 @@ Board &Board::operator=(Board &&o)
 
 vector<Position> Board::getValidMoves(int x, int y) {
     return board[x][y] ? board[x][y]->doGetValidMoves(*this) : vector<Position>{};
+}
+
+void Board::makeMove(Move move) {
+    // TODO: implement
 }
 
 void Board::addPiece(int x, int y)
