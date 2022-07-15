@@ -8,61 +8,55 @@
 
 using namespace std;
 
-Game::Game(int boardWidth, int boardHeight) : boardWidth{boardWidth}, boardHeight{boardHeight},
+Game::Game(int boardWidth, int boardHeight) : boardWidth{boardWidth}, boardHeight{boardHeight}, playingPlayer{0},
                                               board{make_unique<Board>(boardWidth, boardHeight)} {}
 
 Game::~Game() {}
 
-void Game::play()
+int Game::play(const string &player1, const string &player2)
 {
-    cout << "Playing Game" << endl;
-}
+    // TODO: set players correctly
 
-Game::Game(const Game &o) : boardWidth{o.boardWidth}, boardHeight{o.boardHeight}, board{make_unique<Board>(*o.board)} {}
-
-std::istream &operator>>(std::istream &in, const Game &g)
-{
-    char cmd;
+    string cmd;
     int x, y;
-    while (in >> cmd)
+    while (cin >> cmd)
     {
-        switch (cmd)
-        {
-            case 'a': // add blank piece to x, y
-                cin >> x >> y;
-                g.board->addPiece(x, y);
-                break;
-            case 'x': // TODO: find some system to choose what rule to apply
-                cin >> x >> y;
-                g.board->setPiece(x, y, new MoveX{g.board->getPiece(x, y)});
-                break;
-            case 'y':
-                cin >> x >> y;
-                g.board->setPiece(x, y, new MoveY{g.board->getPiece(x, y)}); // TODO: get proper rule to apply
-                break;
-            case 'v': // print valid moves for piece
-                cin >> x >> y;
-                for (auto &p : g.board->getValidMoves(x, y))
-                {
-                    cout << p << "; ";
-                }
-                cout << endl;
-
-                break;
-            case 'q':
-                return in;
-            default:
-                cout << "Invalid command" << endl;
-                break;
+        if (cmd == "a") {
+            cin >> x >> y;
+            board->addPiece(x, y);
+        }
+        else if (cmd == "x") { // TODO: find some system to choose what rule to apply
+            cin >> x >> y;
+            board->setPiece(x, y, new MoveX{board->getPiece(x, y)});
+        } else if (cmd == "y") {
+            cin >> x >> y;
+            board->setPiece(x, y, new MoveY{board->getPiece(x, y)});
+        } else if (cmd == "v") { // print valid moves for piece
+            cin >> x >> y;
+            for (auto &p : board->getValidMoves(x, y))
+            {
+                cout << p << "; ";
+            }
+            cout << endl;
+        } else if (cmd == "setup") {
+            cout << "Custom setup not implemented" << endl; // TODO: implement
+            // cin >> *board;
+        } else if (cmd == "move") {
+            cout << "move not implemented" << endl; // TODO: implement
+            switchPlayers();
+        } else if (cmd == "resign") {
+            return 1-playingPlayer;
+        } else {
+            cout << "Invalid command" << endl;
         }
     }
 
-    return in;
+    return 1-playingPlayer;
 }
 
-std::ostream &operator<<(std::ostream &out, const Game &g)
+void Game::switchPlayers()
 {
-    out << "Printing Game" << endl;
-
-    return out;
+    playingPlayer = 1 - playingPlayer;
 }
+
+Game::Game(const Game &o) : boardWidth{o.boardWidth}, boardHeight{o.boardHeight}, board{make_unique<Board>(*o.board)} {}

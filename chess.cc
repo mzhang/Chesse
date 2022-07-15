@@ -11,25 +11,51 @@ Chess::~Chess() {}
 
 void Chess::start()
 {
-    const int boardWidth = 8;
-    const int boardHeight = 8;
+    int boardWidth = 8;
+    int boardHeight = 8;
 
-    char cmd;
+    int player1Score = 0;
+    int player2Score = 0;
+
+    string cmd, player1, player2;
     while (cin >> cmd)
     {
-        switch (cmd)
-        {
-        case 'n':
-            g = make_unique<Game>(boardWidth, boardHeight);
-            cin >> *g;
+        if (cmd == "game") {
+            cin >> player1 >> player2;
+            Game game{boardWidth, boardHeight};
+            int winner = game.play(player1, player2);
+
+            if (winner == 0) {
+                player1Score++;
+            }
+            else {
+                player2Score++;
+            }
+
+        } else if (cmd == "custom") {
+            // TODO: allow custom setup such as modifying board size
             break;
-        case 'p':
-            g->play();
-            break;
-        case 'q':
-            return;
-        default:
+        } else {
             cout << "Invalid command" << endl;
-        }
+        }  
     }
+
+    // print game results
+    cout << "Final Score:" << endl;
+    cout << "White: " << player1Score << endl;
+    cout << "Black: " << player2Score << endl;
 }
+
+//   switch (cmd)
+//         {
+//         case 'n':
+//             g = make_unique<Game>(boardWidth, boardHeight);
+//             cin >> *g;
+//             break;
+//         case 'p':
+//             g->play();
+//             break;
+//         case 'q':
+//             return;
+//         default:
+//             cout << "Invalid command" << endl;

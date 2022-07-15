@@ -11,18 +11,18 @@ class Game
     int boardWidth;
     int boardHeight;
 
+    int playingPlayer; // white = 0; black = 1
+    void switchPlayers();
+
     std::unique_ptr<Board> board;
 
 public:
     Game();
     Game(int, int);
     ~Game();
-    void play();
+    int play(const std::string &, const std::string &); // returns winning player
 
     Game(const Game &);
-
-    friend std::istream &operator>>(std::istream &in, const Game &g);
-    friend std::ostream &operator<<(std::ostream &out, const Game &g);
 };
 
 #endif
