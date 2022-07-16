@@ -8,7 +8,7 @@
 
 using namespace std;
 
-MoveY::MoveY(Moveable *component) : Decorator{component} { cout << "Y ctor" << endl; };
+MoveY::MoveY(unique_ptr<Moveable> component) : Decorator{std::move(component)} { cout << "Y ctor" << endl; }
 vector<Position> MoveY::doGetDelta() {}
 vector<Position> MoveY::doGetValidMoves(Board b) 
 { 

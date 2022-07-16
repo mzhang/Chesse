@@ -29,7 +29,7 @@ public:
     void makeMove(Move);
 
     void addPiece(int, int);
-    Moveable *getPiece(int, int);
+    std::unique_ptr<Moveable> getPiece(int, int);
     void setPiece(int, int, Moveable *);
     std::vector<Position> getValidMoves(int, int);
 };

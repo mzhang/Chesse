@@ -1,6 +1,7 @@
 #ifndef MOVE_L_
 #define MOVE_L_
 #include <vector>
+#include <memory>
 #include "decorator.h"
 
 class Board;
@@ -9,7 +10,7 @@ class Position;
 class MoveL : public Decorator
 {
 public:
-    MoveL(Moveable *component);
+    explicit MoveL(std::unique_ptr<Moveable>);
     MoveL(const MoveL &);
 
     std::vector<Position> doGetDelta() override;

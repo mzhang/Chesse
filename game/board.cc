@@ -83,16 +83,13 @@ void Board::addPiece(int x, int y)
     board[x][y] = make_unique<Piece>(Piece{});
 }
 
-Moveable *Board::getPiece(int x, int y)
+unique_ptr<Moveable> Board::getPiece(int x, int y)
 {
     if (!board[x][y]) { // if there is no piece at this position, create a new one
         addPiece(x, y);
     }
 
-    Moveable *tmp = board[x][y].get();
-    board[x][y].release();
-    cout << "getPiece(" << x << ", " << y << ")" << endl;
-    return tmp;
+    return std::move(board[x][y]);
 }
 
 void Board::setPiece(int x, int y, Moveable *piece)

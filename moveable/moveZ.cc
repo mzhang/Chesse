@@ -7,7 +7,7 @@
 
 using namespace std;
 
-MoveZ::MoveZ(Moveable *component) : Decorator{component} {};
+MoveZ::MoveZ(unique_ptr<Moveable> component) : Decorator{std::move(component)} {}
 vector<Position> MoveZ::doGetDelta(){};
 vector<Position> MoveZ::doGetValidMoves(Board b){};
 

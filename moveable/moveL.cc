@@ -7,7 +7,7 @@
 
 using namespace std;
 
-MoveL::MoveL(Moveable *component) : Decorator{component} {};
+MoveL::MoveL(unique_ptr<Moveable> component) : Decorator{std::move(component)} {};
 vector<Position> MoveL::doGetDelta(){};
 vector<Position> MoveL::doGetValidMoves(Board b){};
 

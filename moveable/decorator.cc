@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Decorator::Decorator(Moveable *component) : component{component} { cout << "decorator ctor" << endl;};
+Decorator::Decorator(unique_ptr<Moveable> component) : component{std::move(component)} {}
 Decorator::~Decorator(){};
 
 Decorator::Decorator(const Decorator &o) {
