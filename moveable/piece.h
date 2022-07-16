@@ -15,11 +15,14 @@ class Piece : public Moveable
     bool hasMoved;
     Position position;
 
+protected:
 public:
     Piece(int, int, PieceType, int);
     ~Piece();
 
     PieceType getPieceType() override;
+    Position getPosition() override;
+    int getOwner() override;
     std::vector<Move> getValidMoves(const GameState &) override;
     std::unique_ptr<Moveable> clone() override;
 };

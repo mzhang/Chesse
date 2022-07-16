@@ -11,9 +11,19 @@ Piece::Piece(int x, int y, PieceType type, int playerNum) : position{Position{x,
 
 Piece::~Piece() {}
 
+Position Piece::getPosition() { return position; }
+
 vector<Move> Piece::getValidMoves(const GameState &g) {}
 
-PieceType Piece::getPieceType() {}
+PieceType Piece::getPieceType()
+{
+    return type;
+}
+
+int Piece::getOwner()
+{
+    return playerNum;
+}
 
 unique_ptr<Moveable> Piece::clone()
 {

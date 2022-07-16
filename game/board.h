@@ -6,6 +6,7 @@
 class Moveable;
 class Position;
 class Move;
+enum class PieceType;
 
 class Board
 {
@@ -28,9 +29,15 @@ public:
 
     void makeMove(Move);
 
-    void addPiece(int, int);
-    std::unique_ptr<Moveable> getPiece(int, int);
-    void setPiece(int, int, std::unique_ptr<Moveable>);
+    void addPiece(Position, PieceType, int);
+    std::unique_ptr<Moveable> popPiece(Position);
+    void setPiece(Position, std::unique_ptr<Moveable>);
+
+    int getOwner(Position) const;
+    bool isEmpty(Position) const;
+
+    int getWidth() const;
+    int getHeight() const;
 };
 
 #endif

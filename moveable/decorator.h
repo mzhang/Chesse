@@ -4,23 +4,24 @@
 #include <memory>
 #include <vector>
 
-class Board;
 class Position;
-enum class PieceType;
 class GameState;
 class Move;
+enum class PieceType;
 
 class Decorator : public Moveable
 {
-protected:
     std::unique_ptr<Moveable> component;
 
+protected:
 public:
     explicit Decorator(std::unique_ptr<Moveable>);
     virtual ~Decorator() = 0;
 
+    virtual Position getPosition() override;
     PieceType getPieceType() override;
-    std::vector<Move> getValidMoves(const GameState &) override;
+    int getOwner() override;
+    virtual std::vector<Move> getValidMoves(const GameState &) override;
 
     Decorator(const Decorator &);
 };

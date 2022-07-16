@@ -49,6 +49,16 @@ Board::Board(const Board &o) : width{o.width}, height{o.height}
     }
 }
 
+int Board::getWidth() const
+{
+    return width;
+}
+
+int Board::getHeight() const
+{
+    return height;
+}
+
 Board &Board::operator=(const Board &o)
 {
     Board tmp{o};
@@ -75,24 +85,27 @@ void Board::makeMove(Move move)
     // TODO: implement
 }
 
-void Board::addPiece(int x, int y)
+void Board::addPiece(Position p, PieceType type, int owner)
 {
-    cout << "addPiece(" << x << ", " << y << ")" << endl;
-    board[x][y] = make_unique<Piece>(Piece{x, y, PieceType::PAWN, 0});
+    board[p.x][p.y] = make_unique<Piece>(Piece{p.x, p.y, type, owner});
 }
 
-unique_ptr<Moveable> Board::getPiece(int x, int y)
+unique_ptr<Moveable> Board::popPiece(Position p)
 {
-    if (!board[x][y])
-    { // if there is no piece at this position, create a new one
-        addPiece(x, y);
-    }
-
-    return std::move(board[x][y]);
+    return std::move(board[p.x][p.y]);
 }
 
-void Board::setPiece(int x, int y, unique_ptr<Moveable> piece)
+void Board::setPiece(Position p, unique_ptr<Moveable> piece)
 {
-    cout << "setPiece(" << x << ", " << y << ")" << endl;
-    board[x][y] = std::move(piece);
+    board[p.x][p.y] = std::move(piece);
+}
+
+int Board::getOwner(Position p) const
+{
+    return board[p.x][p.y]->getOwner();
+}
+
+bool Board::isEmpty(Position p) const
+{
+    return !board[p.x][p.y];
 }

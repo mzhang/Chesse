@@ -3,6 +3,7 @@
 
 #include <memory>
 
+class Position;
 class Board;
 
 struct GameState
@@ -11,6 +12,9 @@ struct GameState
     int currentPlayer; // white = 0; black = 1
 
     GameState(int, int);
+    bool isInBounds(Position p) const;
+    bool isOwner(Position p, int player) const;
+    bool isEmpty(Position p) const;
 };
 
 #endif
