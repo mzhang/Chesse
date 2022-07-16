@@ -1,13 +1,13 @@
 #ifndef OUTPUT_H_
 #define OUTPUT_H_
 
-#include "../game/board.h"
+#include "../game/gameState.h"
 
 class Output 
 {
-    virtual void doUpdate(Board &b) = 0;
+    virtual void doUpdate(GameState &) = 0;
 public:
-    void update(Board &b);
+    void update(GameState &);
 };
 
 #endif

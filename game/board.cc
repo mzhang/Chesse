@@ -70,11 +70,6 @@ Board &Board::operator=(Board &&o)
     return *this;
 }
 
-vector<Position> Board::getValidMoves(int x, int y)
-{
-    return board[x][y] ? board[x][y]->getValidMoves(*this) : vector<Position>{};
-}
-
 void Board::makeMove(Move move)
 {
     // TODO: implement
@@ -83,7 +78,7 @@ void Board::makeMove(Move move)
 void Board::addPiece(int x, int y)
 {
     cout << "addPiece(" << x << ", " << y << ")" << endl;
-    board[x][y] = make_unique<Piece>(Piece{});
+    board[x][y] = make_unique<Piece>(Piece{x, y, PieceType::PAWN, 0});
 }
 
 unique_ptr<Moveable> Board::getPiece(int x, int y)

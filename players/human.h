@@ -1,13 +1,13 @@
 #ifndef HUMAN_H_
 #define HUMAN_H_
 
-#include "../game/board.h"
+#include "../game/gameState.h"
 #include "../data/move.h"
 #include "player.h"
 
 class Human : public Player
 {
-    Move doNextMove(Board &b) override;
+    Move doNextMove(GameState &) override;
     public:
         Human(int);
 };

@@ -2,20 +2,25 @@
 #define PIECE_H_
 #include <vector>
 #include "moveable.h"
+#include "../data/position.h"
+#include "../data/pieceType.h"
 
-class Position;
 class Board;
+enum class PieceType;
 
 class Piece : public Moveable
 {
-public:
-    Piece();
-    virtual ~Piece();
-    Piece(const Piece &);
+    int playerNum;
+    PieceType type;
+    bool hasMoved;
+    Position position;
 
-    std::vector<Position> doGetDelta() override;
-    std::vector<Position> doGetValidMoves(const Board &b) override;
-    std::unique_ptr<Moveable> doClone() override;
-    void doDraw() override;
+public:
+    Piece(int, int, PieceType, int);
+    ~Piece();
+
+    PieceType getPieceType() override;
+    std::vector<Move> getValidMoves(const GameState &) override;
+    std::unique_ptr<Moveable> clone() override;
 };
 #endif

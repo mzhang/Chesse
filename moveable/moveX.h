@@ -9,12 +9,13 @@ class Position;
 
 class MoveX : public Decorator
 {
-    std::vector<Position> doGetDelta() override;
-    std::vector<Position> doGetValidMoves(const Board &b) override;
-    std::unique_ptr<Moveable> doClone() override;
-
 public:
     explicit MoveX(std::unique_ptr<Moveable>);
+
+    PieceType getPieceType() override;
+    std::vector<Move> getValidMoves(const GameState &) override;
+    std::unique_ptr<Moveable> clone() override;
+
     MoveX(const MoveX &);
 };
 

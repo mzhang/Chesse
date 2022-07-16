@@ -1,13 +1,13 @@
 #include "computer4.h"
-#include "../game/board.h"
+#include "../game/gameState.h"
 #include "../data/move.h"
 
-Move Computer4::doNextMove(Board &b)
+Move Computer4::doNextMove(GameState &g)
 {
     // TODO: implement
 }
 
-float Computer4::evaluate(Board &b)
+float Computer4::evaluate(GameState &g)
 {
     return 0; // TODO: implement
 }

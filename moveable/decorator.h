@@ -2,23 +2,25 @@
 #define DECORATOR_H_
 #include "moveable.h"
 #include <memory>
+#include <vector>
 
 class Board;
 class Position;
+enum class PieceType;
+class GameState;
+class Move;
 
 class Decorator : public Moveable
 {
 protected:
     std::unique_ptr<Moveable> component;
 
-    virtual std::vector<Position> doGetDelta() override;
-    virtual std::vector<Position> doGetValidMoves(const Board &b) override;
-    virtual std::unique_ptr<Moveable> doClone() override;
-    virtual void doDraw() override;
-
 public:
-    Decorator(std::unique_ptr<Moveable>);
+    explicit Decorator(std::unique_ptr<Moveable>);
     virtual ~Decorator() = 0;
+
+    PieceType getPieceType() override;
+    std::vector<Move> getValidMoves(const GameState &) override;
 
     Decorator(const Decorator &);
 };

@@ -31,7 +31,6 @@ public:
     void addPiece(int, int);
     std::unique_ptr<Moveable> getPiece(int, int);
     void setPiece(int, int, std::unique_ptr<Moveable>);
-    std::vector<Position> getValidMoves(int, int);
 };
 
 #endif

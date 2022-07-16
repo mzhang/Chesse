@@ -1,7 +1,7 @@
 #include "textDisplay.h"
-#include "../game/board.h"
+#include "../game/gameState.h"
 
-void TextDisplay::doUpdate(Board &b)
+void TextDisplay::doUpdate(GameState &g)
 {
     // TODO: implement
 }

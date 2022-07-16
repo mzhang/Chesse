@@ -1,27 +1,23 @@
 #include "decorator.h"
 #include "moveable.h"
+#include "../data/move.h"
 #include "../game/board.h"
 #include "../data/position.h"
+#include "../data/pieceType.h"
 #include <memory>
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-vector<Position> Decorator::doGetDelta()
+PieceType Decorator::getPieceType()
 {
-    return component->getDelta();
+    return component->getPieceType();
 }
-vector<Position> Decorator::doGetValidMoves(const Board &b)
+
+vector<Move> Decorator::getValidMoves(const GameState &gameState)
 {
-    return component->getValidMoves(b);
-}
-unique_ptr<Moveable> Decorator::doClone()
-{
-    return component->clone();
-}
-void Decorator::doDraw()
-{
-    component->draw();
+    return component->getValidMoves(gameState);
 }
 
 Decorator::Decorator(unique_ptr<Moveable> component) : component{std::move(component)} { cout << "decorator ctor" << endl; }

@@ -6,22 +6,21 @@
 #include <vector>
 #include "../players/player.h"
 #include "../outputs/output.h"
+#include "gameState.h"
+#include "gameHistory.h"
 
 class Board;
 
 class Game
 {
-    int boardWidth;
-    int boardHeight;
+    GameState state;
+    GameHistory history;
 
     std::vector<std::unique_ptr<Player>> players;
-    int currentPlayer; // white = 0; black = 1
     void switchPlayers();
 
     void setupOutputs();
     std::vector<std::unique_ptr<Output>> outputs;
-
-    std::unique_ptr<Board> board;
 
 public:
     Game();

@@ -1,7 +1,7 @@
 #include "output.h"
-#include "../game/board.h"
+#include "../game/gameState.h"
 
-void Output::update(Board &b)
+void Output::update(GameState &g)
 {
-    doUpdate(b);
+    doUpdate(g);
 }

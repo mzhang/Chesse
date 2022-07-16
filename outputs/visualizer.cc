@@ -1,7 +1,7 @@
 #include "visualizer.h"
-#include "../game/board.h"
+#include "../game/gameState.h"
 
-void Visualizer::doUpdate(Board &b)
+void Visualizer::doUpdate(GameState &b)
 {
     // TODO: implement
 }

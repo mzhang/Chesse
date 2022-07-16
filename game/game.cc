@@ -11,8 +11,7 @@
 
 using namespace std;
 
-Game::Game(int boardWidth, int boardHeight) : boardWidth{boardWidth}, boardHeight{boardHeight}, currentPlayer{0},
-                                              board{make_unique<Board>(boardWidth, boardHeight)} {}
+Game::Game(int boardWidth, int boardHeight) : state{boardWidth, boardHeight} {}
 
 Game::~Game() {}
 
@@ -31,58 +30,38 @@ int Game::play(const string &player1, const string &player2)
 
     string cmd;
     int x, y;
-    cout << "DEBUG: Player " << currentPlayer << "'s turn" << endl;
+    cout << "DEBUG: Player " << state.currentPlayer << "'s turn" << endl;
     while (cin >> cmd)
     {
-        if (cmd == "a")
-        {
-            cin >> x >> y;
-            board->addPiece(x, y);
-        }
-        else if (cmd == "x")
-        { // TODO: find some system to choose what rule to apply
-            cin >> x >> y;
-            board->setPiece(x, y, make_unique<MoveX>(board->getPiece(x, y)));
-        }
-        else if (cmd == "y")
-        {
-            cin >> x >> y;
-            board->setPiece(x, y, make_unique<MoveY>(board->getPiece(x, y)));
-        }
-        else if (cmd == "v")
-        { // print valid moves for piece
-            cin >> x >> y;
-            for (auto &p : board->getValidMoves(x, y))
-            {
-                cout << p << "; ";
-            }
-            cout << endl;
-        }
-        else if (cmd == "setup")
+        if (cmd == "setup")
         {
             cout << "Custom setup not implemented" << endl; // TODO: implement
             // cin >> *board;
         }
         else if (cmd == "move")
         {
-            board->makeMove(players[currentPlayer]->nextMove(*board));
+            Move move = players[state.currentPlayer]->nextMove(state);
+            // state.board->makeMove(move);
+            // history.addMove(move);
             switchPlayers();
         }
         else if (cmd == "resign")
         {
-            return 1 - currentPlayer;
+            switchPlayers();
+            return state.currentPlayer;
         }
         else
         {
             cout << "Invalid command" << endl;
         }
-        cout << "DEBUG: Player " << currentPlayer << "'s turn" << endl;
+        cout << "DEBUG: Player " << state.currentPlayer << "'s turn" << endl;
     }
 
-    return 1 - currentPlayer;
+    switchPlayers();
+    return state.currentPlayer;
 }
 
 void Game::switchPlayers()
 {
-    currentPlayer = 1 - currentPlayer;
+    state.currentPlayer = 1 - state.currentPlayer;
 }

@@ -1,16 +1,19 @@
 #include <vector>
 #include <memory>
 #include "moveZ.h"
-#include "../data/position.h"
-#include "../game/board.h"
-#include "piece.h"
+#include "../data/pieceType.h"
+#include "../game/gameState.h"
+#include "../data/move.h"
 
 using namespace std;
 
-MoveZ::MoveZ(unique_ptr<Moveable> component) : Decorator{std::move(component)} {}
-vector<Position> MoveZ::doGetDelta(){};
-vector<Position> MoveZ::doGetValidMoves(const Board &b){};
-unique_ptr<Moveable> MoveZ::doClone()
+MoveZ::MoveZ(unique_ptr<Moveable> component) : Decorator{std::move(component)} {};
+
+vector<Move> MoveZ::getValidMoves(const GameState &g) {}
+
+PieceType MoveZ::getPieceType() {}
+
+unique_ptr<Moveable> MoveZ::clone()
 {
     return make_unique<MoveZ>(*this);
 }
