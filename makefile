@@ -3,7 +3,7 @@ CXXFLAGS = -std=c++14 -Wall -MMD
 EXEC = chess.out
 OBJECTS = main.o chess.o \
 ./game/board.o ./game/game.o ./game/gameState.o ./game/gameHistory.o \
-./moveable/piece.o ./moveable/moveable.o ./moveable/decorator.o ./moveable/moveX.o ./moveable/moveY.o ./moveable/moveZ.o ./moveable/moveL.o \
+./moveable/piece.o ./moveable/moveable.o ./moveable/decorator.o ./moveable/moveX.o ./moveable/moveY.o \
 ./graphics/chess_drawing.o ./graphics/sdl_wrap.o \
 ./outputs/output.o ./outputs/textDisplay.o ./outputs/visualizer.o \
 ./data/pieceType.o ./data/move.o ./data/position.o \

@@ -4,13 +4,16 @@
 #include <memory>
 #include "decorator.h"
 
-class Board;
-class Position;
+enum class PieceType;
+class GameState;
+class Move;
 
 class MoveX : public Decorator
 {
+    int maxSteps;
+
 public:
-    explicit MoveX(std::unique_ptr<Moveable>);
+    MoveX(std::unique_ptr<Moveable>);
 
     PieceType getPieceType() override;
     std::vector<Move> getValidMoves(const GameState &) override;
