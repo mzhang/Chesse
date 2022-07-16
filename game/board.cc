@@ -96,8 +96,8 @@ unique_ptr<Moveable> Board::getPiece(int x, int y)
     return std::move(board[x][y]);
 }
 
-void Board::setPiece(int x, int y, Moveable *piece)
+void Board::setPiece(int x, int y, unique_ptr<Moveable> piece)
 {
     cout << "setPiece(" << x << ", " << y << ")" << endl;
-    board[x][y] = unique_ptr<Moveable>{piece};
+    board[x][y] = std::move(piece);
 }

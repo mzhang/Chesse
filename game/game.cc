@@ -42,12 +42,12 @@ int Game::play(const string &player1, const string &player2)
         else if (cmd == "x")
         { // TODO: find some system to choose what rule to apply
             cin >> x >> y;
-            board->setPiece(x, y, new MoveX{board->getPiece(x, y)});
+            board->setPiece(x, y, make_unique<MoveX>(board->getPiece(x, y)));
         }
         else if (cmd == "y")
         {
             cin >> x >> y;
-            board->setPiece(x, y, new MoveY{board->getPiece(x, y)});
+            board->setPiece(x, y, make_unique<MoveY>(board->getPiece(x, y)));
         }
         else if (cmd == "v")
         { // print valid moves for piece
