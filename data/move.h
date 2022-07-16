@@ -10,6 +10,7 @@ struct Move
     std::vector<Position> to;
     std::vector<Position> capturePositions;
     Move(Position, Position);
+    ~Move();
 };
 
 #endif // MOVE_H_

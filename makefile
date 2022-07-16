@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wall -MMD
+CXXFLAGS = -g -std=c++14 -Wall -MMD
 EXEC = chess.out
 OBJECTS = main.o chess.o \
 ./game/board.o ./game/game.o ./game/gameState.o ./game/gameHistory.o \

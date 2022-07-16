@@ -12,4 +12,5 @@ Move Human::doNextMove(GameState &g)
 {
     // TODO: read in move and check if valid. If it is, return it.
     cout << "Reading in move unimplemented, doing nothing" << endl;
+    return Move{Position{1, 2}, Position{3, 4}};
 }
