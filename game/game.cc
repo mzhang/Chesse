@@ -76,7 +76,7 @@ int Game::play(const string &player1, const string &player2)
         {
             cout << "Invalid command" << endl;
         }
-        cout << "DEBUG: Player " << currentPlayer << "'s turn" << endl; 
+        cout << "DEBUG: Player " << currentPlayer << "'s turn" << endl;
     }
 
     return 1 - currentPlayer;

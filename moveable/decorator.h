@@ -3,10 +3,18 @@
 #include "moveable.h"
 #include <memory>
 
+class Board;
+class Position;
+
 class Decorator : public Moveable
 {
 protected:
     std::unique_ptr<Moveable> component;
+
+    virtual std::vector<Position> doGetDelta() override;
+    virtual std::vector<Position> doGetValidMoves(const Board &b) override;
+    virtual std::unique_ptr<Moveable> doClone() override;
+    virtual void doDraw() override;
 
 public:
     Decorator(std::unique_ptr<Moveable>);

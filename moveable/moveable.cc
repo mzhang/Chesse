@@ -6,15 +6,26 @@
 
 using namespace std;
 
-vector<Position> Moveable::doGetDelta() {}
-vector<Position> Moveable::doGetValidMoves(Board b) {}
+vector<Position> Moveable::getDelta() {
+    return doGetDelta();
+}
+vector<Position> Moveable::getValidMoves(const Board& b) {
+    return doGetValidMoves(b);
+}
+
+unique_ptr<Moveable> Moveable::clone() {
+    return doClone();
+}
+
+void Moveable::draw() {
+    doDraw();
+}
 
 Moveable::Moveable(){};
 
 // vector<Position> Moveable::getDelta(){};
-// vector<Position> Moveable::getValidMoves(Board b){};
+// vector<Position> Moveable::getValidMoves(const Board& b){};
 bool Moveable::isInBounds(const Board b){};
-void Moveable::draw(){};
 
 Moveable::~Moveable(){};
 Moveable::Moveable(const Moveable &other){};

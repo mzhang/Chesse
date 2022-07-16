@@ -13,9 +13,9 @@ public:
     virtual ~Piece();
     Piece(const Piece &);
 
-    std::unique_ptr<Moveable> clone() override;
-
     std::vector<Position> doGetDelta() override;
-    std::vector<Position> doGetValidMoves(Board b) override;
+    std::vector<Position> doGetValidMoves(const Board &b) override;
+    std::unique_ptr<Moveable> doClone() override;
+    void doDraw() override;
 };
 #endif
