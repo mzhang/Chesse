@@ -10,6 +10,5 @@ Player::Player(int playerNum) : playerNum(playerNum)
 
 Move Player::nextMove(GameState &g)
 {
-    cout << "player::nextMove" << endl;
     return doNextMove(g);
 }

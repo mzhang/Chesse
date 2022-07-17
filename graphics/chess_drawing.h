@@ -11,7 +11,7 @@ class ChessDrawing
 public:
     void draw_game(Screen &screen, const Game &game);
     void draw_chessboard_background(Screen &screen);
-    void draw_chesspiece(Screen &screen, int r, int c, PieceType piece, bool black);
+    void draw_chesspiece(Screen &screen, int r, int c, PieceType piece, int owner);
     void draw_timer(Screen &screen, int time);
     void draw_axes(Screen &screen);
     void draw_potential_moves(Screen &screen, const std::vector<Move> &moves);

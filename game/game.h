@@ -19,7 +19,6 @@ class Game
     std::vector<std::unique_ptr<Player>> players;
     void switchPlayers();
 
-    void setupOutputs();
     std::vector<std::unique_ptr<Output>> outputs;
 
 public:
@@ -27,6 +26,8 @@ public:
     Game(int, int);
     ~Game();
     int play(const std::string &, const std::string &); // returns winning player
+
+    void updateOutputs() const;
 };
 
 #endif

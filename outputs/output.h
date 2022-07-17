@@ -1,13 +1,16 @@
 #ifndef OUTPUT_H_
 #define OUTPUT_H_
 
-#include "../game/gameState.h"
+class GameState;
+class Position;
 
 class Output 
 {
-    virtual void doUpdate(GameState &) = 0;
+    virtual void doUpdate(const GameState &) = 0;
+protected:
+    bool isBlackTile(const Position &);
 public:
-    void update(GameState &);
+    void update(const GameState &);
 };
 
 #endif

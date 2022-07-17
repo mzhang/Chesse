@@ -11,15 +11,12 @@
 
 using namespace std;
 
-Game::Game(int boardWidth, int boardHeight) : state{boardWidth, boardHeight} {}
-
-Game::~Game() {}
-
-void Game::setupOutputs()
-{
+Game::Game(int boardWidth, int boardHeight) : state{boardWidth, boardHeight} {
     outputs.push_back(make_unique<TextDisplay>());
     outputs.push_back(make_unique<Visualizer>());
 }
+
+Game::~Game() {}
 
 int Game::play(const string &player1, const string &player2)
 {
@@ -29,26 +26,32 @@ int Game::play(const string &player1, const string &player2)
     players.push_back(make_unique<Human>(1));
 
     string cmd;
-    int x, y;
     cout << "DEBUG: Player " << state.currentPlayer << "'s turn" << endl;
     while (cin >> cmd)
     {
         if (cmd == "setup")
         {
-            cout << "Custom setup not implemented" << endl; // TODO: implement
-            // cin >> *board;
+            state.setup(*this);
         }
         else if (cmd == "move")
         {
             Move move = players[state.currentPlayer]->nextMove(state);
-            // state.board->makeMove(move);
-            // history.addMove(move);
-            switchPlayers();
+            cout << move;
+
+            state.board->makeMove(move);
+            history.addMove(move);
+
+            state.switchPlayers();
+            updateOutputs();
         }
         else if (cmd == "resign")
         {
-            switchPlayers();
+            state.switchPlayers();
             return state.currentPlayer;
+        }
+        else if (cmd == "print") 
+        {
+            updateOutputs();
         }
         else
         {
@@ -57,11 +60,13 @@ int Game::play(const string &player1, const string &player2)
         cout << "DEBUG: Player " << state.currentPlayer << "'s turn" << endl;
     }
 
-    switchPlayers();
-    return state.currentPlayer;
+    return -1;
 }
 
-void Game::switchPlayers()
+void Game::updateOutputs() const
 {
-    state.currentPlayer = 1 - state.currentPlayer;
+    for (auto &output : outputs)
+    {
+        output->update(state);
+    }
 }

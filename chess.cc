@@ -20,8 +20,9 @@ void Chess::start()
             cin >> player1 >> player2;
             Game game{boardWidth, boardHeight};
             int winner = game.play(player1, player2);
-            playerScores[winner]++;
-
+            if (winner != -1) {
+                playerScores[winner]++;
+            }
         } else if (cmd == "custom") {
             // TODO: allow custom setup such as modifying board size
             break;

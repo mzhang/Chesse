@@ -9,8 +9,12 @@ struct Move
     std::vector<Position> from;
     std::vector<Position> to;
     std::vector<Position> capturePositions;
+
     Move(Position, Position);
+    Move();
     ~Move();
+
+    friend std::ostream &operator<<(std::ostream &os, const Move &p);
 };
 
 #endif // MOVE_H_

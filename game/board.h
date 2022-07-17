@@ -29,12 +29,13 @@ public:
 
     void makeMove(Move);
 
-    void addPiece(Position, PieceType, int);
-    std::unique_ptr<Moveable> popPiece(Position);
-    void setPiece(Position, std::unique_ptr<Moveable>);
+    void addPiece(Position &, PieceType, int);
+    std::unique_ptr<Moveable> popPiece(Position &);
+    void setPiece(Position &, std::unique_ptr<Moveable>);
+    Moveable &getPiece(const Position &) const;
 
-    int getOwner(Position) const;
-    bool isEmpty(Position) const;
+    int getOwner(Position &) const;
+    bool isEmpty(Position &) const;
 
     int getWidth() const;
     int getHeight() const;

@@ -1,7 +1,40 @@
+#include <iostream>
+
 #include "textDisplay.h"
 #include "../game/gameState.h"
+#include "../game/board.h"
+#include "../data/position.h"
+#include "../data/pieceType.h"
+#include "../moveable/moveable.h"
 
-void TextDisplay::doUpdate(GameState &g)
+using namespace std;
+
+void TextDisplay::doUpdate(const GameState &g)
 {
-    // TODO: implement
+    for (int y = g.board->getHeight() - 1; y >= 0; --y) { // we print in reverse order because we want to print the bottom row first
+        cout << (y+1) << " ";
+        for (int x = 0; x < g.board->getWidth(); ++x) {
+            Position p{x, y};
+            if (g.board->isEmpty(p)) {
+                if (isBlackTile(p)) {
+                    cout << "_";
+                } else {
+                    cout << " ";
+                }
+            } else {
+                Moveable &m = g.board->getPiece(p);
+                cout << PieceTypeUtils::toString(m.getPieceType(), m.getOwner());
+            }
+        }
+        cout << endl;
+    }
+
+    cout << endl << "  ";
+
+    char col = 'a';
+    for (int x = 0; x < g.board->getWidth(); ++x) {
+        cout << col;
+        col++;
+    }
+    cout << endl;
 }

@@ -3,6 +3,7 @@
 
 #include <memory>
 
+class Game;
 class Position;
 class Board;
 
@@ -12,9 +13,15 @@ struct GameState
     int currentPlayer; // white = 0; black = 1
 
     GameState(int, int);
+    void setup(const Game &);
+
     bool isInBounds(Position p) const;
     bool isOwner(Position p, int player) const;
     bool isEmpty(Position p) const;
+
+    void switchPlayers();
+    
+    friend std::istream &operator>>(std::istream &is, GameState &g);
 };
 
 #endif

@@ -10,7 +10,15 @@ Human::Human(int playerNum) : Player{playerNum}
 
 Move Human::doNextMove(GameState &g)
 {
-    // TODO: read in move and check if valid. If it is, return it.
-    cout << "Reading in move unimplemented, doing nothing" << endl;
-    return Move{Position{1, 2}, Position{3, 4}};
+    Position from;
+    Position to;
+
+    cin >> from;
+    cin >> to;
+
+    // TODO: right now this doesn't handle captures/castling. We should do some post-processing on move to handle this.
+
+    // TODO: should check if this is actually a valid move...
+
+    return Move{from, to};
 }

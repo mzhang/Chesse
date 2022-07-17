@@ -7,6 +7,7 @@ struct Position
 {
     int x;
     int y;
+    Position();
     Position(int x, int y);
     ~Position();
     friend std::ostream &operator<<(std::ostream &os, const Position &p);

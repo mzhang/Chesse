@@ -1,13 +1,14 @@
 #ifndef VISUALIZER_H_
 #define VISUALIZER_H_
 
-#include "../game/gameState.h"
 #include "output.h"
 #include "../graphics/sdl_wrap.h"
 
+class GameState;
+
 class Visualizer : public Output
 {
-    Screen s;
-    void doUpdate(GameState &) override;
+    //Screen s;
+    void doUpdate(const GameState &) override;
 }; 
 #endif

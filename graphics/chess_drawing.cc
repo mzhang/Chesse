@@ -66,22 +66,14 @@ void ChessDrawing::draw_potential_moves(Screen &screen, const std::vector<Move> 
     }
 }
 
-void ChessDrawing::draw_chesspiece(Screen &screen, int r, int c, PieceType piece, bool black)
+void ChessDrawing::draw_chesspiece(Screen &screen, int r, int c, PieceType piece, int owner)
 {
     const int square_size = screen.getWidth() / 8 - 10;
     // Draw a chesspiece on the square at (r, c). Load image from resources folder
-    // Files are stored in the format w_PieceType.png and b_PieceType.png
-    std::string filename = "";
-    if (black)
-    {
-        filename = "b_";
-    }
-    else
-    {
-        filename = "w_";
-    }
-    filename += PieceTypeUtils::toString(piece);
-    filename += ".png";
+    // Files are stored in the format [pieceName]_sprite.png
+    std::string filename = PieceTypeUtils::toString(piece, owner);
+    filename += "sprite.png";
+
     screen.draw_image(r * square_size + 5, c * square_size + 5, square_size, square_size, filename);
 }
 

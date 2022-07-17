@@ -12,10 +12,10 @@ using namespace std;
 
 void Board::resizeBoard()
 {
-    board.resize(width);
-    for (int i = 0; i < width; i++)
+    board.resize(height);
+    for (int i = 0; i < height; i++)
     {
-        board[i].resize(height);
+        board[i].resize(width);
     }
 }
 
@@ -82,30 +82,58 @@ Board &Board::operator=(Board &&o)
 
 void Board::makeMove(Move move)
 {
-    // TODO: implement
+    // pre: the move is valid
+
+    vector<unique_ptr<Moveable>> from; // we need to store the pieces that will move since we may have a second piece overlapping
+    for (int i = 0; i < (int)move.from.size(); ++i) {
+        from.push_back(std::move(board[move.from[i].y][move.from[i].x]));
+    }
+
+    for (int i = 0; i < (int)move.to.size(); ++i) {
+        if (!isEmpty(move.to[i])) {
+            popPiece(move.to[i]);
+        }
+        
+    }
+
+    for (int i = 0; i < (int)move.capturePositions.size(); ++i) {
+        if (!isEmpty(move.capturePositions[i])) {
+            popPiece(move.capturePositions[i]);
+        }
+    }
+
+    for (int i = 0; i < (int)move.from.size(); ++i) {
+        setPiece(move.to[i], std::move(from[i]));
+    }
+
 }
 
-void Board::addPiece(Position p, PieceType type, int owner)
+void Board::addPiece(Position &p, PieceType type, int owner)
 {
-    board[p.x][p.y] = make_unique<Piece>(Piece{p.x, p.y, type, owner});
+    board[p.y][p.x] = make_unique<Piece>(Piece{p.x, p.y, type, owner});
 }
 
-unique_ptr<Moveable> Board::popPiece(Position p)
+unique_ptr<Moveable> Board::popPiece(Position &p)
 {
-    return std::move(board[p.x][p.y]);
+    return std::move(board[p.y][p.x]);
 }
 
-void Board::setPiece(Position p, unique_ptr<Moveable> piece)
+void Board::setPiece(Position &p, unique_ptr<Moveable> piece)
 {
-    board[p.x][p.y] = std::move(piece);
+    board[p.y][p.x] = std::move(piece);
 }
 
-int Board::getOwner(Position p) const
+Moveable &Board::getPiece(const Position &p) const
 {
-    return board[p.x][p.y]->getOwner();
+    return *board[p.y][p.x];
 }
 
-bool Board::isEmpty(Position p) const
+int Board::getOwner(Position &p) const
 {
-    return !board[p.x][p.y];
+    return board[p.y][p.x]->getOwner();
+}
+
+bool Board::isEmpty(Position &p) const
+{
+    return !board[p.y][p.x];
 }
