@@ -1,9 +1,10 @@
 #ifndef COMPUTER4_H_
 #define COMPUTER4_H_
 
-#include "../game/gameState.h"
-#include "../data/move.h"
 #include "player.h"
+
+class Move;
+class GameState;
 
 class Computer4 : public Player
 {

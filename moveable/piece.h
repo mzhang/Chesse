@@ -1,6 +1,8 @@
 #ifndef PIECE_H_
 #define PIECE_H_
+
 #include <vector>
+
 #include "moveable.h"
 #include "../data/position.h"
 #include "../data/pieceType.h"

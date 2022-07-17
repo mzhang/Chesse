@@ -1,5 +1,6 @@
 #include <vector>
 #include <memory>
+
 #include "moveX.h"
 #include "../data/pieceType.h"
 #include "../game/gameState.h"

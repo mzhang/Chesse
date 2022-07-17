@@ -1,7 +1,9 @@
 #ifndef MOVE_Y_
 #define MOVE_Y_
+
 #include <vector>
 #include <memory>
+
 #include "decorator.h"
 
 class Board;

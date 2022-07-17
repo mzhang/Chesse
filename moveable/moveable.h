@@ -1,6 +1,6 @@
 #ifndef MOVEABLE_H_
 #define MOVEABLE_H_
-#include "../data/pieceType.h"
+
 #include <vector>
 #include <memory>
 

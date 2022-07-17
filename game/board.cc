@@ -128,12 +128,12 @@ Moveable &Board::getPiece(const Position &p) const
     return *board[p.y][p.x];
 }
 
-int Board::getOwner(Position &p) const
+int Board::getOwner(const Position &p) const
 {
     return board[p.y][p.x]->getOwner();
 }
 
-bool Board::isEmpty(Position &p) const
+bool Board::isEmpty(const Position &p) const
 {
     return !board[p.y][p.x];
 }

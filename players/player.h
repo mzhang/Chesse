@@ -1,8 +1,8 @@
 #ifndef COMPUTER_H_
 #define COMPUTER_H_
 
-#include "../game/gameState.h"
-#include "../data/move.h"
+class GameState;
+class Move;
 
 class Player
 {

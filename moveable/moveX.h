@@ -1,7 +1,9 @@
 #ifndef MOVE_X_
 #define MOVE_X_
+
 #include <vector>
 #include <memory>
+
 #include "decorator.h"
 
 enum class PieceType;

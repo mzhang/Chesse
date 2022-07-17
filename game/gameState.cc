@@ -40,7 +40,7 @@ void GameState::setup(const Game &g) {
 
     while (cin >> cmd) {
         if (cmd == "done") {
-            break;
+            break; // TODO: make sure this is a valid board (2 kings, pawns in right pos, etc)
         } else if (cmd == "+") {
             cin >> pieceType;
             pair<PieceType, int> p = PieceTypeUtils::fromString(pieceType);
@@ -57,7 +57,13 @@ void GameState::setup(const Game &g) {
                 g.updateOutputs();
             }
         } else if (cmd == "=") {
-            cin >> colour;
+            while (cin >> colour) {
+                if (colour == "black" || colour == "white") {
+                    break;
+                }
+                cout << "Invalid colour, use 'black'/'white'" << endl;
+            }
+
             currentPlayer = (colour == "white") ? 0 : 1;
         } else {
             cout << "Invalid command" << endl;

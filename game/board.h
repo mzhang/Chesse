@@ -34,8 +34,8 @@ public:
     void setPiece(Position &, std::unique_ptr<Moveable>);
     Moveable &getPiece(const Position &) const;
 
-    int getOwner(Position &) const;
-    bool isEmpty(Position &) const;
+    int getOwner(const Position &) const;
+    bool isEmpty(const Position &) const;
 
     int getWidth() const;
     int getHeight() const;

@@ -1,10 +1,8 @@
 #include <memory>
 #include <iostream>
+
 #include "game.h"
 #include "board.h"
-#include "../data/position.h"
-#include "../moveable/moveX.h"
-#include "../moveable/moveY.h"
 #include "../outputs/textDisplay.h"
 #include "../outputs/visualizer.h"
 #include "../players/human.h"

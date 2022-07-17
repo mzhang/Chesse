@@ -4,12 +4,13 @@
 #include <iostream>
 #include <memory>
 #include <vector>
-#include "../players/player.h"
-#include "../outputs/output.h"
+
 #include "gameState.h"
 #include "gameHistory.h"
 
 class Board;
+class Player;
+class Output;
 
 class Game
 {

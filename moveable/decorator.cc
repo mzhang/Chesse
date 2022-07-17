@@ -1,12 +1,13 @@
+#include <memory>
+#include <iostream>
+#include <vector>
+
 #include "decorator.h"
 #include "moveable.h"
 #include "../data/move.h"
 #include "../game/board.h"
 #include "../data/position.h"
 #include "../data/pieceType.h"
-#include <memory>
-#include <iostream>
-#include <vector>
 
 using namespace std;
 

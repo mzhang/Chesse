@@ -1,9 +1,10 @@
 #ifndef HUMAN_H_
 #define HUMAN_H_
 
-#include "../game/gameState.h"
-#include "../data/move.h"
 #include "player.h"
+
+class Move;
+class GameState;
 
 class Human : public Player
 {
