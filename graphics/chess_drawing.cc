@@ -1,7 +1,12 @@
 #include "chess_drawing.h"
+
 #include "sdl_wrap.h"
 #include "sdl_colors.h"
 #include "../data/pieceType.h"
+#include "../game/gameState.h"
+#include "../data/move.h"
+#include "../data/pieceType.h"
+
 
 void ChessDrawing::draw_chessboard_background(Screen &screen)
 {
@@ -41,17 +46,6 @@ void ChessDrawing::draw_axes(Screen &screen)
     }
 }
 
-void ChessDrawing::draw_timer(Screen &screen, int time)
-{
-    // Format time as "mm:ss" from seconds
-    int minutes = time / 60;
-    int seconds = time % 60;
-    std::string time_str = std::to_string(minutes) + ":" + std::to_string(seconds);
-
-    // Draw time
-    screen.draw_text(screen.getWidth() - 100, screen.getHeight() - 20, 5, 5, time_str, 20, WHITE);
-}
-
 void ChessDrawing::draw_potential_moves(Screen &screen, const std::vector<Move> &moves)
 {
     const int square_size = screen.getWidth() / 8 - 10;
@@ -66,6 +60,8 @@ void ChessDrawing::draw_potential_moves(Screen &screen, const std::vector<Move> 
     }
 }
 
+
+
 void ChessDrawing::draw_chesspiece(Screen &screen, int r, int c, PieceType piece, int owner)
 {
     const int square_size = screen.getWidth() / 8 - 10;
@@ -77,17 +73,17 @@ void ChessDrawing::draw_chesspiece(Screen &screen, int r, int c, PieceType piece
     screen.draw_image(r * square_size + 5, c * square_size + 5, square_size, square_size, filename);
 }
 
-void ChessDrawing::draw_game(Screen &screen, const Game &game)
-{
-    // Draw chessboard background
-    draw_chessboard_background(screen);
+// void ChessDrawing::draw_game(Screen &screen)
+// {
+//     // Draw chessboard background
+//     draw_chessboard_background(screen);
 
-    // Draw axes
-    draw_axes(screen);
+//     // Draw axes
+//     draw_axes(screen);
 
-    // Draw pieces
+//     // Draw pieces
 
-    // Draw time
+//     // Draw time
 
-    screen.update();
-}
+//     screen.update();
+// }

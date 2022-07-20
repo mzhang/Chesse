@@ -2,7 +2,7 @@
 #define COMPUTER_H_
 
 class GameState;
-class Move;
+struct Move;
 
 class Player
 {

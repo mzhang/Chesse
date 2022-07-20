@@ -4,10 +4,16 @@
 #include "output.h"
 #include "../graphics/sdl_wrap.h"
 
+
+#include <memory>
+
 class GameState;
 
 class Visualizer : public Output
 {
+    std::unique_ptr<Screen> screen;
+    static bool SDLIsInitialized;
+    static void initializeSDL();
     void doUpdate(const GameState &, const Move &) override;
     public:
        explicit Visualizer(const GameState &);

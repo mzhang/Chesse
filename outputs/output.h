@@ -2,8 +2,8 @@
 #define OUTPUT_H_
 
 class GameState;
-class Position;
-class Move;
+struct Position;
+struct Move;
 
 class Output 
 {
