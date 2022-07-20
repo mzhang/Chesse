@@ -28,7 +28,7 @@ public:
     ~Game();
     int play(const std::string &, const std::string &); // returns winning player
 
-    void updateOutputs() const;
+    void updateOutputs(const Move &m = Move()) const;
 };
 
 #endif

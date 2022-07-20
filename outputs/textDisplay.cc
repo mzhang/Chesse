@@ -9,7 +9,7 @@
 
 using namespace std;
 
-void TextDisplay::doUpdate(const GameState &g)
+void TextDisplay::doUpdate(const GameState &g, const Move &)
 {
     for (int y = g.board->getHeight() - 1; y >= 0; --y) { // we print in reverse order because we want to print the bottom row first
         cout << (y+1) << " ";
