@@ -47,7 +47,7 @@ int Game::play(const string &player1, const string &player2)
             history.addMove(move);
 
             state.switchPlayers();
-            updateOutputs();
+            updateOutputs(move);
         }
         else if (cmd == "peek")
         {
@@ -82,10 +82,10 @@ int Game::play(const string &player1, const string &player2)
     return -1;
 }
 
-void Game::updateOutputs() const
+void Game::updateOutputs(const Move &m) const
 {
     for (auto &output : outputs)
     {
-        output->update(state);
+        output->update(state, m);
     }
 }

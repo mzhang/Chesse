@@ -2,9 +2,9 @@
 #include "../game/gameState.h"
 #include "../data/position.h"
 
-void Output::update(const GameState &g)
+void Output::update(const GameState &g, const Move &m)
 {
-    doUpdate(g);
+    doUpdate(g, m);
 }
 
 bool Output::isBlackTile(const Position &p) {
