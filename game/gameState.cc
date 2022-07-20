@@ -1,6 +1,7 @@
 #include <memory>
 #include <utility>
 #include <iostream>
+#include <algorithm>
 
 #include "game.h"
 #include "gameState.h"
@@ -12,6 +13,24 @@
 using namespace std;
 
 GameState::GameState(int boardWidth, int boardHeight) : board{make_unique<Board>(boardWidth, boardHeight)}, currentPlayer{0} {}
+
+GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer}
+{
+    cout << "DEBUG: GameState copy constructor called!" << endl;
+}
+
+// TODO: multiple piece movements?
+bool GameState::isValidMove(const Move &m) const
+{
+    // assuming move "target" is m.from[0]
+    vector<Move> validMoves = board->getValidMoves(m.from[0], *this);
+    return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end();
+}
+
+vector<Move> GameState::getValidMoves(const Position &pos) const
+{
+    return board->getValidMoves(pos, *this);
+}
 
 bool GameState::isOwner(Position p, int player) const
 {
