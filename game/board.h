@@ -7,6 +7,7 @@ class Moveable;
 class Position;
 class Move;
 enum class PieceType;
+class GameState;
 
 class Board
 {
@@ -27,6 +28,7 @@ public:
     Board(Board &&);
     Board &operator=(Board &&);
 
+    std::vector<Move> getValidMoves(const Position &pos, GameState gs) const;
     void makeMove(Move);
 
     void addPiece(Position &, PieceType, int);
@@ -35,6 +37,7 @@ public:
     Moveable &getPiece(const Position &) const;
 
     int getOwner(const Position &) const;
+    PieceType getPieceType(const Position &) const;
     bool isEmpty(const Position &) const;
 
     int getWidth() const;

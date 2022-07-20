@@ -9,6 +9,7 @@
 #include "../data/move.h"
 
 #include "../moveable/moveX.h"
+#include "gameState.h"
 
 using namespace std;
 
@@ -80,6 +81,18 @@ Board &Board::operator=(Board &&o)
     swap(o);
 
     return *this;
+}
+
+PieceType Board::getPieceType(const Position &p) const
+{
+    return board[p.y][p.x]->getPieceType();
+}
+
+// kinda odd that board needs to be passed in a gamestate, but it's needed for the moveable's getValidMoves() function
+// the debate is passing in a gs vs having hs be able to access arbitrary board positions(eg via board[][])
+vector<Move> Board::getValidMoves(const Position &pos, GameState gs) const
+{
+    return board[pos.y][pos.x]->getValidMoves(gs);
 }
 
 void Board::makeMove(Move move)
