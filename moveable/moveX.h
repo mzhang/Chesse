@@ -19,7 +19,6 @@ class MoveX : public Decorator
 public:
     MoveX(std::unique_ptr<Moveable>, int maxSteps = 1);
 
-    PieceType getPieceType() override;
     std::vector<Move> getValidMoves(const GameState &) override;
     std::unique_ptr<Moveable> clone() override;
 

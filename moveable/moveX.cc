@@ -7,6 +7,7 @@
 #include "../data/move.h"
 #include "./piece.h"
 #include "./moveable.h"
+#include "decorator.h"
 
 using namespace std;
 
@@ -18,55 +19,51 @@ MoveX::MoveX(unique_ptr<Moveable> component, int maxSteps) : Decorator{std::move
 vector<Move> MoveX::getValidMoves(const GameState &g)
 {
     vector<Move> moves = Decorator::getValidMoves(g);
-    Position pos = getPosition();
     int player = Decorator::getOwner();
 
-    ++pos.x;
-    while (g.isInBounds(pos))
+    Position currentPos = getPosition();
+    Position pos = currentPos;
+
+    ++pos.y;
+    while (g.isInBounds(pos) && pos.y - currentPos.y <= maxSteps)
     {
         if (g.isEmpty(pos))
         {
-            moves.push_back(Move(pos, getPosition()));
+            moves.push_back(Move{currentPos, pos});
         }
         else if (!g.isOwner(pos, player))
         {
-            moves.push_back(Move(pos, getPosition()));
+            moves.push_back(Move{currentPos, pos, pos});
             break;
         }
         else
         {
             break;
         }
-        ++pos.x;
+        ++pos.y;
     }
 
-    pos = getPosition();
-    --pos.x;
-    while (g.isInBounds(pos))
+    pos = currentPos;
+    --pos.y;
+    while (g.isInBounds(pos) && pos.y - currentPos.y <= maxSteps)
     {
         if (g.isEmpty(pos))
         {
-            moves.push_back(Move(pos, getPosition()));
+            moves.push_back(Move{currentPos, pos});
         }
         else if (!g.isOwner(pos, player))
         {
-            moves.push_back(Move(pos, getPosition()));
+            moves.push_back(Move{currentPos, pos, pos});
             break;
         }
         else
         {
             break;
         }
-        --pos.x;
+        --pos.y;
     }
     // moves are appended, not a union. must remove duplicates
     return moves;
-}
-
-// whats the point of virtual dispatch here?
-PieceType MoveX::getPieceType()
-{
-    return Decorator::getPieceType();
 }
 
 unique_ptr<Moveable> MoveX::clone()

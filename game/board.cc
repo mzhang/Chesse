@@ -130,7 +130,7 @@ void Board::makeMove(Move move)
 void Board::addPiece(Position &p, PieceType type, int owner)
 {
     unique_ptr<Moveable> piece = make_unique<Piece>(p.x, p.y, type, owner);
-    unique_ptr<Moveable> decorated = make_unique<MoveX>(std::move(piece));
+    unique_ptr<Moveable> decorated = make_unique<MoveX>(std::move(piece), width);
     board[p.y][p.x] = std::move(decorated);
 }
 
