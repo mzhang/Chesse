@@ -13,6 +13,11 @@ using namespace std;
 
 MoveX::MoveX(unique_ptr<Moveable> component, int maxSteps) : Decorator{std::move(component)}, maxSteps{maxSteps} {}
 
+int abs(int x)
+{
+    return x < 0 ? -x : x;
+}
+
 vector<Move> MoveX::getValidMoves(const GameState &g)
 {
     vector<Move> moves = Decorator::getValidMoves(g);
@@ -21,8 +26,8 @@ vector<Move> MoveX::getValidMoves(const GameState &g)
     Position currentPos = getPosition();
     Position pos = currentPos;
 
-    ++pos.y;
-    while (g.isInBounds(pos) && pos.y - currentPos.y <= maxSteps)
+    ++pos.x;
+    while (g.isInBounds(pos) && (abs(pos.x - currentPos.x) <= maxSteps))
     {
         if (g.isEmpty(pos))
         {
@@ -37,12 +42,12 @@ vector<Move> MoveX::getValidMoves(const GameState &g)
         {
             break;
         }
-        ++pos.y;
+        ++pos.x;
     }
 
     pos = currentPos;
-    --pos.y;
-    while (g.isInBounds(pos) && pos.y - currentPos.y <= maxSteps)
+    --pos.x;
+    while (g.isInBounds(pos) && (abs(pos.x - currentPos.x) <= maxSteps))
     {
         if (g.isEmpty(pos))
         {
@@ -57,7 +62,7 @@ vector<Move> MoveX::getValidMoves(const GameState &g)
         {
             break;
         }
-        --pos.y;
+        --pos.x;
     }
     // moves are appended, not a union. must remove duplicates
     return moves;
