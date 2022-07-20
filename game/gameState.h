@@ -5,12 +5,13 @@
 #include <vector>
 
 class Game;
-class Position;
+struct Position;
 class Board;
-class Move;
+struct Move;
 
-struct GameState
+class GameState
 {
+    public:
     std::unique_ptr<Board> board;
     int currentPlayer; // white = 0; black = 1
 

@@ -8,11 +8,11 @@
 
 enum class PieceType;
 class GameState;
-class Move;
+struct Move;
 class Piece;
-class Moveable;
+struct Moveable;
 
-class MoveX : public Decorator
+struct MoveX : public Decorator
 {
     int maxSteps;
 

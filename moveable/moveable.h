@@ -5,12 +5,12 @@
 #include <memory>
 
 class Board;
-class Position;
+struct Position;
 enum class PieceType;
-class Move;
+struct Move;
 class GameState;
 
-class Moveable
+struct Moveable
 {
 protected:
 public:

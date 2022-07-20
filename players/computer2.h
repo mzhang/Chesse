@@ -3,7 +3,7 @@
 
 #include "player.h"
 
-class Move;
+struct Move;
 class GameState;
 
 class Computer2 : public Player

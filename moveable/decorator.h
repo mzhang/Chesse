@@ -4,9 +4,9 @@
 #include <memory>
 #include <vector>
 
-class Position;
+struct Position;
 class GameState;
-class Move;
+struct Move;
 enum class PieceType;
 
 class Decorator : public Moveable

@@ -3,7 +3,7 @@
 
 #include "output.h"
 
-class Position;
+struct Position;
 class GameState;
 
 class TextDisplay : public Output

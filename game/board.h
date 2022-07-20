@@ -3,9 +3,9 @@
 #include <vector>
 #include <memory>
 
-class Moveable;
-class Position;
-class Move;
+struct Moveable;
+struct Position;
+struct Move;
 enum class PieceType;
 class GameState;
 
