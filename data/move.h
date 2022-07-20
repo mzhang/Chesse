@@ -10,8 +10,10 @@ struct Move
     std::vector<Position> to;
     std::vector<Position> capturePositions;
 
-    Move(Position, Position);
+    Move(const Position &, const Position &, const Position & = Position{});
+    Move(const std::vector<Position> &, const std::vector<Position> &, const std::vector<Position> & = std::vector<Position>());
     Move();
+    Move(const Move &);
     ~Move();
     bool operator==(const Move &) const;
     friend std::ostream &operator<<(std::ostream &os, const Move &p);
