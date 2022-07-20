@@ -29,11 +29,15 @@ bool GameState::isValidMove(const Move &m) const
 
 vector<Move> GameState::getValidMoves(const Position &pos) const
 {
+    if (isEmpty(pos))
+        return vector<Move>{};
     return board->getValidMoves(pos, *this);
 }
 
 bool GameState::isOwner(Position p, int player) const
 {
+    if (isEmpty(p))
+        return false;
     return board->getOwner(p) == player;
 }
 

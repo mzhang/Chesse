@@ -56,9 +56,9 @@ int Game::play(const string &player1, const string &player2)
 
             vector<Move> validMoves = state.getValidMoves(pos);
 
-            cout << "You have can move the piece at " << pos << " in " << validMoves.size() << "ways:" << endl;
+            cout << "You can move the piece at " << pos << " in " << validMoves.size() << " ways:" << endl;
 
-            for (int i = 0; i < validMoves.size(); ++i)
+            for (int i = 0; i < (int)validMoves.size(); ++i)
             {
                 cout << validMoves[i] << endl;
             }
