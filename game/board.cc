@@ -8,6 +8,8 @@
 #include "../data/position.h"
 #include "../data/move.h"
 
+#include "../moveable/moveX.h"
+
 using namespace std;
 
 void Board::resizeBoard()
@@ -85,32 +87,38 @@ void Board::makeMove(Move move)
     // pre: the move is valid
 
     vector<unique_ptr<Moveable>> from; // we need to store the pieces that will move since we may have a second piece overlapping
-    for (int i = 0; i < (int)move.from.size(); ++i) {
+    for (int i = 0; i < (int)move.from.size(); ++i)
+    {
         from.push_back(std::move(board[move.from[i].y][move.from[i].x]));
     }
 
-    for (int i = 0; i < (int)move.to.size(); ++i) {
-        if (!isEmpty(move.to[i])) {
+    for (int i = 0; i < (int)move.to.size(); ++i)
+    {
+        if (!isEmpty(move.to[i]))
+        {
             popPiece(move.to[i]);
         }
-        
     }
 
-    for (int i = 0; i < (int)move.capturePositions.size(); ++i) {
-        if (!isEmpty(move.capturePositions[i])) {
+    for (int i = 0; i < (int)move.capturePositions.size(); ++i)
+    {
+        if (!isEmpty(move.capturePositions[i]))
+        {
             popPiece(move.capturePositions[i]);
         }
     }
 
-    for (int i = 0; i < (int)move.from.size(); ++i) {
+    for (int i = 0; i < (int)move.from.size(); ++i)
+    {
         setPiece(move.to[i], std::move(from[i]));
     }
-
 }
 
 void Board::addPiece(Position &p, PieceType type, int owner)
 {
-    board[p.y][p.x] = make_unique<Piece>(Piece{p.x, p.y, type, owner});
+    unique_ptr<Moveable> piece = make_unique<Piece>(p.x, p.y, type, owner);
+    unique_ptr<Moveable> decorated = make_unique<MoveX>(std::move(piece));
+    board[p.y][p.x] = std::move(decorated);
 }
 
 unique_ptr<Moveable> Board::popPiece(Position &p)

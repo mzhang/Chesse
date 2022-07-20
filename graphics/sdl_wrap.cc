@@ -55,13 +55,13 @@ void Screen::draw_image(short int xloc, short int yloc, unsigned short int w, un
 {
   // Image path is relative to resources directory
   string full_path = "resources/" + image_path;
-  shared_ptr<SDL_Surface> loaded_image_surface{SDL_LoadBMP(full_path.c_str())};
+  unique_ptr<SDL_Surface> loaded_image_surface{SDL_LoadBMP(full_path.c_str())};
   if (loaded_image_surface == nullptr)
   {
     cerr << "Could not load asset: " << image_path << endl;
     return;
   }
-  shared_ptr<SDL_Rect> image_rect(new SDL_Rect{xloc, yloc, w, h});
+  unique_ptr<SDL_Rect> image_rect(new SDL_Rect{xloc, yloc, w, h});
   SDL_BlitSurface(loaded_image_surface.get(), nullptr, screen, image_rect.get());
   SDL_FreeSurface(loaded_image_surface.get());
 }

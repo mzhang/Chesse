@@ -15,7 +15,7 @@ class Decorator : public Moveable
 
 protected:
 public:
-    explicit Decorator(std::unique_ptr<Moveable>);
+    explicit Decorator(std::unique_ptr<Moveable> );
     virtual ~Decorator() = 0;
 
     virtual Position getPosition() override;

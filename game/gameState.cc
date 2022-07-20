@@ -33,15 +33,20 @@ void GameState::switchPlayers()
     currentPlayer = 1 - currentPlayer;
 }
 
-void GameState::setup(const Game &g) {
+void GameState::setup(const Game &g)
+{
     string cmd;
     string pieceType;
     string colour;
 
-    while (cin >> cmd) {
-        if (cmd == "done") {
+    while (cin >> cmd)
+    {
+        if (cmd == "done")
+        {
             break; // TODO: make sure this is a valid board (2 kings, pawns in right pos, etc)
-        } else if (cmd == "+") {
+        }
+        else if (cmd == "+")
+        {
             cin >> pieceType;
             pair<PieceType, int> p = PieceTypeUtils::fromString(pieceType);
             Position pos;
@@ -49,23 +54,32 @@ void GameState::setup(const Game &g) {
 
             board->addPiece(pos, p.first, p.second);
             g.updateOutputs();
-        } else if (cmd == "-") {
+        }
+        else if (cmd == "-")
+        {
             Position pos;
             cin >> pos;
 
-            if (board->popPiece(pos)) {
+            if (board->popPiece(pos))
+            {
                 g.updateOutputs();
             }
-        } else if (cmd == "=") {
-            while (cin >> colour) {
-                if (colour == "black" || colour == "white") {
+        }
+        else if (cmd == "=")
+        {
+            while (cin >> colour)
+            {
+                if (colour == "black" || colour == "white")
+                {
                     break;
                 }
                 cout << "Invalid colour, use 'black'/'white'" << endl;
             }
 
             currentPlayer = (colour == "white") ? 0 : 1;
-        } else {
+        }
+        else
+        {
             cout << "Invalid command" << endl;
         }
     }

@@ -24,7 +24,7 @@ int Game::play(const string &player1, const string &player2)
     players.push_back(make_unique<Human>(1));
 
     string cmd;
-    cout << "DEBUG: Player " << state.currentPlayer << "'s turn" << endl;
+    cout << "DEBUG: Chess game start!" << endl;
     while (cin >> cmd)
     {
         if (cmd == "setup")

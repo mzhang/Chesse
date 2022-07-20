@@ -9,6 +9,7 @@
 
 class Board;
 enum class PieceType;
+class GameState;
 
 class Piece : public Moveable
 {

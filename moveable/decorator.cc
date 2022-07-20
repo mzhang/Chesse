@@ -11,6 +11,14 @@
 
 using namespace std;
 
+Decorator::Decorator(unique_ptr<Moveable> c) : component{std::move(c)}
+{
+    cout << "decorator unique_ptr ctor ";
+    cout << component->getPosition() << endl;
+}
+
+Decorator::~Decorator(){};
+
 PieceType Decorator::getPieceType()
 {
     return component->getPieceType();
@@ -30,9 +38,6 @@ int Decorator::getOwner()
 {
     return component->getOwner();
 }
-
-Decorator::Decorator(unique_ptr<Moveable> component) : component{std::move(component)} { cout << "decorator ctor" << endl; }
-Decorator::~Decorator(){};
 
 Decorator::Decorator(const Decorator &o)
 {

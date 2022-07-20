@@ -7,7 +7,10 @@
 
 using namespace std;
 
-Piece::Piece(int x, int y, PieceType type, int playerNum) : position{Position{x, y}}, type{type}, hasMoved{false}, playerNum{playerNum} {}
+Piece::Piece(int x, int y, PieceType pieceType, int pNum) : position{Position{x, y}}, type{pieceType}, hasMoved{false}, playerNum{pNum}
+{
+    cout << "piece full ctor" << endl;
+}
 
 Piece::~Piece() {}
 

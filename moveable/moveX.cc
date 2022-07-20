@@ -5,10 +5,15 @@
 #include "../data/pieceType.h"
 #include "../game/gameState.h"
 #include "../data/move.h"
+#include "./piece.h"
+#include "./moveable.h"
 
 using namespace std;
 
-MoveX::MoveX(unique_ptr<Moveable> component) : Decorator{std::move(component)} {};
+MoveX::MoveX(unique_ptr<Moveable> component, int maxSteps) : Decorator{std::move(component)}, maxSteps{maxSteps}
+{
+    cout << "MoveX unique_ptr ctor" << endl;
+};
 
 vector<Move> MoveX::getValidMoves(const GameState &g)
 {
@@ -54,10 +59,11 @@ vector<Move> MoveX::getValidMoves(const GameState &g)
         }
         --pos.x;
     }
-    // moves are appended, not a union. must remove duplicates.
+    // moves are appended, not a union. must remove duplicates
     return moves;
 }
 
+// whats the point of virtual dispatch here?
 PieceType MoveX::getPieceType()
 {
     return Decorator::getPieceType();
