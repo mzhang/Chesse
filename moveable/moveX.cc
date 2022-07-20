@@ -70,7 +70,6 @@ vector<Move> MoveX::getValidMoves(const GameState &g)
 
 unique_ptr<Moveable> MoveX::clone()
 {
-    cout << "MoveX::clone()" << endl;
     return make_unique<MoveX>(*this);
 }
 

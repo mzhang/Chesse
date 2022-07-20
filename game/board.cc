@@ -40,7 +40,6 @@ void Board::swap(Board &o)
 Board::Board(const Board &o) : width{o.width}, height{o.height}
 {
     resizeBoard();
-    cout << "DEBUG: Board copy constructor called!" << endl;
 
     for (int i = 0; i < height; i++)
     {
@@ -48,7 +47,6 @@ Board::Board(const Board &o) : width{o.width}, height{o.height}
         {
             if (o.board[i][j])
             { // if there is a piece at this position (aka not nullptr)
-                cout << "cloning " << i << "  " << j << endl;
                 board[i][j] = o.board[i][j]->clone();
             }
         }

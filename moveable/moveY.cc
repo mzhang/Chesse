@@ -66,7 +66,6 @@ vector<Move> MoveY::getValidMoves(const GameState &g)
 
 unique_ptr<Moveable> MoveY::clone()
 {
-    cout << "MoveY::clone()" << endl;
     return make_unique<MoveY>(*this);
 }
 

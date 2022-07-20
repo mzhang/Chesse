@@ -13,8 +13,6 @@ using namespace std;
 
 Decorator::Decorator(unique_ptr<Moveable> c) : component{std::move(c)}
 {
-    cout << "decorator unique_ptr ctor ";
-    cout << component->getPosition() << endl;
 }
 
 Decorator::~Decorator(){};
@@ -41,5 +39,4 @@ int Decorator::getOwner()
 
 Decorator::Decorator(const Decorator &o) : component{o.component->clone()}
 {
-    cout << "decorator copy ctor " << endl;
 }
