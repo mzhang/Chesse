@@ -16,7 +16,10 @@ Piece::~Piece() {}
 
 Position Piece::getPosition() { return position; }
 
-vector<Move> Piece::getValidMoves(const GameState &g) {}
+vector<Move> Piece::getValidMoves(const GameState &g)
+{
+    return vector<Move>{};
+}
 
 PieceType Piece::getPieceType()
 {
