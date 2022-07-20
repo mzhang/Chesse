@@ -11,10 +11,7 @@
 
 using namespace std;
 
-MoveX::MoveX(unique_ptr<Moveable> component, int maxSteps) : Decorator{std::move(component)}, maxSteps{maxSteps}
-{
-    cout << "MoveX unique_ptr ctor" << endl;
-};
+MoveX::MoveX(unique_ptr<Moveable> component, int maxSteps) : Decorator{std::move(component)}, maxSteps{maxSteps} {}
 
 vector<Move> MoveX::getValidMoves(const GameState &g)
 {

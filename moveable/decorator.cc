@@ -41,6 +41,5 @@ int Decorator::getOwner()
 
 Decorator::Decorator(const Decorator &o)
 {
-    cout << "decorator copy ctor" << endl;
     component = o.component->clone();
 }
