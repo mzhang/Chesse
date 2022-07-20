@@ -8,7 +8,7 @@ class GameState;
 
 class Human : public Player
 {
-    Move doNextMove(GameState &) override;
+    Move doNextMove(const GameState &) override;
     public:
         Human(int);
 };

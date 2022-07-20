@@ -2,7 +2,7 @@
 #include "../game/gameState.h"
 #include "../data/move.h"
 
-Move Computer2::doNextMove(GameState &g)
+Move Computer2::doNextMove(const GameState &g)
 {
     // TODO: implement
 }

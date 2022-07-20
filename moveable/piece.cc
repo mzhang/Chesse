@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Piece::Piece(int x, int y, PieceType pieceType, int pNum) : position{Position{x, y}}, type{pieceType}, hasMoved{false}, playerNum{pNum} {}
+Piece::Piece(int x, int y, PieceType pieceType, int pNum) :  playerNum{pNum}, type{pieceType}, hasMoved{false}, position{Position{x, y}} {}
 
 Piece::~Piece() {}
 

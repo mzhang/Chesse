@@ -70,7 +70,8 @@ vector<Move> MoveX::getValidMoves(const GameState &g)
 
 unique_ptr<Moveable> MoveX::clone()
 {
+    cout << "MoveX::clone()" << endl;
     return make_unique<MoveX>(*this);
 }
 
-MoveX::MoveX(const MoveX &o) : Decorator{nullptr} {}
+MoveX::MoveX(const MoveX &o) : Decorator{o}, maxSteps{o.maxSteps} {}

@@ -8,7 +8,7 @@ Human::Human(int playerNum) : Player{playerNum}
 {
 }
 
-Move Human::doNextMove(GameState &g)
+Move Human::doNextMove(const GameState &g)
 {
     Position from;
     Position to;

@@ -1,5 +1,6 @@
 #include <vector>
 #include <memory>
+#include <iostream>
 
 #include "moveY.h"
 #include "../data/pieceType.h"
@@ -65,7 +66,8 @@ vector<Move> MoveY::getValidMoves(const GameState &g)
 
 unique_ptr<Moveable> MoveY::clone()
 {
+    cout << "MoveY::clone()" << endl;
     return make_unique<MoveY>(*this);
 }
 
-MoveY::MoveY(const MoveY &o) : Decorator{nullptr} {}
+MoveY::MoveY(const MoveY &o) : Decorator{o}, maxSteps{o.maxSteps} {}

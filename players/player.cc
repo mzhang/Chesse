@@ -8,7 +8,7 @@ Player::Player(int playerNum) : playerNum(playerNum)
 {
 }
 
-Move Player::nextMove(GameState &g)
+Move Player::nextMove(const GameState &g)
 {
     return doNextMove(g);
 }

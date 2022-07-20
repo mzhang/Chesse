@@ -35,7 +35,6 @@ int Game::play(const string &player1, const string &player2)
         else if (cmd == "move")
         {
             Move move = players[state.currentPlayer]->nextMove(state);
-            cout << move;
 
             if (!state.isValidMove(move))
             {

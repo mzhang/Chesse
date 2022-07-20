@@ -40,14 +40,16 @@ void Board::swap(Board &o)
 Board::Board(const Board &o) : width{o.width}, height{o.height}
 {
     resizeBoard();
+    cout << "DEBUG: Board copy constructor called!" << endl;
 
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
         {
-            if (board[i][j])
+            if (o.board[i][j])
             { // if there is a piece at this position (aka not nullptr)
-                board[i][j] = board[i][j]->clone();
+                cout << "cloning " << i << "  " << j << endl;
+                board[i][j] = o.board[i][j]->clone();
             }
         }
     }
@@ -91,7 +93,7 @@ PieceType Board::getPieceType(const Position &p) const
 
 // kinda odd that board needs to be passed in a gamestate, but it's needed for the moveable's getValidMoves() function
 // the debate is passing in a gs vs having hs be able to access arbitrary board positions(eg via board[][])
-vector<Move> Board::getValidMoves(const Position &pos, GameState gs) const
+vector<Move> Board::getValidMoves(const Position &pos, const GameState &gs) const
 {
     return board[pos.y][pos.x]->getValidMoves(gs);
 }
@@ -99,42 +101,42 @@ vector<Move> Board::getValidMoves(const Position &pos, GameState gs) const
 void Board::makeMove(Move move)
 {
     // pre: the move is valid
-    for (Position capture : move.capturePositions)
-    {
-        popPiece(capture);
-    }
-    // assuming all pieces from Move::to have corresponding Move::from
-    for (int i = 0; i < (int)move.to.size(); ++i)
-    {
-        board[move.to[i].y][move.to[i].x] = std::move(board[move.from[i].y][move.from[i].x]);
-    }
-
-    // vector<unique_ptr<Moveable>> from; // we need to store the pieces that will move since we may have a second piece overlapping
-    // for (int i = 0; i < (int)move.from.size(); ++i)
+    // for (Position capture : move.capturePositions)
     // {
-    //     from.push_back(std::move(board[move.from[i].y][move.from[i].x]));
+    //     popPiece(capture);
     // }
-
+    // // assuming all pieces from Move::to have corresponding Move::from
     // for (int i = 0; i < (int)move.to.size(); ++i)
     // {
-    //     if (!isEmpty(move.to[i]))
-    //     {
-    //         popPiece(move.to[i]);
-    //     }
+    //     board[move.to[i].y][move.to[i].x] = std::move(board[move.from[i].y][move.from[i].x]);
     // }
 
-    // for (int i = 0; i < (int)move.capturePositions.size(); ++i)
-    // {
-    //     if (!isEmpty(move.capturePositions[i]))
-    //     {
-    //         popPiece(move.capturePositions[i]);
-    //     }
-    // }
+    vector<unique_ptr<Moveable>> from; // we need to store the pieces that will move since we may have a second piece overlapping
+    for (int i = 0; i < (int)move.from.size(); ++i)
+    {
+        from.push_back(std::move(board[move.from[i].y][move.from[i].x]));
+    }
 
-    // for (int i = 0; i < (int)move.from.size(); ++i)
-    // {
-    //     setPiece(move.to[i], std::move(from[i]));
-    // }
+    for (int i = 0; i < (int)move.to.size(); ++i)
+    {
+        if (!isEmpty(move.to[i]))
+        {
+            popPiece(move.to[i]);
+        }
+    }
+
+    for (int i = 0; i < (int)move.capturePositions.size(); ++i)
+    {
+        if (!isEmpty(move.capturePositions[i]))
+        {
+            popPiece(move.capturePositions[i]);
+        }
+    }
+
+    for (int i = 0; i < (int)move.from.size(); ++i)
+    {
+        setPiece(move.to[i], std::move(from[i]));
+    }
 }
 
 void Board::addPiece(Position &p, PieceType type, int owner)
