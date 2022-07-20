@@ -137,24 +137,9 @@ void Board::makeMove(Move move)
     }
 }
 
-void Board::addPiece(Position &p, PieceType type, int owner)
+void Board::addPiece(unique_ptr<Moveable> piece, const Position &pos)
 {
-    unique_ptr<Moveable> piece = make_unique<Piece>(p.x, p.y, type, owner);
-    if (type == PieceType::ROOK)
-    {
-        piece = make_unique<MoveX>(std::move(piece), width);
-        piece = make_unique<MoveY>(std::move(piece), width);
-    }
-    else if (type == PieceType::KING)
-    {
-        piece = make_unique<MoveX>(std::move(piece), 1);
-        piece = make_unique<MoveY>(std::move(piece), 1);
-    }
-    else if (type == PieceType::PAWN)
-    {
-        piece = make_unique<MoveY>(std::move(piece), 1);
-    }
-    board[p.y][p.x] = std::move(piece);
+    board[pos.y][pos.x] = std::move(piece);
 }
 
 unique_ptr<Moveable> Board::popPiece(Position &p)

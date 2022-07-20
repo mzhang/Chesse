@@ -31,7 +31,7 @@ public:
     std::vector<Move> getValidMoves(const Position &pos, const GameState &gs) const;
     void makeMove(Move);
 
-    void addPiece(Position &, PieceType, int);
+    void addPiece(std::unique_ptr<Moveable>, const Position &);
     std::unique_ptr<Moveable> popPiece(Position &);
     void setPiece(Position &, std::unique_ptr<Moveable>);
     Moveable &getPiece(const Position &) const;

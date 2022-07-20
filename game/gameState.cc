@@ -9,6 +9,7 @@
 #include "../data/position.h"
 #include "../data/pieceType.h"
 #include "../moveable/moveable.h"
+#include "../moveable/pieceFactory.h"
 
 using namespace std;
 
@@ -72,7 +73,7 @@ void GameState::setup(const Game &g)
             Position pos;
             cin >> pos;
 
-            board->addPiece(pos, p.first, p.second);
+            board->addPiece(PieceFactory::createPiece(pos, p.first, p.second, board->getWidth(), board->getHeight()), pos);
             g.updateOutputs();
         }
         else if (cmd == "-")
