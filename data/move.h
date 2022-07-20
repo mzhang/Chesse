@@ -13,7 +13,7 @@ struct Move
     Move(Position, Position);
     Move();
     ~Move();
-
+    bool operator==(const Move &) const;
     friend std::ostream &operator<<(std::ostream &os, const Move &p);
 };
 
