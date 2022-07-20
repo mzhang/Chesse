@@ -8,7 +8,7 @@ class GameState;
 
 class Visualizer : public Output
 {
-    //Screen s;
+    Visualizer(const GameState &);
     void doUpdate(const GameState &, const Move &) override;
 }; 
 #endif

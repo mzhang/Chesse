@@ -12,7 +12,7 @@ using namespace std;
 Game::Game(int boardWidth, int boardHeight) : state{boardWidth, boardHeight}
 {
     outputs.push_back(make_unique<TextDisplay>());
-    outputs.push_back(make_unique<Visualizer>());
+    outputs.push_back(make_unique<Visualizer>(state));
 }
 
 Game::~Game() {}
