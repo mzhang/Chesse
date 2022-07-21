@@ -19,6 +19,8 @@ public:
     GameState(const GameState &o);
     void setup(const Game &);
 
+    void standard_chess_board();
+
     bool isValidMove(const Move &m) const;
     bool isInBounds(Position p) const;
     bool isOwner(Position p, int player) const;
