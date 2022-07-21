@@ -88,12 +88,24 @@ void GameState::setup(const Game &g)
     string colour;
 
     while (cin >> cmd)
-    {
+    {   
         if (cmd == "done")
         {
             break; // TODO: make sure this is a valid board (2 kings, pawns in right pos, etc)
         }
-        else if (cmd == "+")
+        else if (cmd == "standard") {
+            standard_chess_board();
+            Move m;
+            // Add the bottom and top two rows to m.from
+            for (int i = 0; i < board->getWidth(); i++)
+            {
+                m.from.push_back({i, 0});
+                m.from.push_back({i, 1});
+                m.from.push_back({i, board->getHeight() - 1});
+                m.from.push_back({i, board->getHeight() - 2});
+            }
+            g.updateOutputs(m);
+        } else if (cmd == "+")
         {
             cin >> pieceType;
             pair<PieceType, int> p = PieceTypeUtils::fromString(pieceType);
@@ -131,4 +143,72 @@ void GameState::setup(const Game &g)
             cout << "Invalid command" << endl;
         }
     }
+}
+
+void GameState::standard_chess_board() {
+    // Setup a standard chess board with pieces
+    
+    // Add 8 pawns to white
+    for (int i = 0; i < 8; i++) {
+        board->addPiece(PieceFactory::createPiece(Position{i, 1}, PieceType::PAWN, 0,
+            board->getWidth(), board->getHeight()), Position{i, 1});
+    }
+
+    // Add 8 pawns to black
+    for (int i = 0; i < 8; i++) {
+        board->addPiece(PieceFactory::createPiece(Position{i, 6}, PieceType::PAWN,
+            1, board->getWidth(), board->getHeight()), Position{i, 6});
+    }
+
+    // Add 2 rooks to white
+    board->addPiece(PieceFactory::createPiece(Position{0, 0}, PieceType::ROOK, 0,
+        board->getWidth(), board->getHeight()), Position{0, 0});
+    board->addPiece(PieceFactory::createPiece(Position{7, 0}, PieceType::ROOK, 0,
+        board->getWidth(), board->getHeight()), Position{7, 0});
+
+    // Add 2 rooks to black
+    board->addPiece(PieceFactory::createPiece(Position{0, 7}, PieceType::ROOK, 1,
+        board->getWidth(), board->getHeight()), Position{0, 7});
+    board->addPiece(PieceFactory::createPiece(Position{7, 7}, PieceType::ROOK, 1,
+        board->getWidth(), board->getHeight()), Position{7, 7});
+
+    // Add 2 knights to white
+    board->addPiece(PieceFactory::createPiece(Position{1, 0}, PieceType::ROOK, 0,
+        board->getWidth(), board->getHeight()), Position{1, 0});
+    board->addPiece(PieceFactory::createPiece(Position{6, 0}, PieceType::ROOK, 0,
+        board->getWidth(), board->getHeight()), Position{6, 0});
+
+    // Add 2 knights to black
+    board->addPiece(PieceFactory::createPiece(Position{1, 7}, PieceType::ROOK, 1,
+        board->getWidth(), board->getHeight()), Position{1, 7});
+    board->addPiece(PieceFactory::createPiece(Position{6, 7}, PieceType::ROOK, 1,
+        board->getWidth(), board->getHeight()), Position{6, 7});
+
+    // Add 2 bishops to white
+    board->addPiece(PieceFactory::createPiece(Position{2, 0}, PieceType::ROOK, 0,
+        board->getWidth(), board->getHeight()), Position{2, 0});
+    board->addPiece(PieceFactory::createPiece(Position{5, 0}, PieceType::ROOK, 0,
+        board->getWidth(), board->getHeight()), Position{5, 0});
+
+    // Add 2 bishops to black
+    board->addPiece(PieceFactory::createPiece(Position{2, 7}, PieceType::ROOK, 1,
+        board->getWidth(), board->getHeight()), Position{2, 7});
+    board->addPiece(PieceFactory::createPiece(Position{5, 7}, PieceType::ROOK, 1,
+        board->getWidth(), board->getHeight()), Position{5, 7});
+
+    // Add 1 queen to white
+    board->addPiece(PieceFactory::createPiece(Position{3, 0}, PieceType::ROOK, 0,
+        board->getWidth(), board->getHeight()), Position{3, 0});
+
+    // Add 1 queen to black
+    board->addPiece(PieceFactory::createPiece(Position{3, 7}, PieceType::ROOK, 1,
+        board->getWidth(), board->getHeight()), Position{3, 7});
+
+    // Add 1 king to white
+    board->addPiece(PieceFactory::createPiece(Position{4, 0}, PieceType::KING, 0,
+        board->getWidth(), board->getHeight()), Position{4, 0});
+
+    // Add 1 king to black
+    board->addPiece(PieceFactory::createPiece(Position{4, 7}, PieceType::KING, 1,
+        board->getWidth(), board->getHeight()), Position{4, 7});
 }
