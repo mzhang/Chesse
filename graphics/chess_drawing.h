@@ -10,6 +10,11 @@ class GameState;
 
 class ChessDrawing
 {
+    static const int square_size = (652 - 100) / 8;
+    static const int x_offset = 50;
+    static const int y_offset = 50;
+    static const int piece_x_offset = x_offset + 6;
+    static const int piece_y_offset = y_offset + 4;
 public:
     // static void draw_game(Screen &screen, const GameState &state); 
     static void draw_axes(Screen &screen);

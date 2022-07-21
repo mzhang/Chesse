@@ -103,7 +103,7 @@ void GameState::setup(const Game &g)
 
             if (board->popPiece(pos))
             {
-                g.updateOutputs();
+                g.updateOutputs(Move{pos,pos});
             }
         }
         else if (cmd == "=")
