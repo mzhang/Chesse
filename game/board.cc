@@ -143,9 +143,9 @@ const Moveable &Board::getPiece(const Position &p) const
     return *board[p.y][p.x];
 }
 
-int Board::getOwner(const Position &p) const
+PlayerColor Board::getOwner(const Position &p) const
 {
-    return isEmpty(p) ? 0 : board[p.y][p.x]->getOwner();
+    return board[p.y][p.x]->getOwner();
 }
 
 bool Board::isEmpty(const Position &p) const

@@ -4,10 +4,11 @@
 #include "../data/pieceType.h"
 #include "../game/gameState.h"
 #include "../data/move.h"
+#include "../data/playerColor.h"
 
 using namespace std;
 
-Piece::Piece(int x, int y, PieceType pieceType, int pNum) :  playerNum{pNum}, type{pieceType}, hasMoved{false}, position{Position{x, y}} {}
+Piece::Piece(int x, int y, PieceType pieceType, PlayerColor color) : playerColor{color}, type{pieceType}, hasMoved{false}, position{Position{x, y}} {}
 
 Piece::~Piece() {}
 
@@ -23,9 +24,9 @@ PieceType Piece::getPieceType() const
     return type;
 }
 
-int Piece::getOwner() const
+PlayerColor Piece::getOwner() const
 {
-    return playerNum;
+    return playerColor;
 }
 
 unique_ptr<Moveable> Piece::clone() const

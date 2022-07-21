@@ -8,6 +8,7 @@ struct Position;
 struct Move;
 enum class PieceType;
 class GameState;
+enum class PlayerColor;
 
 class Board
 {
@@ -35,7 +36,7 @@ public:
     void setPiece(Position &, std::unique_ptr<Moveable>);
     const Moveable &getPiece(const Position &) const;
 
-    int getOwner(const Position &) const;
+    PlayerColor getOwner(const Position &) const;
     PieceType getPieceType(const Position &) const;
     bool isEmpty(const Position &) const;
 

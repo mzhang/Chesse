@@ -8,6 +8,7 @@ struct Position;
 class GameState;
 struct Move;
 enum class PieceType;
+enum class PlayerColor;
 
 class Decorator : public Moveable
 {
@@ -20,7 +21,7 @@ public:
 
     Position getPosition() const override;
     PieceType getPieceType() const override;
-    int getOwner() const override;
+    PlayerColor getOwner() const override;
     virtual std::vector<Move> getValidMoves(const GameState &) const override;
 
     Decorator(const Decorator &);

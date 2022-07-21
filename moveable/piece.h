@@ -6,6 +6,7 @@
 #include "moveable.h"
 #include "../data/position.h"
 #include "../data/pieceType.h"
+#include "../data/playerColor.h"
 
 class Board;
 enum class PieceType;
@@ -13,19 +14,19 @@ class GameState;
 
 class Piece : public Moveable
 {
-    int playerNum;
+    PlayerColor playerColor;
     PieceType type;
     bool hasMoved;
     Position position;
 
 protected:
 public:
-    Piece(int, int, PieceType, int);
+    Piece(int, int, PieceType, PlayerColor);
     ~Piece();
 
     PieceType getPieceType() const override;
     Position getPosition() const override;
-    int getOwner() const override;
+    PlayerColor getOwner() const override;
     std::vector<Move> getValidMoves(const GameState &) const override;
     std::unique_ptr<Moveable> clone() const override;
 };

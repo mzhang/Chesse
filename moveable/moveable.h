@@ -9,6 +9,7 @@ struct Position;
 enum class PieceType;
 struct Move;
 class GameState;
+enum class PlayerColor;
 
 struct Moveable
 {
@@ -17,7 +18,7 @@ public:
     Moveable();
     virtual Position getPosition() const = 0;
     virtual PieceType getPieceType() const = 0;
-    virtual int getOwner() const = 0;
+    virtual PlayerColor getOwner() const = 0;
     virtual std::vector<Move> getValidMoves(const GameState &) const = 0;
     virtual std::unique_ptr<Moveable> clone() const = 0;
 

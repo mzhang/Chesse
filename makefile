@@ -7,7 +7,7 @@ OBJECTS = main.o chess.o \
 ./moveable/moveX.o ./moveable/moveY.o ./moveable/moveDiagNeg.o ./moveable/moveDiagPos.o ./moveable/moveL.o \
 ./graphics/chessDrawing.o ./graphics/screen.o \
 ./outputs/output.o ./outputs/textDisplay.o ./outputs/visualizer.o \
-./data/pieceType.o ./data/move.o ./data/position.o \
+./data/pieceType.o ./data/move.o ./data/position.o ./data/playerColor.o \
 ./players/player.o ./players/human.o ./players/computer1.o ./players/computer2.o ./players/computer3.o ./players/computer4.o
 
 DEPENDS = ${OBJECTS:.o=.d}

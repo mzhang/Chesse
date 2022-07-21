@@ -8,12 +8,13 @@ class Game;
 struct Position;
 class Board;
 struct Move;
+enum class PlayerColor;
 
 class GameState
 {
 public:
     std::unique_ptr<Board> board;
-    int currentPlayer; // white = 0; black = 1
+    PlayerColor currentPlayer; // white = 0; black = 1
 
     GameState(int, int);
     GameState(const GameState &o);
@@ -23,10 +24,10 @@ public:
 
     bool isValidMove(const Move &m) const;
     bool isInBounds(Position p) const;
-    bool isOwner(Position p, int player) const;
+    bool isOwner(Position p, PlayerColor) const;
     bool isEmpty(Position p) const;
     std::vector<Move> getValidMoves(const Position &pos) const;
-    std::vector<Move> getValidMoves(int playerNum) const;
+    std::vector<Move> getValidMoves(PlayerColor) const;
 
     void switchPlayers();
 

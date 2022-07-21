@@ -2,7 +2,7 @@
 #include "../game/gameState.h"
 #include "../data/move.h"
 
-Computer3::Computer3(int playerNum) : Player{playerNum}
+Computer3::Computer3(PlayerColor color) : Player{color}
 {
 }
 
