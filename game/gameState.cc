@@ -22,12 +22,29 @@ GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, 
 bool GameState::isValidMove(const Move &m) const
 {
     // assuming move "target" is m.from[0]
-    if (isEmpty(m.from[0]))
+    if (isEmpty(m.from[0])) {
         return false;
+    }   
 
     const Moveable &piece = board->getPiece(m.from[0]);
     vector<Move> validMoves = piece.getValidMoves(*this);
     return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end();
+}
+
+// Precondition: move accounts for all side effects
+void GameState::makeMove(const Move &m)
+{
+    board->makeMove(m);
+}
+
+void GameState::undoMove(const Move &h)
+{
+    // 
+}
+
+bool GameState::checkDetection(int playerNum, Move m) const
+{
+    // Strategy: For every move, 
 }
 
 vector<Move> GameState::getValidMoves(const Position &pos) const
