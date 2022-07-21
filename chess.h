@@ -18,7 +18,7 @@ class Chess
 public:
     Chess();
     ~Chess();
-    void start();
+    void start(bool);
 };
 
 #endif

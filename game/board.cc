@@ -41,6 +41,8 @@ Board::Board(const Board &o) : width{o.width}, height{o.height}
 {
     resizeBoard();
 
+    cout << "DEBUG: Board copy constructor. Make sure this is intended" << endl;
+
     for (int i = 0; i < height; i++)
     {
         for (int j = 0; j < width; j++)
@@ -94,7 +96,7 @@ PieceType Board::getPieceType(const Position &p) const
 // TODO: fix this
 vector<Move> Board::getValidMoves(const Position &pos, const GameState &gs) const
 {
-    return board[pos.y][pos.x]->getValidMoves(gs);
+    return isEmpty(pos) ? vector<Move>{} : board[pos.y][pos.x]->getValidMoves(gs);
 }
 
 void Board::makeMove(Move move)

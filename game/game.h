@@ -24,7 +24,7 @@ class Game
 
 public:
     Game();
-    Game(int, int);
+    Game(int, int, bool);
     ~Game();
     int play(const std::string &, const std::string &); // returns winning player
 

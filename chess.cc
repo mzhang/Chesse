@@ -11,14 +11,14 @@ Chess::Chess() {
 
 Chess::~Chess() {}
 
-void Chess::start()
+void Chess::start(bool useDisplay)
 {
     string cmd, player1, player2;
     while (cin >> cmd)
     {
         if (cmd == "game") {
             cin >> player1 >> player2;
-            Game game{boardWidth, boardHeight};
+            Game game{boardWidth, boardHeight, useDisplay};
             int winner = game.play(player1, player2);
             if (winner != -1) {
                 playerScores[winner]++;

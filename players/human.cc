@@ -18,6 +18,7 @@ Move Human::doNextMove(const GameState &g)
         cin >> to;
 
         Move move = Move{from, to};
+
         if (g.isValidMove(move)) {
             // TODO: dont return this move. Instead return the complete move we get somehow from gameState
             return move;
