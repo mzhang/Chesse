@@ -25,10 +25,10 @@ Game::Game(int boardWidth, int boardHeight, bool useDisplay) : state{boardWidth,
 
 Game::~Game() {}
 
-int Game::play(const string &player1, const string &player2)
+PlayerColor Game::play(const string &player1, const string &player2)
 {
-    players.push_back(getPlayer(player1, PlayerColor::WHITE));
-    players.push_back(getPlayer(player2, PlayerColor::BLACK));
+    players[PlayerColor::WHITE] = getPlayer(player1, PlayerColor::WHITE);
+    players[PlayerColor::BLACK] = getPlayer(player2, PlayerColor::BLACK);
 
     string cmd;
     cout << "DEBUG: Chess game start!" << endl;
@@ -79,7 +79,7 @@ int Game::play(const string &player1, const string &player2)
         cout << "DEBUG: Command complete! It's now player " << state.currentPlayer << "'s turn" << endl;
     }
 
-    return -1;
+    return PlayerColor::NONE;
 }
 
 void Game::updateOutputs(const Move &m) const

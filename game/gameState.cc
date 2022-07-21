@@ -14,7 +14,7 @@
 
 using namespace std;
 
-GameState::GameState(int boardWidth, int boardHeight) : board{make_unique<Board>(boardWidth, boardHeight)}, currentPlayer{0} {}
+GameState::GameState(int boardWidth, int boardHeight) : board{make_unique<Board>(boardWidth, boardHeight)}, currentPlayer{PlayerColor::WHITE} {}
 
 GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer} {}
 
@@ -79,7 +79,7 @@ bool GameState::isInBounds(Position p) const
 
 void GameState::switchPlayers()
 {
-    currentPlayer = 1 - currentPlayer;
+    currentPlayer = PlayerColorUtils::getNext(currentPlayer);
 }
 
 void GameState::setup(const Game &g)
@@ -220,7 +220,7 @@ void GameState::setup(const Game &g)
                 cout << "Invalid colour, use 'black'/'white'" << endl;
             }
 
-            currentPlayer = (colour == "white") ? 0 : 1;
+            currentPlayer = PlayerColorUtils::fromString(colour);
         }
         else
         {

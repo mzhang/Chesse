@@ -14,7 +14,7 @@ class GameState
 {
 public:
     std::unique_ptr<Board> board;
-    int currentPlayer; // white = 0; black = 1
+    PlayerColor currentPlayer; // white = 0; black = 1
 
     GameState(int, int);
     GameState(const GameState &o);
