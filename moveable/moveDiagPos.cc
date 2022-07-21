@@ -17,7 +17,7 @@ MoveDiagPos::MoveDiagPos(unique_ptr<Moveable> component, int maxSteps) : Decorat
 vector<Move> MoveDiagPos::getValidMoves(const GameState &g) const
 {
     vector<Move> moves = Decorator::getValidMoves(g);
-    int player = Decorator::getOwner();
+    PlayerColor player = Decorator::getOwner();
 
     Position currentPos = getPosition();
     Position pos = currentPos;

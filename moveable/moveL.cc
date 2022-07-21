@@ -16,7 +16,7 @@ MoveL::MoveL(unique_ptr<Moveable> component) : Decorator{std::move(component)} {
 vector<Move> MoveL::getValidMoves(const GameState &g) const
 {
     vector<Move> moves = Decorator::getValidMoves(g);
-    int player = Decorator::getOwner();
+    PlayerColor player = Decorator::getOwner();
 
     Position currentPos = getPosition();
  
