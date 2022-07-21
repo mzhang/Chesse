@@ -6,6 +6,10 @@
 #include "../outputs/textDisplay.h"
 #include "../outputs/visualizer.h"
 #include "../players/human.h"
+#include "../players/computer1.h"
+#include "../players/computer2.h"
+#include "../players/computer3.h"
+#include "../players/computer4.h"
 
 using namespace std;
 
@@ -22,10 +26,8 @@ Game::~Game() {}
 
 int Game::play(const string &player1, const string &player2)
 {
-    // TODO: set players correctly
-    // for now, we will just add two humans
-    players.push_back(make_unique<Human>(0));
-    players.push_back(make_unique<Human>(1));
+    players.push_back(getPlayer(player1, 0));
+    players.push_back(getPlayer(player2, 1));
 
     string cmd;
     cout << "DEBUG: Chess game start!" << endl;
@@ -84,5 +86,23 @@ void Game::updateOutputs(const Move &m) const
     for (auto &output : outputs)
     {
         output->update(state, m);
+    }
+}
+
+unique_ptr<Player> Game::getPlayer(const string &playerName, int playerNum) const
+{
+    if (playerName == "human") {
+        return make_unique<Human>(playerNum);
+    } else if (playerName == "computer1") {
+        return make_unique<Computer1>(playerNum);
+    } else if (playerName == "computer2") {
+        return make_unique<Computer2>(playerNum);
+    } else if (playerName == "computer3") {
+        return make_unique<Computer3>(playerNum);
+    } else if (playerName == "computer4") {
+        return make_unique<Computer4>(playerNum);
+    } else {
+        cout << "Invalid player name, assuming human" << endl;
+        return make_unique<Human>(playerNum);
     }
 }

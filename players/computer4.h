@@ -10,6 +10,8 @@ class Computer4 : public Player
 {
     float evaluate(GameState &); // evaluate the board (based on piece values)
     Move doNextMove(const GameState &) override;
+public:
+    explicit Computer4(int);
 };
 
 #endif // COMPUTER4_H_

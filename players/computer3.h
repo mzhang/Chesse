@@ -9,6 +9,8 @@ class GameState;
 class Computer3 : public Player
 {
     Move doNextMove(const GameState &) override;
+public:
+    explicit Computer3(int);
 };
 
 #endif // COMPUTER3_H_
