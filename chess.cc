@@ -37,6 +37,7 @@ void Chess::start(bool useDisplay)
                     // TODO: implement
                 } else {
                     cout << "Unknown command: " << custom_cmd << endl;
+                    break;
                 }
             }
 
