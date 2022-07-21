@@ -8,6 +8,7 @@
 #include "./piece.h"
 #include "./moveable.h"
 #include "decorator.h"
+#include "../data/playerColor.h"
 
 using namespace std;
 
@@ -21,7 +22,7 @@ int abs(int x)
 vector<Move> MoveX::getValidMoves(const GameState &g) const
 {
     vector<Move> moves = Decorator::getValidMoves(g);
-    int player = Decorator::getOwner();
+    PlayerColor playerColor = Decorator::getOwner();
 
     Position currentPos = getPosition();
     Position pos = currentPos;
@@ -33,7 +34,7 @@ vector<Move> MoveX::getValidMoves(const GameState &g) const
         {
             moves.push_back(Move{currentPos, pos});
         }
-        else if (!g.isOwner(pos, player))
+        else if (!g.isOwner(pos, playerColor))
         {
             moves.push_back(Move{currentPos, pos, pos});
             break;
@@ -53,7 +54,7 @@ vector<Move> MoveX::getValidMoves(const GameState &g) const
         {
             moves.push_back(Move{currentPos, pos});
         }
-        else if (!g.isOwner(pos, player))
+        else if (!g.isOwner(pos, playerColor))
         {
             moves.push_back(Move{currentPos, pos, pos});
             break;

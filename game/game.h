@@ -29,7 +29,7 @@ public:
     int play(const std::string &, const std::string &); // returns winning player
 
     void updateOutputs(const Move &m = Move()) const;
-    std::unique_ptr<Player> getPlayer(const std::string &, int) const;
+    std::unique_ptr<Player> getPlayer(const std::string &, PlayerColor) const;
 };
 
 #endif

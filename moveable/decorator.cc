@@ -32,7 +32,7 @@ Position Decorator::getPosition() const
     return component->getPosition();
 }
 
-int Decorator::getOwner() const
+PlayerColor Decorator::getOwner() const
 {
     return component->getOwner();
 }

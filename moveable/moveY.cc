@@ -1,6 +1,5 @@
 #include <vector>
 #include <memory>
-#include <iostream>
 
 #include "moveY.h"
 #include "../data/pieceType.h"
@@ -9,6 +8,7 @@
 #include "./piece.h"
 #include "./moveable.h"
 #include "decorator.h"
+#include "../data/playerColor.h"
 
 using namespace std;
 
@@ -17,7 +17,7 @@ MoveY::MoveY(unique_ptr<Moveable> component, int maxSteps) : Decorator{std::move
 vector<Move> MoveY::getValidMoves(const GameState &g) const
 {
     vector<Move> moves = Decorator::getValidMoves(g);
-    int player = Decorator::getOwner();
+    PlayerColor player = Decorator::getOwner();
 
     Position currentPos = getPosition();
     Position pos = currentPos;

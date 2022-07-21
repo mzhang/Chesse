@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Human::Human(int playerNum) : Player{playerNum}
+Human::Human(PlayerColor color) : Player{color}
 {
 }
 

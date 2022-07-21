@@ -4,6 +4,7 @@
 #include <string>
 #include <utility>
 
+enum class PlayerColor;
 enum class PieceType
 {
     KING,
@@ -18,8 +19,8 @@ enum class PieceType
 class PieceTypeUtils
 {
 public:
-    static std::string toString(PieceType pieceType, int owner); // used for deciding what image to display
-    static std::pair<PieceType, int> fromString(const std::string &str);
+    static std::string toString(PieceType pieceType, PlayerColor owner); // used for deciding what image to display
+    static std::pair<PieceType, PlayerColor> fromString(const std::string &str);
 };
 
 #endif

@@ -1,16 +1,20 @@
 #ifndef COMPUTER_H_
 #define COMPUTER_H_
 
+#include "../data/playerColor.h"
+
 class GameState;
 struct Move;
 
 class Player
 {
     virtual Move doNextMove(const GameState &) = 0;
+
 protected:
-    int playerNum;
+    PlayerColor playerColor;
+
 public:
-    explicit Player(int);
+    explicit Player(PlayerColor);
 
     Move nextMove(const GameState &);
 };

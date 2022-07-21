@@ -4,7 +4,7 @@
 #include "../data/pieceType.h"
 #include "../graphics/screen.h"
 #include "../data/move.h"
-
+#include "../data/playerColor.h"
 #include "../data/position.h"
 #include "../graphics/chessDrawing.h"
 
@@ -52,7 +52,7 @@ void Visualizer::draw_position(const GameState &b, const Position &position)
     PieceType pieceType = b.board->getPieceType(position);
     if (pieceType != PieceType::NONE)
     {
-        int owner = b.board->getOwner(position);
+        PlayerColor owner = b.board->getOwner(position);
         ChessDrawing::draw_chesspiece(*screen, position.x, position.y, pieceType, owner);
     }
 }

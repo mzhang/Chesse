@@ -16,7 +16,7 @@ Move::Move(const Position &from, const Position &to, const Position &capture) : 
 Move::Move(const Move &other) : from{other.from}, to{other.to}, capturePositions{other.capturePositions} {}
 
 Move::~Move() {}
-
+//TODO:: can't move the same piece twice
 bool Move::operator==(const Move &other) const
 {
     return from == other.from && to == other.to && capturePositions == other.capturePositions;
