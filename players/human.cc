@@ -10,16 +10,14 @@ Human::Human(int playerNum) : Player{playerNum}
 
 Move Human::doNextMove(const GameState &g)
 {
-    while (true) {
-        Position from;
-        Position to;
+    Position from;
+    Position to;
 
-        cin >> from;
-        cin >> to;
-
+    while (cin >> from >> to) {
+        // TODO: if we are moving a pawn to last rank, require extra char input for promotion
         Move move = Move{from, to};
 
-        if (g.isValidMove(move)) {
+        if (g.isOwner(from, playerNum) && g.isValidMove(move)) {
             // TODO: dont return this move. Instead return the complete move we get somehow from gameState
             return move;
         }
