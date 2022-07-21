@@ -4,6 +4,7 @@
 
 Computer2::Computer2(PlayerColor color) : Player{color}
 {
+    
 }
 
 Move Computer2::doNextMove(const GameState &g)
