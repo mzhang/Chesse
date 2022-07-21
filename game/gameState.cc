@@ -52,7 +52,7 @@ vector<Move> GameState::getValidMoves(int playerNum) const
             if (board->getPiece(pos).getOwner() == playerNum)
             {
                 vector<Move> pieceValid = getValidMoves(pos);
-                validMoves.insert(pieceValid.end(), pieceValid.begin(), pieceValid.end());
+                validMoves.insert(validMoves.end(), pieceValid.begin(), pieceValid.end());
             }
         }
     }
@@ -179,35 +179,35 @@ void GameState::standard_chess_board() {
         board->getWidth(), board->getHeight()), Position{7, 7});
 
     // Add 2 knights to white
-    board->addPiece(PieceFactory::createPiece(Position{1, 0}, PieceType::ROOK, 0,
+    board->addPiece(PieceFactory::createPiece(Position{1, 0}, PieceType::KNIGHT, 0,
         board->getWidth(), board->getHeight()), Position{1, 0});
-    board->addPiece(PieceFactory::createPiece(Position{6, 0}, PieceType::ROOK, 0,
+    board->addPiece(PieceFactory::createPiece(Position{6, 0}, PieceType::KNIGHT, 0,
         board->getWidth(), board->getHeight()), Position{6, 0});
 
     // Add 2 knights to black
-    board->addPiece(PieceFactory::createPiece(Position{1, 7}, PieceType::ROOK, 1,
+    board->addPiece(PieceFactory::createPiece(Position{1, 7}, PieceType::KNIGHT, 1,
         board->getWidth(), board->getHeight()), Position{1, 7});
-    board->addPiece(PieceFactory::createPiece(Position{6, 7}, PieceType::ROOK, 1,
+    board->addPiece(PieceFactory::createPiece(Position{6, 7}, PieceType::KNIGHT, 1,
         board->getWidth(), board->getHeight()), Position{6, 7});
 
     // Add 2 bishops to white
-    board->addPiece(PieceFactory::createPiece(Position{2, 0}, PieceType::ROOK, 0,
+    board->addPiece(PieceFactory::createPiece(Position{2, 0}, PieceType::BISHOP, 0,
         board->getWidth(), board->getHeight()), Position{2, 0});
-    board->addPiece(PieceFactory::createPiece(Position{5, 0}, PieceType::ROOK, 0,
+    board->addPiece(PieceFactory::createPiece(Position{5, 0}, PieceType::BISHOP, 0,
         board->getWidth(), board->getHeight()), Position{5, 0});
 
     // Add 2 bishops to black
-    board->addPiece(PieceFactory::createPiece(Position{2, 7}, PieceType::ROOK, 1,
+    board->addPiece(PieceFactory::createPiece(Position{2, 7}, PieceType::BISHOP, 1,
         board->getWidth(), board->getHeight()), Position{2, 7});
-    board->addPiece(PieceFactory::createPiece(Position{5, 7}, PieceType::ROOK, 1,
+    board->addPiece(PieceFactory::createPiece(Position{5, 7}, PieceType::BISHOP, 1,
         board->getWidth(), board->getHeight()), Position{5, 7});
 
     // Add 1 queen to white
-    board->addPiece(PieceFactory::createPiece(Position{3, 0}, PieceType::ROOK, 0,
+    board->addPiece(PieceFactory::createPiece(Position{3, 0}, PieceType::QUEEN, 0,
         board->getWidth(), board->getHeight()), Position{3, 0});
 
     // Add 1 queen to black
-    board->addPiece(PieceFactory::createPiece(Position{3, 7}, PieceType::ROOK, 1,
+    board->addPiece(PieceFactory::createPiece(Position{3, 7}, PieceType::QUEEN, 1,
         board->getWidth(), board->getHeight()), Position{3, 7});
 
     // Add 1 king to white

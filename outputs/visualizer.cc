@@ -25,6 +25,7 @@ void Visualizer::initializeSDL()
 
 Visualizer::Visualizer(const GameState &state)
 {
+    // TODO: fix SDL memory leak
     // Initialize SDL and create a screen
     initializeSDL();
     screen = make_unique<Screen>();

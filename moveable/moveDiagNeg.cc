@@ -2,7 +2,7 @@
 #include <memory>
 #include <cstdlib>
 
-#include "moveX.h"
+#include "moveDiagNeg.h"
 #include "../data/pieceType.h"
 #include "../game/gameState.h"
 #include "../data/move.h"
@@ -12,9 +12,9 @@
 
 using namespace std;
 
-MoveX::MoveX(unique_ptr<Moveable> component, int maxSteps) : Decorator{std::move(component)}, maxSteps{maxSteps} {}
+MoveDiagNeg::MoveDiagNeg(unique_ptr<Moveable> component, int maxSteps) : Decorator{std::move(component)}, maxSteps{maxSteps} {}
 
-vector<Move> MoveX::getValidMoves(const GameState &g) const
+vector<Move> MoveDiagNeg::getValidMoves(const GameState &g) const
 {
     vector<Move> moves = Decorator::getValidMoves(g);
     int player = Decorator::getOwner();
@@ -23,6 +23,7 @@ vector<Move> MoveX::getValidMoves(const GameState &g) const
     Position pos = currentPos;
 
     ++pos.x;
+    ++pos.y;
     while (g.isInBounds(pos) && (abs(pos.x - currentPos.x) <= maxSteps))
     {
         if (g.isEmpty(pos))
@@ -39,10 +40,12 @@ vector<Move> MoveX::getValidMoves(const GameState &g) const
             break;
         }
         ++pos.x;
+        ++pos.y;
     }
 
     pos = currentPos;
     --pos.x;
+    --pos.y;
     while (g.isInBounds(pos) && (abs(pos.x - currentPos.x) <= maxSteps))
     {
         if (g.isEmpty(pos))
@@ -59,14 +62,15 @@ vector<Move> MoveX::getValidMoves(const GameState &g) const
             break;
         }
         --pos.x;
+        --pos.y;
     }
     // moves are appended, not a union. must remove duplicates
     return moves;
 }
 
-unique_ptr<Moveable> MoveX::clone() const
+unique_ptr<Moveable> MoveDiagNeg::clone() const
 {
-    return make_unique<MoveX>(*this);
+    return make_unique<MoveDiagNeg>(*this);
 }
 
-MoveX::MoveX(const MoveX &o) : Decorator{o}, maxSteps{o.maxSteps} {}
+MoveDiagNeg::MoveDiagNeg(const MoveDiagNeg &o) : Decorator{o}, maxSteps{o.maxSteps} {}
