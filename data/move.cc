@@ -22,7 +22,7 @@ bool Move::operator==(const Move &other) const
     return from == other.from && to == other.to && capturePositions == other.capturePositions;
 }
 
-bool isSubset(const vector<Position> &a, const vector<Position> &b)
+bool subsetHelper(const vector<Position> &a, const vector<Position> &b)
 {
     for (Position p : a)
     {
@@ -36,7 +36,7 @@ bool isSubset(const vector<Position> &a, const vector<Position> &b)
 
 bool Move::isSubset(const Move &other) const
 {
-    return isSubset(from, other.from) && isSubset(to, other.to) && isSubset(capturePositions, other.capturePositions);
+    return subsetHelper(from, other.from) && subsetHelper(to, other.to) && subsetHelper(capturePositions, other.capturePositions);
 }
 
 ostream &operator<<(ostream &os, const Move &m)
