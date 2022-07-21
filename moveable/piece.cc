@@ -14,6 +14,8 @@ Piece::~Piece() {}
 
 Position Piece::getPosition() const { return position; }
 
+void Piece::setPosition(Position pos) { position = pos; }
+
 vector<Move> Piece::getValidMoves(const GameState &g) const
 {
     return vector<Move>{};

@@ -120,6 +120,7 @@ void Board::makeMove(Move move)
     for (int i = 0; i < (int)move.from.size(); ++i)
     {
         setPiece(move.to[i], std::move(from[i]));
+        board[move.to[i].y][move.to[i].x]->setPosition(move.to[i]);
     }
 }
 

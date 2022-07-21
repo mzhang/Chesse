@@ -20,6 +20,7 @@ public:
     virtual ~Decorator() = 0;
 
     Position getPosition() const override;
+    void setPosition(Position) override;
     PieceType getPieceType() const override;
     PlayerColor getOwner() const override;
     virtual std::vector<Move> getValidMoves(const GameState &) const override;

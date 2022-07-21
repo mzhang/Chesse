@@ -32,6 +32,11 @@ Position Decorator::getPosition() const
     return component->getPosition();
 }
 
+void Decorator::setPosition(Position pos)
+{
+    component->setPosition(pos);
+}
+
 PlayerColor Decorator::getOwner() const
 {
     return component->getOwner();

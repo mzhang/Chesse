@@ -32,8 +32,9 @@ bool GameState::isValidMove(const Move &m) const
 
 vector<Move> GameState::getValidMoves(const Position &pos) const
 {
-    if (isEmpty(pos))
+    if (isEmpty(pos)) {
         return vector<Move>{};
+    }
 
     const Moveable &piece = board->getPiece(pos);
     vector<Move> validMoves = piece.getValidMoves(*this);
@@ -92,8 +93,72 @@ void GameState::setup(const Game &g)
     {
         if (cmd == "done")
         {
-            // // TODO: make sure that neither king is in check
-            // // Check that there are two kings on the board
+            // // TODO: make sure that neither king is in check, etc
+            break;
+        }
+        else if (cmd == "standard")
+        {
+            standard_chess_board();
+            Move m;
+            // Add the bottom and top two rows to m.from
+            for (int i = 0; i < board->getWidth(); i++)
+            {
+                m.from.push_back({i, 0});
+                m.from.push_back({i, 1});
+                m.from.push_back({i, board->getHeight() - 1});
+                m.from.push_back({i, board->getHeight() - 2});
+            }
+            g.updateOutputs(m);
+        }
+        else if (cmd == "+")
+        {
+            cin >> pieceType;
+            pair<PieceType, PlayerColor> p = PieceTypeUtils::fromString(pieceType);
+            Position pos;
+            cin >> pos;
+
+            if (!isInBounds(pos))
+            {
+                cout << "Invalid position" << endl;
+                continue;
+            }
+
+            board->addPiece(PieceFactory::createPiece(pos, p.first, p.second, board->getWidth(), board->getHeight()), pos);
+            g.updateOutputs(Move{pos, pos});
+        }
+        else if (cmd == "-")
+        {
+            Position pos;
+            cin >> pos;
+
+            if (board->popPiece(pos))
+            {
+                g.updateOutputs(Move{pos, pos});
+            }
+        }
+        else if (cmd == "=")
+        {
+            while (cin >> colour)
+            {
+                if (colour == "black" || colour == "white")
+                {
+                    break;
+                }
+                cout << "Invalid colour, use 'black'/'white'" << endl;
+            }
+
+            currentPlayer = PlayerColorUtils::fromString(colour);
+        }
+        else
+        {
+            cout << "Invalid command" << endl;
+        }
+    }
+}
+
+/* CHECK VALID STATE
+
+// // Check that there are two kings on the board
             // bool one_white_king = false;
             // bool one_black_king = false;
             // bool duplicate_kings = false;
@@ -167,67 +232,8 @@ void GameState::setup(const Game &g)
             // } else {
             //     break;
             // }
-            break;
-        }
-        else if (cmd == "standard")
-        {
-            standard_chess_board();
-            Move m;
-            // Add the bottom and top two rows to m.from
-            for (int i = 0; i < board->getWidth(); i++)
-            {
-                m.from.push_back({i, 0});
-                m.from.push_back({i, 1});
-                m.from.push_back({i, board->getHeight() - 1});
-                m.from.push_back({i, board->getHeight() - 2});
-            }
-            g.updateOutputs(m);
-        }
-        else if (cmd == "+")
-        {
-            cin >> pieceType;
-            pair<PieceType, PlayerColor> p = PieceTypeUtils::fromString(pieceType);
-            Position pos;
-            cin >> pos;
 
-            if (!isInBounds(pos))
-            {
-                cout << "Invalid position" << endl;
-                continue;
-            }
-
-            board->addPiece(PieceFactory::createPiece(pos, p.first, p.second, board->getWidth(), board->getHeight()), pos);
-            g.updateOutputs(Move{pos, pos});
-        }
-        else if (cmd == "-")
-        {
-            Position pos;
-            cin >> pos;
-
-            if (board->popPiece(pos))
-            {
-                g.updateOutputs(Move{pos, pos});
-            }
-        }
-        else if (cmd == "=")
-        {
-            while (cin >> colour)
-            {
-                if (colour == "black" || colour == "white")
-                {
-                    break;
-                }
-                cout << "Invalid colour, use 'black'/'white'" << endl;
-            }
-
-            currentPlayer = PlayerColorUtils::fromString(colour);
-        }
-        else
-        {
-            cout << "Invalid command" << endl;
-        }
-    }
-}
+*/
 
 void GameState::standard_chess_board()
 {
