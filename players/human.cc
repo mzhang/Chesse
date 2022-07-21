@@ -14,6 +14,7 @@ Move Human::doNextMove(const GameState &g)
     Position to;
 
     while (cin >> from >> to) {
+        // TODO: validate positions are inside bounds
         // TODO: if we are moving a pawn to last rank, require extra char input for promotion
         Move move = Move{from, to};
 
