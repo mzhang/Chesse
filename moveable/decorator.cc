@@ -17,22 +17,22 @@ Decorator::Decorator(unique_ptr<Moveable> c) : component{std::move(c)}
 
 Decorator::~Decorator(){};
 
-PieceType Decorator::getPieceType()
+PieceType Decorator::getPieceType() const
 {
     return component->getPieceType();
 }
 
-vector<Move> Decorator::getValidMoves(const GameState &gameState)
+vector<Move> Decorator::getValidMoves(const GameState &gameState) const
 {
     return component->getValidMoves(gameState);
 }
 
-Position Decorator::getPosition()
+Position Decorator::getPosition() const
 {
     return component->getPosition();
 }
 
-int Decorator::getOwner()
+int Decorator::getOwner() const
 {
     return component->getOwner();
 }

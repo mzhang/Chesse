@@ -15,11 +15,11 @@ struct Moveable
 protected:
 public:
     Moveable();
-    virtual Position getPosition() = 0;
-    virtual PieceType getPieceType() = 0;
-    virtual int getOwner() = 0;
-    virtual std::vector<Move> getValidMoves(const GameState &) = 0;
-    virtual std::unique_ptr<Moveable> clone() = 0;
+    virtual Position getPosition() const = 0;
+    virtual PieceType getPieceType() const = 0;
+    virtual int getOwner() const = 0;
+    virtual std::vector<Move> getValidMoves(const GameState &) const = 0;
+    virtual std::unique_ptr<Moveable> clone() const = 0;
 
     virtual ~Moveable() = 0;
 };

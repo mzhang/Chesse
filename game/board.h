@@ -34,7 +34,7 @@ public:
     void addPiece(std::unique_ptr<Moveable>, const Position &);
     std::unique_ptr<Moveable> popPiece(Position &);
     void setPiece(Position &, std::unique_ptr<Moveable>);
-    Moveable &getPiece(const Position &) const;
+    const Moveable &getPiece(const Position &) const;
 
     int getOwner(const Position &) const;
     PieceType getPieceType(const Position &) const;

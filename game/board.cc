@@ -91,14 +91,6 @@ PieceType Board::getPieceType(const Position &p) const
     return isEmpty(p) ? PieceType::NONE : board[p.y][p.x]->getPieceType();
 }
 
-// kinda odd that board needs to be passed in a gamestate, but it's needed for the moveable's getValidMoves() function
-// the debate is passing in a gs vs having hs be able to access arbitrary board positions(eg via board[][])
-// TODO: fix this
-vector<Move> Board::getValidMoves(const Position &pos, const GameState &gs) const
-{
-    return isEmpty(pos) ? vector<Move>{} : board[pos.y][pos.x]->getValidMoves(gs);
-}
-
 void Board::makeMove(Move move)
 {
     // pre: the move is valid
@@ -146,7 +138,7 @@ void Board::setPiece(Position &p, unique_ptr<Moveable> piece)
     board[p.y][p.x] = std::move(piece);
 }
 
-Moveable &Board::getPiece(const Position &p) const
+const Moveable &Board::getPiece(const Position &p) const
 {
     return *board[p.y][p.x];
 }

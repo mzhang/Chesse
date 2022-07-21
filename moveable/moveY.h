@@ -19,8 +19,8 @@ struct MoveY : public Decorator
 public:
     MoveY(std::unique_ptr<Moveable>, int maxSteps = 1);
 
-    std::vector<Move> getValidMoves(const GameState &) override;
-    std::unique_ptr<Moveable> clone() override;
+    std::vector<Move> getValidMoves(const GameState &) const override;
+    std::unique_ptr<Moveable> clone() const override;
 
     MoveY(const MoveY &);
 };

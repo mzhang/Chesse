@@ -23,10 +23,10 @@ public:
     Piece(int, int, PieceType, int);
     ~Piece();
 
-    PieceType getPieceType() override;
-    Position getPosition() override;
-    int getOwner() override;
-    std::vector<Move> getValidMoves(const GameState &) override;
-    std::unique_ptr<Moveable> clone() override;
+    PieceType getPieceType() const override;
+    Position getPosition() const override;
+    int getOwner() const override;
+    std::vector<Move> getValidMoves(const GameState &) const override;
+    std::unique_ptr<Moveable> clone() const override;
 };
 #endif

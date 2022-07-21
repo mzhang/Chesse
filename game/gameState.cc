@@ -21,7 +21,11 @@ GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, 
 bool GameState::isValidMove(const Move &m) const
 {
     // assuming move "target" is m.from[0]
-    vector<Move> validMoves = board->getValidMoves(m.from[0], *this);
+    if (isEmpty(m.from[0]))
+        return false;
+
+    const Moveable &piece = board->getPiece(m.from[0]);
+    vector<Move> validMoves = piece.getValidMoves(*this);
     return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end();
 }
 
@@ -31,7 +35,10 @@ vector<Move> GameState::getValidMoves(const Position &pos) const
 {
     if (isEmpty(pos))
         return vector<Move>{};
-    return board->getValidMoves(pos, *this);
+    
+    const Moveable &piece = board->getPiece(pos);
+    vector<Move> validMoves = piece.getValidMoves(*this);
+    return validMoves;
 }
 
 bool GameState::isOwner(Position p, int player) const

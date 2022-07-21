@@ -22,8 +22,8 @@ void TextDisplay::doUpdate(const GameState &g, const Move &)
                     cout << " ";
                 }
             } else {
-                Moveable &m = g.board->getPiece(p);
-                cout << PieceTypeUtils::toString(m.getPieceType(), m.getOwner());
+                const Moveable &piece = g.board->getPiece(p);
+                cout << PieceTypeUtils::toString(piece.getPieceType(), piece.getOwner());
             }
         }
         cout << endl;

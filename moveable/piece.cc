@@ -11,24 +11,24 @@ Piece::Piece(int x, int y, PieceType pieceType, int pNum) :  playerNum{pNum}, ty
 
 Piece::~Piece() {}
 
-Position Piece::getPosition() { return position; }
+Position Piece::getPosition() const { return position; }
 
-vector<Move> Piece::getValidMoves(const GameState &g)
+vector<Move> Piece::getValidMoves(const GameState &g) const
 {
     return vector<Move>{};
 }
 
-PieceType Piece::getPieceType()
+PieceType Piece::getPieceType() const
 {
     return type;
 }
 
-int Piece::getOwner()
+int Piece::getOwner() const
 {
     return playerNum;
 }
 
-unique_ptr<Moveable> Piece::clone()
+unique_ptr<Moveable> Piece::clone() const
 {
     return make_unique<Piece>(*this);
 }

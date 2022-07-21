@@ -18,7 +18,7 @@ int abs(int x)
     return x < 0 ? -x : x;
 }
 
-vector<Move> MoveX::getValidMoves(const GameState &g)
+vector<Move> MoveX::getValidMoves(const GameState &g) const
 {
     vector<Move> moves = Decorator::getValidMoves(g);
     int player = Decorator::getOwner();
@@ -68,7 +68,7 @@ vector<Move> MoveX::getValidMoves(const GameState &g)
     return moves;
 }
 
-unique_ptr<Moveable> MoveX::clone()
+unique_ptr<Moveable> MoveX::clone() const
 {
     return make_unique<MoveX>(*this);
 }

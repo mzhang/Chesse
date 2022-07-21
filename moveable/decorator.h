@@ -18,10 +18,10 @@ public:
     explicit Decorator(std::unique_ptr<Moveable>);
     virtual ~Decorator() = 0;
 
-    Position getPosition() override;
-    PieceType getPieceType() override;
-    int getOwner() override;
-    virtual std::vector<Move> getValidMoves(const GameState &) override;
+    Position getPosition() const override;
+    PieceType getPieceType() const override;
+    int getOwner() const override;
+    virtual std::vector<Move> getValidMoves(const GameState &) const override;
 
     Decorator(const Decorator &);
 };

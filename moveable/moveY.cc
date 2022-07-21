@@ -14,7 +14,7 @@ using namespace std;
 
 MoveY::MoveY(unique_ptr<Moveable> component, int maxSteps) : Decorator{std::move(component)}, maxSteps{maxSteps} {}
 
-vector<Move> MoveY::getValidMoves(const GameState &g)
+vector<Move> MoveY::getValidMoves(const GameState &g) const
 {
     vector<Move> moves = Decorator::getValidMoves(g);
     int player = Decorator::getOwner();
@@ -64,7 +64,7 @@ vector<Move> MoveY::getValidMoves(const GameState &g)
     return moves;
 }
 
-unique_ptr<Moveable> MoveY::clone()
+unique_ptr<Moveable> MoveY::clone() const
 {
     return make_unique<MoveY>(*this);
 }
