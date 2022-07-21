@@ -102,15 +102,6 @@ vector<Move> Board::getValidMoves(const Position &pos, const GameState &gs) cons
 void Board::makeMove(Move move)
 {
     // pre: the move is valid
-    // for (Position capture : move.capturePositions)
-    // {
-    //     popPiece(capture);
-    // }
-    // // assuming all pieces from Move::to have corresponding Move::from
-    // for (int i = 0; i < (int)move.to.size(); ++i)
-    // {
-    //     board[move.to[i].y][move.to[i].x] = std::move(board[move.from[i].y][move.from[i].x]);
-    // }
 
     vector<unique_ptr<Moveable>> from; // we need to store the pieces that will move since we may have a second piece overlapping
     for (int i = 0; i < (int)move.from.size(); ++i)
