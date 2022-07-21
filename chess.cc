@@ -25,6 +25,21 @@ void Chess::start(bool useDisplay)
             }
         } else if (cmd == "custom") {
             // TODO: allow custom setup such as modifying board size
+    
+            string custom_cmd;
+            // Commands can be 
+            // - size <width> <height>
+
+            while (cin >> custom_cmd) {
+                if (custom_cmd == "size") {
+                    string boardWidth, boardHeight;
+                    cin >> boardWidth >> boardHeight;
+                    // TODO: implement
+                } else {
+                    cout << "Unknown command: " << custom_cmd << endl;
+                }
+            }
+
             break;
         } else {
             cout << "Invalid command" << endl;
