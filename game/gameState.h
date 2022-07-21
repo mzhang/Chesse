@@ -11,7 +11,7 @@ struct Move;
 
 class GameState
 {
-    public:
+public:
     std::unique_ptr<Board> board;
     int currentPlayer; // white = 0; black = 1
 
@@ -24,6 +24,7 @@ class GameState
     bool isOwner(Position p, int player) const;
     bool isEmpty(Position p) const;
     std::vector<Move> getValidMoves(const Position &pos) const;
+    std::vector<Move> getValidMoves(int playerNum) const;
 
     void switchPlayers();
 

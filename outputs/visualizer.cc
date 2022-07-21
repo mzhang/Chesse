@@ -31,6 +31,7 @@ Visualizer::Visualizer(const GameState &state)
 
     // Draw game board
     ChessDrawing::draw_chessboard_background(*screen);
+    ChessDrawing::draw_axes(*screen);
 
     // Draw all pieces
     for (int r = 0; r < 8; r++)

@@ -17,7 +17,7 @@ class Visualizer : public Output
     static void initializeSDL();
     void draw_position(const GameState &, const Position &);
     void doUpdate(const GameState &, const Move &) override;
-    public:
-       explicit Visualizer(const GameState &);
+public:
+    explicit Visualizer(const GameState &);
 }; 
 #endif
