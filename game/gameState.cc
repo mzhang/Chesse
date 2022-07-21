@@ -25,13 +25,31 @@ bool GameState::isValidMove(const Move &m) const
     return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end();
 }
 
-// TODO: create some function that returns the complete move from a partial move
-
 vector<Move> GameState::getValidMoves(const Position &pos) const
 {
     if (isEmpty(pos))
         return vector<Move>{};
     return board->getValidMoves(pos, *this);
+}
+
+vector<Move> GameState::getValidMoves(int playerNum) const
+{
+    vector<Move> validMoves;
+    for (int i = 0; i < board->getWidth(); i++)
+    {
+        for (int j = 0; j < board->getHeight(); j++)
+        {
+            Position pos{i, j};
+            if (isEmpty(pos))
+                continue;
+            if (board->getPiece(pos).getOwner() == playerNum)
+            {
+                vector<Move> pieceValid = board->getValidMoves(pos, *this);
+                validMoves.insert(pieceValid.end(), pieceValid.begin(), pieceValid.end());
+            }
+        }
+    }
+    return validMoves;
 }
 
 bool GameState::isOwner(Position p, int player) const
@@ -76,7 +94,7 @@ void GameState::setup(const Game &g)
             cin >> pos;
 
             board->addPiece(PieceFactory::createPiece(pos, p.first, p.second, board->getWidth(), board->getHeight()), pos);
-            g.updateOutputs(Move{pos,pos});
+            g.updateOutputs(Move{pos, pos});
         }
         else if (cmd == "-")
         {
