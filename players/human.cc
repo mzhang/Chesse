@@ -13,14 +13,18 @@ Move Human::doNextMove(const GameState &g)
     Position from;
     Position to;
 
-    while (cin >> from >> to) {
-        // TODO: validate positions are inside bounds
+    while (cin >> from >> to)
+    {
         // TODO: if we are moving a pawn to last rank, require extra char input for promotion
         Move move = Move{from, to};
+        vector<Move> validMoves = g.getValidMoves(from);
 
-        if (g.isOwner(from, playerNum) && g.isValidMove(move)) {
-            // TODO: dont return this move. Instead return the complete move we get somehow from gameState
-            return move;
+        for (Move m : validMoves)
+        {
+            if (move.isSubset(m))
+            {
+                return m;
+            }
         }
 
         cout << "Invalid move, please try again" << endl;
