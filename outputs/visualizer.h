@@ -19,5 +19,7 @@ class Visualizer : public Output
     void doUpdate(const GameState &, const Move &) override;
 public:
     explicit Visualizer(const GameState &);
+
+    ~Visualizer();
 }; 
 #endif

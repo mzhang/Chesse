@@ -19,7 +19,7 @@ void Visualizer::initializeSDL()
     if (!SDLIsInitialized)
     {
         SDLIsInitialized = true;
-        SDL_Runner runner;
+        SDL_Init(SDL_INIT_EVERYTHING);
     }
 }
 
@@ -38,7 +38,7 @@ Visualizer::Visualizer(const GameState &state)
     {
         for (int c = 0; c < 8; c++)
         {
-            Position p{r,c};
+            Position p{r, c};
             draw_position(state, p);
         }
     }
@@ -46,23 +46,37 @@ Visualizer::Visualizer(const GameState &state)
     screen->update();
 }
 
-void Visualizer::draw_position(const GameState &b, const Position &position) {
+void Visualizer::draw_position(const GameState &b, const Position &position)
+{
     ChessDrawing::clear_square(*screen, position.x, position.y);
     PieceType pieceType = b.board->getPieceType(position);
-    if (pieceType != PieceType::NONE) {
+    if (pieceType != PieceType::NONE)
+    {
         int owner = b.board->getOwner(position);
         ChessDrawing::draw_chesspiece(*screen, position.x, position.y, pieceType, owner);
-    }   
+    }
 }
 
-void Visualizer::doUpdate(const GameState &b, const Move &m) {
+void Visualizer::doUpdate(const GameState &b, const Move &m)
+{
     // Draw all the changes from move
-    for (auto position : m.from) {
-        draw_position(b,position);
+    for (auto position : m.from)
+    {
+        draw_position(b, position);
     }
 
-    for (auto position : m.to) {
-        draw_position(b,position);
+    for (auto position : m.to)
+    {
+        draw_position(b, position);
     }
     screen->update();
+}
+
+Visualizer::~Visualizer()
+{
+    TTF_Quit();
+    IMG_Quit();
+    SDL_VideoQuit();
+    SDL_QuitSubSystem(SDL_INIT_EVERYTHING);
+    SDL_Quit();
 }
