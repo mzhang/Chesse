@@ -112,6 +112,12 @@ void GameState::setup(const Game &g)
             Position pos;
             cin >> pos;
 
+            if (!isInBounds(pos))
+            {
+                cout << "Invalid position" << endl;
+                continue;
+            }
+
             board->addPiece(PieceFactory::createPiece(pos, p.first, p.second, board->getWidth(), board->getHeight()), pos);
             g.updateOutputs(Move{pos, pos});
         }

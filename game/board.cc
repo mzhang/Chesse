@@ -150,5 +150,10 @@ int Board::getOwner(const Position &p) const
 
 bool Board::isEmpty(const Position &p) const
 {
+    // if this is not in bounds, throw an error
+    if (p.y < 0 || p.y >= height || p.x < 0 || p.x >= width)
+    {
+        throw std::out_of_range("Position is out of bounds on board");
+    }
     return !board[p.y][p.x];
 }
