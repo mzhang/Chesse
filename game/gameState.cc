@@ -51,7 +51,7 @@ vector<Move> GameState::getValidMoves(int playerNum) const
                 continue;
             if (board->getPiece(pos).getOwner() == playerNum)
             {
-                vector<Move> pieceValid = board->getValidMoves(pos, *this);
+                vector<Move> pieceValid = getValidMoves(pos);
                 validMoves.insert(pieceValid.end(), pieceValid.begin(), pieceValid.end());
             }
         }

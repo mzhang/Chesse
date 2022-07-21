@@ -28,7 +28,6 @@ public:
     Board(Board &&);
     Board &operator=(Board &&);
 
-    std::vector<Move> getValidMoves(const Position &pos, const GameState &gs) const;
     void makeMove(Move);
 
     void addPiece(std::unique_ptr<Moveable>, const Position &);
