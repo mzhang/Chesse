@@ -52,7 +52,7 @@ vector<Move> GameState::getValidMoves(int playerNum) const
             if (board->getPiece(pos).getOwner() == playerNum)
             {
                 vector<Move> pieceValid = getValidMoves(pos);
-                validMoves.insert(pieceValid.end(), pieceValid.begin(), pieceValid.end());
+                validMoves.insert(validMoves.end(), pieceValid.begin(), pieceValid.end());
             }
         }
     }
@@ -166,6 +166,7 @@ void GameState::setup(const Game &g)
             // } else {
             //     break;
             // }
+            break;
         }
         else if (cmd == "standard") {
             standard_chess_board();
