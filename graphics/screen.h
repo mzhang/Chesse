@@ -10,7 +10,7 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 
-#include "sdl_colors.h"
+#include "colours.h"
 
 // Class that represents your screen, currently can be used to draw rectangles.
 class Screen {
@@ -34,19 +34,6 @@ class Screen {
   void update();
   int getWidth();
   int getHeight();
-};
-
-
-// For timing framerate - we can't have our
-// loop for a GUI with input running at the
-// max speed it can, it's too fast.
-class Clock {
-  int initTick = 0;
-  bool started = false;
- public:
-  Clock() {}
-  void start();
-  int getTicks();
 };
 
 #endif // SDL_WRAP_H_

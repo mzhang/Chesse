@@ -2,11 +2,11 @@
 #include "../game/gameState.h"
 #include "../game/board.h"
 #include "../data/pieceType.h"
-#include "../graphics/sdl_wrap.h"
+#include "../graphics/screen.h"
 #include "../data/move.h"
 
 #include "../data/position.h"
-#include "../graphics/chess_drawing.h"
+#include "../graphics/chessDrawing.h"
 
 #include <memory>
 

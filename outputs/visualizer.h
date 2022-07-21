@@ -2,7 +2,7 @@
 #define VISUALIZER_H_
 
 #include "output.h"
-#include "../graphics/sdl_wrap.h"
+#include "../graphics/screen.h"
 
 
 #include <memory>

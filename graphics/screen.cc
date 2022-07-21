@@ -1,4 +1,4 @@
-#include "sdl_wrap.h"
+#include "screen.h"
 #include <string>
 #include <iostream>
 #include <SDL/SDL.h>
@@ -45,21 +45,6 @@ void Screen::update()
   rects.clear();
 
   // All rects are erased each update.
-}
-
-void Clock::start()
-{
-  started = true;
-  initTick = SDL_GetTicks();
-}
-
-int Clock::getTicks()
-{
-  if (started)
-  {
-    return SDL_GetTicks() - initTick;
-  }
-  return 0;
 }
 
 void Screen::draw_text(short int xloc, short int yloc, unsigned short int w, unsigned short int h, string text, int font_size, Colour c)

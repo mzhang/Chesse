@@ -1,7 +1,7 @@
-#include "chess_drawing.h"
+#include "chessDrawing.h"
 
-#include "sdl_wrap.h"
-#include "sdl_colors.h"
+#include "screen.h"
+#include "colours.h"
 #include "../data/pieceType.h"
 #include "../game/gameState.h"
 #include "../data/move.h"
