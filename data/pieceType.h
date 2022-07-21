@@ -11,7 +11,8 @@ enum class PieceType
     ROOK,
     BISHOP,
     KNIGHT,
-    PAWN
+    PAWN,
+    NONE
 };
 
 class PieceTypeUtils

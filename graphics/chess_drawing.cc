@@ -46,6 +46,19 @@ void ChessDrawing::draw_axes(Screen &screen)
     }
 }
 
+void ChessDrawing::clear_square(Screen &screen, int x, int y) {
+    // Clear chessboard square x, y and return to background color
+    int square_size = screen.getWidth() / 8 - 10;
+    if ((x + y) % 2 == 0)
+    {
+        screen.draw_rect(x * square_size + 5, y * square_size + 5, square_size, square_size, WHITE);
+    }
+    else
+    {
+        screen.draw_rect(x * square_size + 5, y * square_size + 5, square_size, square_size, BLACK);
+    }
+}
+
 void ChessDrawing::draw_potential_moves(Screen &screen, const std::vector<Move> &moves)
 {
     const int square_size = screen.getWidth() / 8 - 10;
@@ -60,30 +73,13 @@ void ChessDrawing::draw_potential_moves(Screen &screen, const std::vector<Move> 
     }
 }
 
-
-
-void ChessDrawing::draw_chesspiece(Screen &screen, int r, int c, PieceType piece, int owner)
+void ChessDrawing::draw_chesspiece(Screen &screen, int x, int y, PieceType piece, int owner)
 {
     const int square_size = screen.getWidth() / 8 - 10;
     // Draw a chesspiece on the square at (r, c). Load image from resources folder
     // Files are stored in the format [pieceName]_sprite.png
     std::string filename = PieceTypeUtils::toString(piece, owner);
-    filename += "sprite.png";
+    filename += "_sprite.png";
 
-    screen.draw_image(r * square_size + 5, c * square_size + 5, square_size, square_size, filename);
+    screen.draw_image(x * square_size + 5, y * square_size + 5, square_size, square_size, filename);
 }
-
-// void ChessDrawing::draw_game(Screen &screen)
-// {
-//     // Draw chessboard background
-//     draw_chessboard_background(screen);
-
-//     // Draw axes
-//     draw_axes(screen);
-
-//     // Draw pieces
-
-//     // Draw time
-
-//     screen.update();
-// }
