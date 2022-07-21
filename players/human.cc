@@ -10,15 +10,19 @@ Human::Human(int playerNum) : Player{playerNum}
 
 Move Human::doNextMove(const GameState &g)
 {
-    Position from;
-    Position to;
+    while (true) {
+        Position from;
+        Position to;
 
-    cin >> from;
-    cin >> to;
+        cin >> from;
+        cin >> to;
 
-    // TODO: right now this doesn't handle captures/castling. We should do some post-processing on move to handle this.
+        Move move = Move{from, to};
+        if (g.isValidMove(move)) {
+            // TODO: dont return this move. Instead return the complete move we get somehow from gameState
+            return move;
+        }
 
-    // TODO: should check if this is actually a valid move...
-
-    return Move{from, to};
+        cout << "Invalid move, please try again" << endl;
+    }
 }

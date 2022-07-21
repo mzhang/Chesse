@@ -25,6 +25,8 @@ bool GameState::isValidMove(const Move &m) const
     return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end();
 }
 
+// TODO: create some function that returns the complete move from a partial move
+
 vector<Move> GameState::getValidMoves(const Position &pos) const
 {
     if (isEmpty(pos))

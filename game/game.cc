@@ -35,12 +35,7 @@ int Game::play(const string &player1, const string &player2)
         else if (cmd == "move")
         {
             Move move = players[state.currentPlayer]->nextMove(state);
-
-            if (!state.isValidMove(move))
-            {
-                cout << "Invalid move!" << endl;
-                continue;
-            }
+            // post: move is valid
 
             state.board->makeMove(move);
             history.addMove(move);
@@ -48,7 +43,7 @@ int Game::play(const string &player1, const string &player2)
             state.switchPlayers();
             updateOutputs(move);
         }
-        else if (cmd == "peek")
+        else if (cmd == "valid")
         {
             Position pos;
             cin >> pos;

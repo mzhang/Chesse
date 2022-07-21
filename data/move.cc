@@ -18,7 +18,7 @@ Move::~Move() {}
 
 bool Move::operator==(const Move &other) const
 {
-    return from == other.from && to == other.to;
+    return from == other.from && to == other.to; // TODO: should probly be an exact match. Maybe add like a "isSubet" function too?
 }
 
 ostream &operator<<(ostream &os, const Move &m)
