@@ -76,7 +76,7 @@ void GameState::setup(const Game &g)
             cin >> pos;
 
             board->addPiece(PieceFactory::createPiece(pos, p.first, p.second, board->getWidth(), board->getHeight()), pos);
-            g.updateOutputs();
+            g.updateOutputs(Move{pos,pos});
         }
         else if (cmd == "-")
         {

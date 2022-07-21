@@ -38,18 +38,30 @@ Visualizer::Visualizer(const GameState &state)
         for (int c = 0; c < 8; c++)
         {
             Position p{r,c};
-            PieceType piece = state.board->getPieceType(p);
-            int owner = state.board->getOwner(p);
-            ChessDrawing::draw_chesspiece(*screen, r, c, piece, owner);
+            draw_position(state, p);
         }
     }
 
+    screen->update();
+}
+
+void Visualizer::draw_position(const GameState &b, const Position &position) {
+    ChessDrawing::clear_square(*screen, position.x, position.y);
+    PieceType pieceType = b.board->getPieceType(position);
+    if (pieceType != PieceType::NONE) {
+        int owner = b.board->getOwner(position);
+        ChessDrawing::draw_chesspiece(*screen, position.x, position.y, pieceType, owner);
+    }   
 }
 
 void Visualizer::doUpdate(const GameState &b, const Move &m) {
-    // TODO: implement
-
     // Draw all the changes from move
-    
+    for (auto position : m.from) {
+        draw_position(b,position);
+    }
 
+    for (auto position : m.to) {
+        draw_position(b,position);
+    }
+    screen->update();
 }

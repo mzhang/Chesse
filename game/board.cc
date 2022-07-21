@@ -86,7 +86,7 @@ Board &Board::operator=(Board &&o)
 
 PieceType Board::getPieceType(const Position &p) const
 {
-    return board[p.y][p.x]->getPieceType();
+    return isEmpty(p) ? PieceType::NONE : board[p.y][p.x]->getPieceType();
 }
 
 // kinda odd that board needs to be passed in a gamestate, but it's needed for the moveable's getValidMoves() function
@@ -160,7 +160,7 @@ Moveable &Board::getPiece(const Position &p) const
 
 int Board::getOwner(const Position &p) const
 {
-    return board[p.y][p.x]->getOwner();
+    return isEmpty(p) ? 0 : board[p.y][p.x]->getOwner();
 }
 
 bool Board::isEmpty(const Position &p) const

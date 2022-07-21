@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h>
 #include <memory>
 
@@ -53,15 +54,20 @@ void Screen::draw_text(short int xloc, short int yloc, unsigned short int w, uns
 
 void Screen::draw_image(short int xloc, short int yloc, unsigned short int w, unsigned short int h, const string &image_path)
 {
-  // Image path is relative to resources directory
-  string full_path = "resources/" + image_path;
-  unique_ptr<SDL_Surface> loaded_image_surface{SDL_LoadBMP(full_path.c_str())};
+
+  int imgFlags = IMG_INIT_PNG;
+  if( !( IMG_Init( imgFlags ) & imgFlags ) )
+  {
+      printf( "SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError() );
+  }
+  string full_path = "/u1/ymulki/cs247/Chesse/graphics/resources/" + image_path;
+  SDL_Surface* loaded_image_surface = IMG_Load(full_path.c_str());
   if (loaded_image_surface == nullptr)
   {
-    cerr << "Could not load asset: " << image_path << endl;
+    cerr << "Could not load asset: " << full_path << endl;
     return;
   }
-  unique_ptr<SDL_Rect> image_rect(new SDL_Rect{xloc, yloc, w, h});
-  SDL_BlitSurface(loaded_image_surface.get(), nullptr, screen, image_rect.get());
-  SDL_FreeSurface(loaded_image_surface.get());
+  SDL_Rect *image_rect = new SDL_Rect{xloc, yloc, w, h};
+  SDL_BlitSurface(loaded_image_surface, nullptr, screen, image_rect);
+  SDL_FreeSurface(loaded_image_surface);
 }
