@@ -3,8 +3,7 @@
 
 #include <vector>
 #include "position.h"
-
-class Piece;
+#include "../moveable/piece.h"
 
 struct Move
 {

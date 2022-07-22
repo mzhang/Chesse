@@ -13,10 +13,10 @@ Move::Move(const vector<Position> &from, const vector<Position> &to, const vecto
 
 Move::Move(const Position &from, const Position &to, const Position &capture) : from{vector<Position>{from}}, to{vector<Position>{to}}, capturePositions{vector<Position>{capture}} {}
 
-Move::Move(const Move &other) : from{other.from}, to{other.to}, capturePositions{other.capturePositions} {}
+Move::Move(const Move &other) : from{other.from}, to{other.to}, capturePositions{other.capturePositions}, piecesCaptured{other.piecesCaptured} {}
 
 Move::~Move() {}
-//TODO:: can't move the same piece twice
+
 bool Move::operator==(const Move &other) const
 {
     return from == other.from && to == other.to && capturePositions == other.capturePositions;
