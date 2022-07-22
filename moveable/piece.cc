@@ -12,9 +12,23 @@ Piece::Piece(int x, int y, PieceType pieceType, PlayerColor color) : playerColor
 
 Piece::~Piece() {}
 
-Position Piece::getPosition() const { return position; }
+Position Piece::getPosition() const
+{
+    return position;
+}
+void Piece::setPosition(Position pos)
+{
+    position = pos;
+}
 
-void Piece::setPosition(Position pos) { position = pos; }
+bool Piece::getHasMoved() const
+{
+    return hasMoved;
+}
+void Piece::setHasMoved(bool moved)
+{
+    hasMoved = moved;
+}
 
 vector<Move> Piece::getValidMoves(const GameState &g) const
 {

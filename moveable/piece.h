@@ -26,6 +26,8 @@ public:
 
     PieceType getPieceType() const override;
     Position getPosition() const override;
+    bool getHasMoved() const override;
+    void setHasMoved(bool) override;
     void setPosition(Position) override;
     PlayerColor getOwner() const override;
     std::vector<Move> getValidMoves(const GameState &) const override;
