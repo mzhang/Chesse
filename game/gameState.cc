@@ -12,11 +12,26 @@
 #include "../moveable/pieceFactory.h"
 #include "../data/playerColor.h"
 
+#include <util.h>
+
 using namespace std;
 
 GameState::GameState(int boardWidth, int boardHeight) : board{make_unique<Board>(boardWidth, boardHeight)}, currentPlayer{PlayerColor::WHITE} {}
 
 GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer} {}
+
+void GameState::swap(GameState &o)
+{
+    std::swap(board, o.board);
+    std::swap(currentPlayer, o.currentPlayer);
+}
+
+GameState& GameState::operator=(const GameState &o)
+{
+    GameState tmp{o};
+    swap(tmp);
+    return *this;
+}
 
 // TODO: multiple piece movements?
 bool GameState::isValidMove(const Move &m) const
@@ -38,10 +53,7 @@ void GameState::makeMove(const Move &m)
     board->makeMove(m);
 }
 
-void GameState::undoMove(const Move &h)
-{
-    //
-}
+
 
 bool GameState::checkDetection(PlayerColor pc, Move m) const
 {
@@ -79,6 +91,8 @@ vector<Move> GameState::getValidMoves(PlayerColor playerColor) const
     }
     return validMoves;
 }
+
+GameState::~GameState() {}
 
 bool GameState::isOwner(Position p, PlayerColor playerColor) const
 {

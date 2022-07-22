@@ -18,6 +18,10 @@ public:
 
     GameState(int, int);
     GameState(const GameState &o);
+    GameState &operator=(const GameState &o);
+    void swap(GameState &o);
+
+    ~GameState();
     void setup(const Game &);
 
     void standard_chess_board();
@@ -29,7 +33,6 @@ public:
     std::vector<Move> getValidMoves(const Position &pos) const;
     std::vector<Move> getValidMoves(PlayerColor) const;
     void makeMove(const Move &m);
-    void undoMove(const Move &m);
     bool checkDetection(PlayerColor, Move) const;
 
     void switchPlayers();

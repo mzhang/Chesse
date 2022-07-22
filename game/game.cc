@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Game::Game(int boardWidth, int boardHeight, bool useDisplay) : state{boardWidth, boardHeight}
+Game::Game(int boardWidth, int boardHeight, bool useDisplay) : state{boardWidth, boardHeight}, history{state}
 {
     outputs.push_back(make_unique<TextDisplay>());
     if (useDisplay)
@@ -43,11 +43,21 @@ PlayerColor Game::play(const string &player1, const string &player2)
             Move move = players[state.currentPlayer]->nextMove(state);
             // post: move is valid
 
+            history.addMove(move, state);
             state.board->makeMove(move);
-            history.addMove(move);
 
             state.switchPlayers();
             updateOutputs(move);
+        }
+        else if (cmd == "undo") {
+            // Get last gamestate from history and replace gamestate if available
+            if (!history.empty()) {
+                auto move_state = history.pop_back();
+                state = move_state.second;
+                updateOutputs(move_state.first);
+            } else {
+                cout << "No moves to undo." << endl;
+            }
         }
         else if (cmd == "valid")
         {
