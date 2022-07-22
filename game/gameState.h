@@ -28,6 +28,9 @@ public:
     bool isEmpty(Position p) const;
     std::vector<Move> getValidMoves(const Position &pos) const;
     std::vector<Move> getValidMoves(PlayerColor) const;
+    void makeMove(const Move &m);
+    void undoMove(const Move &m);
+    bool checkDetection(PlayerColor, Move) const;
 
     void switchPlayers();
 
