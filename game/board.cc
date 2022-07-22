@@ -91,7 +91,25 @@ PieceType Board::getPieceType(const Position &p) const
     return isEmpty(p) ? PieceType::NONE : board[p.y][p.x]->getPieceType();
 }
 
-void Board::makeMove(Move move)
+void Board::undoMove(Move m)
+{
+   // Undoes the move and places any captured pieces back on the board
+
+    // Move all the pieces back to their original positions
+    for (size_t i = 0; i < m.from.size(); i++)
+    {
+        // Move objects from end position to starting position
+        setPiece(m.from[i], popPiece(m.to[i]));
+
+        // Put the deleted pieces back on the board
+        if (m.piecesCaptured[i]->getPieceType() != PieceType::NONE)
+        {
+            addPiece(std::move(m.piecesCaptured[i]), m.to[i]);
+        }
+    }
+}
+
+Move Board::makeMove(Move move)
 {
     // pre: the move is valid
 
@@ -105,7 +123,9 @@ void Board::makeMove(Move move)
     {
         if (!isEmpty(move.to[i]))
         {
-            popPiece(move.to[i]);
+            move.piecesCaptured.push_back(popPiece(move.to[i]));
+        } else {
+            move.piecesCaptured.emplace_back(make_unique<Piece>(Piece(move.to[i].x, move.to[i].y, PieceType::NONE, PlayerColor::NONE)));
         }
     }
 
@@ -122,6 +142,8 @@ void Board::makeMove(Move move)
         setPiece(move.to[i], std::move(from[i]));
         board[move.to[i].y][move.to[i].x]->setPosition(move.to[i]);
     }
+
+    return move;
 }
 
 void Board::addPiece(unique_ptr<Moveable> piece, const Position &pos)

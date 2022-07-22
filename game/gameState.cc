@@ -31,20 +31,10 @@ bool GameState::isValidMove(const Move &m) const
     return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end();
 }
 
-// Precondition: move accounts for all side effects
-void GameState::makeMove(const Move &m)
-{
-    board->makeMove(m);
-}
 
-void GameState::undoMove(const Move &h)
+bool GameState::checkDetection(PlayerColor playerColor, Move &m)
 {
-    // 
-}
-
-bool GameState::checkDetection(int playerNum, Move m) const
-{
-    // Strategy: For every move, 
+    // Strategy: For every move
 }
 
 vector<Move> GameState::getValidMoves(const Position &pos) const
@@ -98,6 +88,11 @@ bool GameState::isInBounds(Position p) const
 void GameState::switchPlayers()
 {
     currentPlayer = PlayerColorUtils::getNext(currentPlayer);
+}
+
+void GameState::switchPlayersBack()
+{
+    currentPlayer = PlayerColorUtils::getPrevious(currentPlayer);
 }
 
 void GameState::setup(const Game &g)

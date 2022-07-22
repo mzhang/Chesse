@@ -29,7 +29,10 @@ public:
     std::vector<Move> getValidMoves(const Position &pos) const;
     std::vector<Move> getValidMoves(PlayerColor) const;
 
+    bool checkDetection(PlayerColor, Move &);
+
     void switchPlayers();
+    void switchPlayersBack();
 
     friend std::istream &operator>>(std::istream &is, GameState &g);
 };

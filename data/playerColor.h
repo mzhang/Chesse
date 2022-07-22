@@ -14,6 +14,7 @@ struct PlayerColorUtils
 {
     const static int playerNum = 2;
     static PlayerColor getNext(PlayerColor);
+    static PlayerColor getPrevious(PlayerColor);
     static int getInt(PlayerColor);
     static PlayerColor fromString(const std::string &);
 };

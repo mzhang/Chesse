@@ -9,6 +9,8 @@ class GameHistory {
 public:
     void addMove(Move);
     void printHistory();
+    bool empty();
+    Move lastMove();
 };
 
 #endif

@@ -29,7 +29,7 @@ public:
     Board(Board &&);
     Board &operator=(Board &&);
 
-    void makeMove(Move);
+    Move makeMove(Move);
 
     void addPiece(std::unique_ptr<Moveable>, const Position &);
     std::unique_ptr<Moveable> popPiece(Position &);
@@ -42,6 +42,9 @@ public:
 
     int getWidth() const;
     int getHeight() const;
+
+    void undoMove(Move m);
+
 };
 
 #endif

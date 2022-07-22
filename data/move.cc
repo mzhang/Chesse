@@ -1,5 +1,6 @@
 #include "move.h"
 #include <vector>
+#include <utility>
 #include <iostream>
 #include <algorithm>
 
@@ -7,16 +8,48 @@ using namespace std;
 
 Move::Move() {}
 
-Move::Move(const Position &from, const Position &to) : from{from}, to{to}, capturePositions{vector<Position>{}} {}
+Move::Move(const Position &from, const Position &to) : from{from}, to{to}, capturePositions{vector<Position>{}}, piecesCaptured{} {}
 
-Move::Move(const vector<Position> &from, const vector<Position> &to, const vector<Position> &capture) : from{from}, to{to}, capturePositions{capture} {}
+Move::Move(const vector<Position> &from, const vector<Position> &to, const vector<Position> &capture) : from{from}, to{to}, capturePositions{capture}, piecesCaptured{} {}
 
-Move::Move(const Position &from, const Position &to, const Position &capture) : from{vector<Position>{from}}, to{vector<Position>{to}}, capturePositions{vector<Position>{capture}} {}
+Move::Move(const Position &from, const Position &to, const Position &capture) : from{vector<Position>{from}}, to{vector<Position>{to}}, capturePositions{vector<Position>{capture}}, piecesCaptured{} {}
 
-Move::Move(const Move &other) : from{other.from}, to{other.to}, capturePositions{other.capturePositions} {}
+Move::Move(const Move &other) : from{other.from}, to{other.to}, capturePositions{other.capturePositions}, piecesCaptured{} {
+    for (auto &piece : other.piecesCaptured) {
+        piecesCaptured.push_back(piece->clone());
+    }
+}
+
+// swap function for Move
+void Move::swap(Move &o) {
+    std::swap(from, o.from);
+    std::swap(to, o.to);
+    std::swap(capturePositions, o.capturePositions);
+    std::swap(piecesCaptured, o.piecesCaptured);
+}
+
+Move& Move::operator=(const Move &other) {
+    Move temp{other};
+    swap(temp);
+    return *this;
+}
+
+Move& Move::operator=(Move &&other) {
+    swap(other);
+    return *this;
+}
+
+Move::Move(Move &&other) : from{other.from}, to{other.to}, capturePositions{other.capturePositions}, piecesCaptured{} {
+    for (auto &piece : other.piecesCaptured) {
+        piecesCaptured.push_back(std::move(piece));
+    }
+}
 
 Move::~Move() {}
 //TODO:: can't move the same piece twice
+
+
+
 bool Move::operator==(const Move &other) const
 {
     return from == other.from && to == other.to && capturePositions == other.capturePositions;

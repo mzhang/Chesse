@@ -43,12 +43,20 @@ PlayerColor Game::play(const string &player1, const string &player2)
             Move move = players[state.currentPlayer]->nextMove(state);
             // post: move is valid
 
-            state.board->makeMove(move);
+            move = state.board->makeMove(move);
             history.addMove(move);
 
             state.switchPlayers();
             updateOutputs(move);
-        }
+        } else if (cmd == "undo") {
+            // get the last move from history if not empty
+            if (!history.empty()) {
+                Move move = history.lastMove();
+                state.board->undoMove(move);
+                state.switchPlayersBack();
+                updateOutputs(move);
+            }
+        } 
         else if (cmd == "valid")
         {
             Position pos;
