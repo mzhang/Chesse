@@ -17,6 +17,7 @@ class Decorator : public Moveable
 protected:
 public:
     explicit Decorator(std::unique_ptr<Moveable>);
+    Decorator(const Decorator &);
     virtual ~Decorator() = 0;
 
     Position getPosition() const override;
@@ -25,7 +26,8 @@ public:
     PlayerColor getOwner() const override;
     virtual std::vector<Move> getValidMoves(const GameState &) const override;
 
-    Decorator(const Decorator &);
+    bool getHasMoved() const;
+    void setHasMoved(bool);
 };
 
 #endif

@@ -37,6 +37,16 @@ void Decorator::setPosition(Position pos)
     component->setPosition(pos);
 }
 
+bool Decorator::getHasMoved() const
+{
+    return component->getHasMoved();
+}
+
+void Decorator::setHasMoved(bool hasMoved)
+{
+    component->setHasMoved(hasMoved);
+}
+
 PlayerColor Decorator::getOwner() const
 {
     return component->getOwner();
