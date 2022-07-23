@@ -28,7 +28,7 @@ void GameState::swap(GameState &o)
     std::swap(currentPlayer, o.currentPlayer);
 }
 
-GameState& GameState::operator=(const GameState &o)
+GameState &GameState::operator=(const GameState &o)
 {
     GameState tmp{o};
     swap(tmp);
@@ -46,17 +46,15 @@ bool GameState::isValidMove(const Move &m) const
 
     const Moveable &piece = board->getPiece(m.from[0]);
     vector<Move> validMoves = piece.getValidMoves(*this);
-    return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end() 
-        && !checkDetection(piece.getOwner(), m);
+    return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end() && !checkDetection(piece.getOwner(), m);
 }
 
 // Precondition: move accounts for all side effects
 void GameState::makeMove(const Move &m)
 {
     board->makeMove(m);
+    lastMove = m;
 }
-
-
 
 bool GameState::checkDetection(PlayerColor pc, Move m, bool flipped) const
 {
@@ -77,15 +75,14 @@ bool GameState::checkDetection(PlayerColor pc, Move m, bool flipped) const
         {
             Position pos{i, j};
             if (!tmp.board->isEmpty(pos) &&
-                 tmp.board->getPiece(pos).getPieceType() == PieceType::KING &&
-                  (flipped ? tmp.board->getPiece(pos).getOwner() != pc : tmp.board->getPiece(pos).getOwner() == pc))
+                tmp.board->getPiece(pos).getPieceType() == PieceType::KING &&
+                (flipped ? tmp.board->getPiece(pos).getOwner() != pc : tmp.board->getPiece(pos).getOwner() == pc))
             {
                 kingPos = pos;
                 break;
             }
         }
     }
-
 
     // Check if king is in check
     for (int i = 0; i < tmp.board->getWidth(); ++i)
@@ -94,13 +91,14 @@ bool GameState::checkDetection(PlayerColor pc, Move m, bool flipped) const
         {
             Position pos{i, j};
             if (!tmp.board->isEmpty(pos) &&
-             (flipped ? tmp.board->getPiece(pos).getOwner() == pc : tmp.board->getPiece(pos).getOwner() != pc))
+                (flipped ? tmp.board->getPiece(pos).getOwner() == pc : tmp.board->getPiece(pos).getOwner() != pc))
             {
                 vector<Move> validMoves = tmp.board->getPiece(pos).getValidMoves(tmp);
                 for (auto &potential_move : validMoves)
                 {
                     // Search for king as to
-                    if (std::find(potential_move.to.begin(), potential_move.to.end(), kingPos) != potential_move.to.end()) {
+                    if (std::find(potential_move.to.begin(), potential_move.to.end(), kingPos) != potential_move.to.end())
+                    {
                         cout << "DEBUG: Check detected" << endl;
                         return true;
                     }
@@ -177,6 +175,13 @@ bool GameState::isEmpty(const Position p) const
 bool GameState::isInBounds(const Position p) const
 {
     return p.x >= 0 && p.x < board->getWidth() && p.y >= 0 && p.y < board->getHeight();
+}
+
+PieceType GameState::getPieceType(const Position &p) const
+{
+    if (!isInBounds(p))
+        return PieceType::NONE;
+    return board->getPieceType(p);
 }
 
 void GameState::switchPlayers()

@@ -3,18 +3,20 @@
 
 #include <memory>
 #include <vector>
+#include "../data/move.h"
 
 class Game;
 struct Position;
 class Board;
-struct Move;
 enum class PlayerColor;
+enum class PieceType;
 
 class GameState
 {
 public:
     std::unique_ptr<Board> board;
     PlayerColor currentPlayer; // white = 0; black = 1
+    Move lastMove;
 
     GameState(int, int);
     GameState(const GameState &o);
@@ -32,7 +34,9 @@ public:
     std::vector<Move> getValidMoves(const Position &pos) const;
     std::vector<Move> getValidMoves(PlayerColor) const;
     void makeMove(const Move &m);
-    bool checkDetection(PlayerColor, Move, bool=false) const;
+    bool checkDetection(PlayerColor, Move, bool = false) const;
+
+    PieceType getPieceType(const Position &p) const;
 
     void switchPlayers();
 
