@@ -27,10 +27,10 @@ public:
     PieceType getPieceType() const override;
     Position getPosition() const override;
     int getMovedCount() const override;
-    void incMovedCount() override;
-    void setPosition(Position) override;
     PlayerColor getOwner() const override;
     std::vector<Move> getValidMoves(const GameState &) const override;
     std::unique_ptr<Moveable> clone() const override;
+
+    void onMove(const Move &move, const Position &pos) override;
 };
 #endif

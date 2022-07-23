@@ -15,19 +15,20 @@ class Decorator : public Moveable
     std::unique_ptr<Moveable> component;
 
 protected:
+    void setComponent(std::unique_ptr<Moveable>);
+
 public:
     explicit Decorator(std::unique_ptr<Moveable>);
     Decorator(const Decorator &);
     virtual ~Decorator() = 0;
 
     Position getPosition() const override;
-    void setPosition(Position) override;
     PieceType getPieceType() const override;
     PlayerColor getOwner() const override;
     virtual std::vector<Move> getValidMoves(const GameState &) const override;
 
     int getMovedCount() const;
-    void incMovedCount();
+    virtual void onMove(const Move &, const Position &) override;
 };
 
 #endif

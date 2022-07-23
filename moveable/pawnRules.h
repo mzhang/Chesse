@@ -15,14 +15,19 @@ struct PawnRules : public Decorator
 {
     int enpassantRank;
     int promotionRank;
+    bool isPromoted;
+    int promotedMaxSteps;
+
+    void promote();
 
 public:
-    PawnRules(std::unique_ptr<Moveable>, int enpassantRank, int promotionRank);
+    PawnRules(std::unique_ptr<Moveable>, int enpassantRank, int promotionRank, int promotedMaxSteps);
+    PawnRules(const PawnRules &);
 
     std::vector<Move> getValidMoves(const GameState &) const override;
     std::unique_ptr<Moveable> clone() const override;
 
-    PawnRules(const PawnRules &);
+    void onMove(const Move &, const Position &) override;
 };
 
 #endif

@@ -11,9 +11,9 @@
 
 using namespace std;
 
-Decorator::Decorator(unique_ptr<Moveable> c) : component{std::move(c)}
-{
-}
+Decorator::Decorator(unique_ptr<Moveable> c) : component{std::move(c)} {}
+
+Decorator::Decorator(const Decorator &o) : component{o.component->clone()} {}
 
 Decorator::~Decorator(){};
 
@@ -32,19 +32,14 @@ Position Decorator::getPosition() const
     return component->getPosition();
 }
 
-void Decorator::setPosition(Position pos)
-{
-    component->setPosition(pos);
-}
-
 int Decorator::getMovedCount() const
 {
     return component->getMovedCount();
 }
 
-void Decorator::incMovedCount()
+void Decorator::setComponent(unique_ptr<Moveable> c)
 {
-    component->incMovedCount();
+    component = std::move(c);
 }
 
 PlayerColor Decorator::getOwner() const
@@ -52,6 +47,7 @@ PlayerColor Decorator::getOwner() const
     return component->getOwner();
 }
 
-Decorator::Decorator(const Decorator &o) : component{o.component->clone()}
+void Decorator::onMove(const Move &move, const Position &endPos)
 {
+    component->onMove(move, endPos);
 }

@@ -16,18 +16,10 @@ Position Piece::getPosition() const
 {
     return position;
 }
-void Piece::setPosition(Position pos)
-{
-    position = pos;
-}
 
 int Piece::getMovedCount() const
 {
     return movedCount;
-}
-void Piece::incMovedCount()
-{
-    movedCount++;
 }
 
 vector<Move> Piece::getValidMoves(const GameState &g) const
@@ -48,4 +40,10 @@ PlayerColor Piece::getOwner() const
 unique_ptr<Moveable> Piece::clone() const
 {
     return make_unique<Piece>(*this);
+}
+
+void Piece::onMove(const Move &move, const Position &pos)
+{
+    position = pos;
+    ++movedCount;
 }
