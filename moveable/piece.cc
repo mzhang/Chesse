@@ -8,7 +8,7 @@
 
 using namespace std;
 
-Piece::Piece(int x, int y, PieceType pieceType, PlayerColor color) : playerColor{color}, type{pieceType}, hasMoved{false}, position{Position{x, y}} {}
+Piece::Piece(int x, int y, PieceType pieceType, PlayerColor color) : playerColor{color}, type{pieceType}, movedCount{0}, position{Position{x, y}} {}
 
 Piece::~Piece() {}
 
@@ -21,13 +21,13 @@ void Piece::setPosition(Position pos)
     position = pos;
 }
 
-bool Piece::getHasMoved() const
+int Piece::getMovedCount() const
 {
-    return hasMoved;
+    return movedCount;
 }
-void Piece::setHasMoved(bool moved)
+void Piece::incMovedCount()
 {
-    hasMoved = moved;
+    movedCount++;
 }
 
 vector<Move> Piece::getValidMoves(const GameState &g) const
