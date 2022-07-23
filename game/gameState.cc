@@ -12,6 +12,8 @@
 #include "../moveable/pieceFactory.h"
 #include "../data/playerColor.h"
 
+#include "../outputs/textDisplay.h"
+
 #include <util.h>
 
 using namespace std;
@@ -44,7 +46,8 @@ bool GameState::isValidMove(const Move &m) const
 
     const Moveable &piece = board->getPiece(m.from[0]);
     vector<Move> validMoves = piece.getValidMoves(*this);
-    return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end();
+    return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end() 
+        && !checkDetection(piece.getOwner(), m);
 }
 
 // Precondition: move accounts for all side effects
@@ -57,7 +60,51 @@ void GameState::makeMove(const Move &m)
 
 bool GameState::checkDetection(PlayerColor pc, Move m) const
 {
-    // Strategy: For every move,
+    // Copy gamestate, make move, check for check
+    GameState tmp{*this};
+    tmp.board->makeMove(m);
+
+    // TextDisplay td;
+    // td.update(tmp, m);
+
+    // Find our king
+    Position kingPos;
+    for (int i = 0; i < tmp.board->getWidth(); ++i)
+    {
+        for (int j = 0; j < tmp.board->getHeight(); ++j)
+        {
+            Position pos{i, j};
+            if (!tmp.board->isEmpty(pos) && tmp.board->getPiece(pos).getPieceType() == PieceType::KING && tmp.board->getPiece(pos).getOwner() == pc)
+            {
+                kingPos = pos;
+                break;
+            }
+        }
+    }
+
+
+    // Check if king is in check
+    for (int i = 0; i < tmp.board->getWidth(); ++i)
+    {
+        for (int j = 0; j < tmp.board->getHeight(); ++j)
+        {
+            Position pos{i, j};
+            if (!tmp.board->isEmpty(pos) && tmp.board->getPiece(pos).getOwner() != pc)
+            {
+                vector<Move> validMoves = tmp.board->getPiece(pos).getValidMoves(tmp);
+                for (auto &potential_move : validMoves)
+                {
+                    // Search for king as to
+                    if (std::find(potential_move.to.begin(), potential_move.to.end(), kingPos) != potential_move.to.end()) {
+                        cout << "DEBUG: Check detected" << endl;
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
+    return false;
 }
 
 vector<Move> GameState::getValidMoves(const Position &pos) const

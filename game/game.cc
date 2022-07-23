@@ -44,10 +44,16 @@ PlayerColor Game::play(const string &player1, const string &player2)
             // post: move is valid
 
             history.addMove(move, state);
-            state.board->makeMove(move);
-
-            state.switchPlayers();
-            updateOutputs(move);
+            if (state.isValidMove(move))
+            {
+                state.board->makeMove(move);
+                state.switchPlayers();
+                updateOutputs(move);
+            }
+            else
+            {
+                cout << "Invalid move" << endl;
+            }
         }
         else if (cmd == "undo") {
             // Get last gamestate from history and replace gamestate if available
