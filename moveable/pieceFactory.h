@@ -3,7 +3,7 @@
 
 #include <memory>
 
-class Moveable;
+struct Moveable;
 struct Position;
 enum class PieceType;
 enum class PlayerColor;
