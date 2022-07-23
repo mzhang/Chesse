@@ -38,3 +38,13 @@ void TextDisplay::doUpdate(const GameState &g, const Move &)
     }
     cout << endl;
 }
+
+void TextDisplay::doDisplayValidMoves(const GameState &g, const vector<Move> &moves)
+{
+    cout << "You can move the piece at " << moves[0].from[0] << " in " << moves.size() << " ways:" << endl;
+
+    for (int i = 0; i < (int)moves.size(); ++i)
+    {
+        cout << moves[i] << endl;
+    }
+}

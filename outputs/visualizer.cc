@@ -58,8 +58,18 @@ void Visualizer::draw_position(const GameState &b, const Position &position)
     }
 }
 
+
 void Visualizer::doUpdate(const GameState &b, const Move &m)
 {
+    // clear the valid move display
+    for (auto move : validMoves) {
+        for (auto p : move.to)
+        {
+             ChessDrawing::clear_square(*screen, p.x, p.y);
+        }
+    }
+    validMoves.clear();
+
     // Draw all the changes from move
     for (auto position : m.from)
     {
@@ -69,6 +79,27 @@ void Visualizer::doUpdate(const GameState &b, const Move &m)
     for (auto position : m.to)
     {
         draw_position(b, position);
+    }
+    screen->update();
+}
+
+void Visualizer::doDisplayValidMoves(const GameState &b, const vector<Move> &moves)
+{
+    // clear the valid move display
+    for (auto move : validMoves) {
+        for (auto p : move.to)
+        {
+             ChessDrawing::clear_square(*screen, p.x, p.y);
+        }
+    }
+
+    validMoves = moves;
+    for (auto move : moves)
+    {
+        for (auto p : move.to)
+        {
+            ChessDrawing::draw_valid_position(*screen, p.x, p.y);
+        }
     }
     screen->update();
 }

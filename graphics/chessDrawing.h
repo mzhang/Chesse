@@ -8,6 +8,7 @@ struct Move;
 enum class PieceType;
 class GameState;
 enum class PlayerColor;
+class Position;
 
 class ChessDrawing
 {
@@ -24,6 +25,7 @@ public:
     static void draw_chessboard_background(Screen &screen);
     static void draw_potential_moves(Screen &screen, const std::vector<Move> &moves);
     static void clear_square(Screen &screen, int, int);
+    static void draw_valid_position(Screen &screen, int, int);
 };
 
 #endif // CHESS_DRAWING_H_
