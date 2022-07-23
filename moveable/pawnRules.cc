@@ -1,5 +1,7 @@
 #include <vector>
 #include <memory>
+#include <algorithm>
+#include <utility>
 
 #include "pawnRules.h"
 #include "../data/pieceType.h"
@@ -9,10 +11,11 @@
 #include "./moveable.h"
 #include "decorator.h"
 #include "../game/board.h"
+#include "pieceFactory.h"
 
 using namespace std;
 
-PawnRules::PawnRules(unique_ptr<Moveable> component, int enpassantRank, int promotionRank) : Decorator{std::move(component)}, enpassantRank{enpassantRank}, promotionRank{promotionRank} {}
+PawnRules::PawnRules(unique_ptr<Moveable> component, int enpassantRank, int promotionRank, int promotedMaxSteps) : Decorator{std::move(component)}, enpassantRank{enpassantRank}, promotionRank{promotionRank}, isPromoted{false}, promotedMaxSteps{promotedMaxSteps} {}
 PawnRules::PawnRules(const PawnRules &o) : Decorator{o}, enpassantRank{o.enpassantRank}, promotionRank{o.promotionRank} {}
 
 vector<Move> PawnRules::getValidMoves(const GameState &g) const
@@ -20,6 +23,11 @@ vector<Move> PawnRules::getValidMoves(const GameState &g) const
     vector<Move> moves = Decorator::getValidMoves(g);
     PlayerColor player = Decorator::getOwner();
     Position currentPos = Decorator::getPosition();
+
+    if (isPromoted)
+    {
+        return moves;
+    }
 
     int forwardsDir = (player == PlayerColor::WHITE) ? 1 : -1;
     Position forwards = Position{currentPos.x, currentPos.y + forwardsDir};
@@ -90,6 +98,44 @@ vector<Move> PawnRules::getValidMoves(const GameState &g) const
 
     // moves are appended, not a union. must remove duplicates
     return moves;
+}
+
+void PawnRules::onMove(const Move &m, const Position &pos)
+{
+    Decorator::onMove(m, pos);
+    if (pos.y == promotionRank)
+    {
+        promote();
+    }
+}
+
+void PawnRules::promote()
+{
+    PlayerColor player = Decorator::getOwner();
+    Position currentPos = Decorator::getPosition();
+    vector<PieceType> validPromotions = {PieceType::QUEEN, PieceType::ROOK, PieceType::BISHOP, PieceType::KNIGHT};
+
+    cout << "Choose a promotion for the piece at " << currentPos << ":" << endl;
+    for (int i = 0; i < (int)validPromotions.size(); i++)
+    {
+        cout << PieceTypeUtils::toString(validPromotions[i], player) << " ";
+    }
+    cout << endl;
+
+    string pieceType;
+    cin >> pieceType;
+    pair<PieceType, PlayerColor> promotion = PieceTypeUtils::fromString(pieceType);
+
+    while (find(validPromotions.begin(), validPromotions.end(), promotion.first) == validPromotions.end() && promotion.second != player)
+    {
+        cout << "Invalid piece type. Try again." << endl;
+        cin >> pieceType;
+        promotion = PieceTypeUtils::fromString(pieceType);
+    }
+    PieceType type = PieceTypeUtils::fromString(pieceType).first;
+
+    Decorator::setComponent(PieceFactory::createPiece(currentPos, type, player, promotedMaxSteps, promotedMaxSteps));
+    isPromoted = true;
 }
 
 unique_ptr<Moveable> PawnRules::clone() const

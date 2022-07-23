@@ -98,7 +98,6 @@ void Board::makeMove(Move move)
     vector<unique_ptr<Moveable>> from; // we need to store the pieces that will move since we may have a second piece overlapping
     for (int i = 0; i < (int)move.from.size(); ++i)
     {
-        board[move.from[i].y][move.from[i].x]->incMovedCount();
         from.push_back(std::move(board[move.from[i].y][move.from[i].x]));
     }
 
@@ -121,7 +120,7 @@ void Board::makeMove(Move move)
     for (int i = 0; i < (int)move.from.size(); ++i)
     {
         setPiece(move.to[i], std::move(from[i]));
-        board[move.to[i].y][move.to[i].x]->setPosition(move.to[i]);
+        board[move.to[i].y][move.to[i].x]->onMove(move, move.to[i]);
     }
 }
 

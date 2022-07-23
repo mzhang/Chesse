@@ -24,7 +24,7 @@ unique_ptr<Moveable> PieceFactory::createPiece(const Position &p, PieceType type
     switch (type)
     {
     case PieceType::PAWN:
-        piece = make_unique<PawnRules>(std::move(piece), enpassantRow, promoteRow);
+        piece = make_unique<PawnRules>(std::move(piece), enpassantRow, promoteRow, width);
         break;
     case PieceType::ROOK:
         piece = make_unique<MoveX>(std::move(piece), width);

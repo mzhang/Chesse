@@ -54,6 +54,6 @@ pair<PieceType, PlayerColor> PieceTypeUtils::fromString(const string &str)
     else if (str == "p")
         return make_pair(PieceType::PAWN, PlayerColor::BLACK);
 
-    cout << "invalid piece type, creating white pawn (should fix this btw)" << endl;
-    return make_pair(PieceType::PAWN, PlayerColor::WHITE);
+    cout << "Invalid piece type! Input: " << str << endl;
+    return make_pair(PieceType::NONE, PlayerColor::NONE);
 }
