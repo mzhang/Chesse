@@ -39,6 +39,14 @@ bool Move::isSubset(const Move &other) const
     return subsetHelper(from, other.from) && subsetHelper(to, other.to) && subsetHelper(capturePositions, other.capturePositions);
 }
 
+Move &Move::operator=(const Move &other)
+{
+    from = other.from;
+    to = other.to;
+    capturePositions = other.capturePositions;
+    return *this;
+}
+
 ostream &operator<<(ostream &os, const Move &m)
 {
     for (int i = 0; i < (int)m.from.size(); i++)

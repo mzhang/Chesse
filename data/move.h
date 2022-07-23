@@ -17,6 +17,7 @@ struct Move
     Move();
     Move(const Move &);
     ~Move();
+    Move &operator=(const Move &);
     bool isSubset(const Move &) const;
     bool operator==(const Move &) const;
     friend std::ostream &operator<<(std::ostream &os, const Move &p);
