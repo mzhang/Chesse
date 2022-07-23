@@ -10,7 +10,6 @@ struct Move
     std::vector<Position> from;
     std::vector<Position> to;
     std::vector<Position> capturePositions;
-    std::vector<Piece> piecesCaptured;
 
     Move(const Position &, const Position &);
     Move(const Position &, const Position &, const Position &);

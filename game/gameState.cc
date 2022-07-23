@@ -58,8 +58,10 @@ void GameState::makeMove(const Move &m)
 
 
 
-bool GameState::checkDetection(PlayerColor pc, Move m) const
+bool GameState::checkDetection(PlayerColor pc, Move m, bool flipped) const
 {
+    // TODO: Make this more efficient, use getValidMoves (PlayerColor) - but without checking recursively for check
+
     // Copy gamestate, make move, check for check
     GameState tmp{*this};
     tmp.board->makeMove(m);
@@ -74,7 +76,9 @@ bool GameState::checkDetection(PlayerColor pc, Move m) const
         for (int j = 0; j < tmp.board->getHeight(); ++j)
         {
             Position pos{i, j};
-            if (!tmp.board->isEmpty(pos) && tmp.board->getPiece(pos).getPieceType() == PieceType::KING && tmp.board->getPiece(pos).getOwner() == pc)
+            if (!tmp.board->isEmpty(pos) &&
+                 tmp.board->getPiece(pos).getPieceType() == PieceType::KING &&
+                  (flipped ? tmp.board->getPiece(pos).getOwner() != pc : tmp.board->getPiece(pos).getOwner() == pc))
             {
                 kingPos = pos;
                 break;
@@ -89,7 +93,8 @@ bool GameState::checkDetection(PlayerColor pc, Move m) const
         for (int j = 0; j < tmp.board->getHeight(); ++j)
         {
             Position pos{i, j};
-            if (!tmp.board->isEmpty(pos) && tmp.board->getPiece(pos).getOwner() != pc)
+            if (!tmp.board->isEmpty(pos) &&
+             (flipped ? tmp.board->getPiece(pos).getOwner() == pc : tmp.board->getPiece(pos).getOwner() != pc))
             {
                 vector<Move> validMoves = tmp.board->getPiece(pos).getValidMoves(tmp);
                 for (auto &potential_move : validMoves)
@@ -109,6 +114,10 @@ bool GameState::checkDetection(PlayerColor pc, Move m) const
 
 vector<Move> GameState::getValidMoves(const Position &pos) const
 {
+
+    // TODO: Reconcile this with checking for check
+    // Avoid recursive checking for check
+
     if (isEmpty(pos))
     {
         return vector<Move>{};
@@ -132,7 +141,15 @@ vector<Move> GameState::getValidMoves(PlayerColor playerColor) const
             if (board->getPiece(pos).getOwner() == playerColor)
             {
                 vector<Move> pieceValid = getValidMoves(pos);
-                validMoves.insert(validMoves.end(), pieceValid.begin(), pieceValid.end());
+                vector<Move> check_checked;
+                for (auto &move : pieceValid)
+                {
+                    if (!checkDetection(playerColor, move))
+                    {
+                        check_checked.push_back(move);
+                    }
+                }
+                validMoves.insert(validMoves.end(), check_checked.begin(), check_checked.end());
             }
         }
     }
@@ -141,7 +158,7 @@ vector<Move> GameState::getValidMoves(PlayerColor playerColor) const
 
 GameState::~GameState() {}
 
-bool GameState::isOwner(Position p, PlayerColor playerColor) const
+bool GameState::isOwner(const Position p, const PlayerColor playerColor) const
 {
     if (!isInBounds(p))
         return false;
@@ -150,14 +167,14 @@ bool GameState::isOwner(Position p, PlayerColor playerColor) const
     return board->getOwner(p) == playerColor;
 }
 
-bool GameState::isEmpty(Position p) const
+bool GameState::isEmpty(const Position p) const
 {
     if (!isInBounds(p))
         return true;
     return board->isEmpty(p);
 }
 
-bool GameState::isInBounds(Position p) const
+bool GameState::isInBounds(const Position p) const
 {
     return p.x >= 0 && p.x < board->getWidth() && p.y >= 0 && p.y < board->getHeight();
 }

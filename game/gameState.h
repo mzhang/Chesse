@@ -23,17 +23,16 @@ public:
 
     ~GameState();
     void setup(const Game &);
-
     void standard_chess_board();
 
     bool isValidMove(const Move &m) const;
-    bool isInBounds(Position p) const;
-    bool isOwner(Position p, PlayerColor) const;
-    bool isEmpty(Position p) const;
+    bool isInBounds(const Position p) const;
+    bool isOwner(const Position p, const PlayerColor) const;
+    bool isEmpty(const Position p) const;
     std::vector<Move> getValidMoves(const Position &pos) const;
     std::vector<Move> getValidMoves(PlayerColor) const;
     void makeMove(const Move &m);
-    bool checkDetection(PlayerColor, Move) const;
+    bool checkDetection(PlayerColor, Move, bool=false) const;
 
     void switchPlayers();
 
