@@ -13,9 +13,11 @@ struct Moveable;
 
 struct PawnRules : public Decorator
 {
+    int enpassantRank;
+    int promotionRank;
 
 public:
-    PawnRules(std::unique_ptr<Moveable>);
+    PawnRules(std::unique_ptr<Moveable>, int enpassantRank, int promotionRank);
 
     std::vector<Move> getValidMoves(const GameState &) const override;
     std::unique_ptr<Moveable> clone() const override;

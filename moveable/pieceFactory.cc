@@ -19,10 +19,12 @@ unique_ptr<Moveable> PieceFactory::createPiece(const Position &p, PieceType type
 {
     unique_ptr<Moveable> piece = make_unique<Piece>(p.x, p.y, type, owner);
 
+    int enpassantRow = owner == PlayerColor::WHITE ? 5 : height - 4;
+    int promoteRow = owner == PlayerColor::WHITE ? height - 1 : 0;
     switch (type)
     {
     case PieceType::PAWN:
-        piece = make_unique<PawnRules>(std::move(piece));
+        piece = make_unique<PawnRules>(std::move(piece), enpassantRow, promoteRow);
         break;
     case PieceType::ROOK:
         piece = make_unique<MoveX>(std::move(piece), width);

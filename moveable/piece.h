@@ -16,7 +16,7 @@ class Piece : public Moveable
 {
     PlayerColor playerColor;
     PieceType type;
-    bool hasMoved;
+    int movedCount;
     Position position;
 
 protected:
@@ -26,8 +26,8 @@ public:
 
     PieceType getPieceType() const override;
     Position getPosition() const override;
-    bool getHasMoved() const override;
-    void setHasMoved(bool) override;
+    int getMovedCount() const override;
+    void incMovedCount() override;
     void setPosition(Position) override;
     PlayerColor getOwner() const override;
     std::vector<Move> getValidMoves(const GameState &) const override;
