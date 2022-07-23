@@ -102,11 +102,12 @@ vector<Move> PawnRules::getValidMoves(const GameState &g) const
 
 void PawnRules::onMove(const Move &m, const Position &pos)
 {
-    Decorator::onMove(m, pos);
-    if (pos.y == promotionRank)
+    if (pos.y == promotionRank && !isPromoted)
     {
+        isPromoted = true;
         promote();
     }
+    Decorator::onMove(m, pos);
 }
 
 void PawnRules::promote()
@@ -126,7 +127,7 @@ void PawnRules::promote()
     cin >> pieceType;
     pair<PieceType, PlayerColor> promotion = PieceTypeUtils::fromString(pieceType);
 
-    while (find(validPromotions.begin(), validPromotions.end(), promotion.first) == validPromotions.end() && promotion.second != player)
+    while (find(validPromotions.begin(), validPromotions.end(), promotion.first) == validPromotions.end() || promotion.second != player)
     {
         cout << "Invalid piece type. Try again." << endl;
         cin >> pieceType;
@@ -135,7 +136,6 @@ void PawnRules::promote()
     PieceType type = PieceTypeUtils::fromString(pieceType).first;
 
     Decorator::setComponent(PieceFactory::createPiece(currentPos, type, player, promotedMaxSteps, promotedMaxSteps));
-    isPromoted = true;
 }
 
 unique_ptr<Moveable> PawnRules::clone() const
