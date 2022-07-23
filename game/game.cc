@@ -55,13 +55,17 @@ PlayerColor Game::play(const string &player1, const string &player2)
                 cout << "Invalid move" << endl;
             }
         }
-        else if (cmd == "undo") {
+        else if (cmd == "undo")
+        {
             // Get last gamestate from history and replace gamestate if available
-            if (!history.empty()) {
+            if (!history.empty())
+            {
                 auto move_state = history.pop_back();
                 state = move_state.second;
                 updateOutputs(move_state.first);
-            } else {
+            }
+            else
+            {
                 cout << "No moves to undo." << endl;
             }
         }
@@ -72,11 +76,12 @@ PlayerColor Game::play(const string &player1, const string &player2)
 
             vector<Move> validMoves = state.getValidMoves(pos);
 
-            cout << "You can move the piece at " << pos << " in " << validMoves.size() << " ways:" << endl;
-
-            for (int i = 0; i < (int)validMoves.size(); ++i)
+            if (validMoves.size() > 0)
             {
-                cout << validMoves[i] << endl;
+                for (auto &output : outputs)
+                {
+                    output->displayValidMoves(state, validMoves);
+                }
             }
         }
         else if (cmd == "resign")

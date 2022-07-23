@@ -56,6 +56,13 @@ void ChessDrawing::draw_potential_moves(Screen &screen, const std::vector<Move> 
     }
 }
 
+void ChessDrawing::draw_valid_position(Screen &screen, int x, int y)
+{
+    // The indicator is stored in greenDot.png, the size is 20 x 20
+    std::string filename = "greenDot.png";
+    screen.draw_image(x * square_size + x_offset + 25, (7-y) * square_size + y_offset + 25, 20, 20, filename);
+}
+
 void ChessDrawing::draw_chesspiece(Screen &screen, int x, int y, PieceType piece, PlayerColor owner)
 {
     // Draw a chesspiece on the square at (r, c). Load image from resources folder
