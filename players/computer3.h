@@ -5,10 +5,15 @@
 
 struct Move;
 class GameState;
+struct Position;
 
 class Computer3 : public Player
 {
     Move doNextMove(const GameState &) override;
+    bool isCapturingMove(const GameState &, const Move &);
+    bool isCheckingMove(const GameState &, const Move &);
+    int isPositionAtRisk(const GameState &, const Position &);
+    bool avoidsCapture(const GameState &, const Move &);
 
 public:
     explicit Computer3(PlayerColor);

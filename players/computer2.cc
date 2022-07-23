@@ -8,7 +8,6 @@
 
 using namespace std;
 
-
 Computer2::Computer2(PlayerColor color) : Player{color}
 {
     
