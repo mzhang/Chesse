@@ -26,8 +26,8 @@ public:
     PlayerColor getOwner() const override;
     virtual std::vector<Move> getValidMoves(const GameState &) const override;
 
-    bool getHasMoved() const;
-    void setHasMoved(bool);
+    int getMovedCount() const;
+    void incMovedCount();
 };
 
 #endif
