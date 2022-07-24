@@ -28,7 +28,7 @@ public:
     virtual std::vector<Move> getValidMoves(const GameState &) const override;
 
     int getMovedCount() const;
-    virtual void onMove(const Move &, const Position &) override;
+    virtual void onMove(const Move &, const Position &, bool) override;
 };
 
 #endif

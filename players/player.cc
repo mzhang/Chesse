@@ -8,6 +8,11 @@ Player::Player(PlayerColor color) : playerColor{color}
 {
 }
 
+bool Player::isHeadless() const
+{
+    return true;
+}
+
 Move Player::nextMove(const GameState &g)
 {
     return doNextMove(g);

@@ -1,4 +1,5 @@
 #include <memory>
+#include <vector>
 
 #include "pieceFactory.h"
 #include "moveable.h"
@@ -12,6 +13,7 @@
 #include "moveDiagNeg.h"
 #include "moveL.h"
 #include "pawnRules.h"
+#include "castle.h"
 
 using namespace std;
 
@@ -33,6 +35,9 @@ unique_ptr<Moveable> PieceFactory::createPiece(const Position &p, PieceType type
     case PieceType::KING:
         piece = make_unique<MoveX>(std::move(piece), 1);
         piece = make_unique<MoveY>(std::move(piece), 1);
+        piece = make_unique<MoveDiagPos>(std::move(piece), 1);
+        piece = make_unique<MoveDiagNeg>(std::move(piece), 1);
+        piece = make_unique<Castle>(std::move(piece), vector<Position>{Position{0, p.y}, Position{width - 1, p.y}});
         break;
     case PieceType::QUEEN:
         piece = make_unique<MoveX>(std::move(piece), width);

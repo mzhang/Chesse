@@ -11,7 +11,8 @@ class Human : public Player
     Move doNextMove(const GameState &) override;
 
 public:
-    Human(PlayerColor);
+    explicit Human(PlayerColor);
+    bool isHeadless() const override;
 };
 
 #endif // HUMAN_H_

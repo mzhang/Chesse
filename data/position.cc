@@ -14,6 +14,11 @@ bool Position::operator==(const Position &other) const
     return x == other.x && y == other.y;
 }
 
+bool Position::operator!=(const Position &other) const
+{
+    return !(*this == other);
+}
+
 std::ostream &operator<<(std::ostream &os, const Position &p)
 {
     if (p.x == -1 && p.y == -1)

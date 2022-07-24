@@ -50,9 +50,9 @@ bool GameState::isValidMove(const Move &m) const
 }
 
 // Precondition: move accounts for all side effects
-void GameState::makeMove(const Move &m)
+void GameState::makeMove(const Move &m, bool headless)
 {
-    board->makeMove(m);
+    board->makeMove(m, headless);
     lastMove = m;
 }
 
@@ -62,7 +62,7 @@ bool GameState::checkDetection(PlayerColor pc, Move m, bool flipped) const
 
     // Copy gamestate, make move, check for check
     GameState tmp{*this};
-    tmp.board->makeMove(m);
+    tmp.board->makeMove(m, true);
 
     // TextDisplay td;
     // td.update(tmp, m);
@@ -182,6 +182,11 @@ PieceType GameState::getPieceType(const Position &p) const
     if (!isInBounds(p))
         return PieceType::NONE;
     return board->getPieceType(p);
+}
+
+int GameState::getMovedCount(const Position &p) const
+{
+    return board->getMovedCount(p);
 }
 
 void GameState::switchPlayers()

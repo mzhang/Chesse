@@ -15,7 +15,7 @@ protected:
 
 public:
     explicit Player(PlayerColor);
-
+    virtual bool isHeadless() const;
     Move nextMove(const GameState &);
 };
 

@@ -46,7 +46,7 @@ PlayerColor Game::play(const string &player1, const string &player2)
             history.addMove(move, state);
             if (state.isValidMove(move))
             {
-                state.makeMove(move);
+                state.makeMove(move, players[state.currentPlayer]->isHeadless());
                 state.switchPlayers();
                 updateOutputs(move);
             }
