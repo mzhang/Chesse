@@ -22,7 +22,7 @@ Game::Game(int boardWidth, int boardHeight, bool useDisplay, unordered_map<Playe
     {
         outputs.push_back(make_unique<Visualizer>(state));
     }
-    for (const pair<PlayerColor, string>& player : playerStrings)
+    for (const pair<PlayerColor, string> &player : playerStrings)
     {
         players[player.first] = getPlayer(player.second, player.first);
     }
@@ -43,6 +43,14 @@ PlayerColor Game::play()
         else if (cmd == "move")
         {
             Move move = players[state.currentPlayer]->nextMove(state);
+
+            // reject malformed moves
+            if (move.from.size() == 0 || move.to.size() == 0 || move.from.size() != move.to.size() || move.from == move.to)
+            {
+                cout << "Invalid move" << endl;
+                continue;
+            }
+
             // post: move is valid
 
             if (!state.isValidMove(move))

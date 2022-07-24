@@ -39,16 +39,16 @@ GameState &GameState::operator=(const GameState &o)
     return *this;
 }
 
-// TODO: multiple piece movements?
 bool GameState::isValidMove(const Move &m) const
 {
-    // assuming move "target" is m.from[0]
-    if (isEmpty(m.from[0]))
+    // pre: m is not malformed
+    Position mainPos = m.from[0];
+    if (!isInBounds(mainPos) || isEmpty(mainPos))
     {
         return false;
     }
 
-    const Moveable &piece = board->getPiece(m.from[0]);
+    const Moveable &piece = board->getPiece(mainPos);
     vector<Move> validMoves = piece.getValidMoves(*this);
     return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end() && !isInCheckAfterMove(piece.getOwner(), m);
 }
@@ -159,7 +159,7 @@ vector<Move> GameState::getValidMoves(PlayerColor pc) const
             if (!isEmpty(pos) && isOwner(pos, pc))
             {
                 vector<Move> pieceValidMoves = getValidMoves(pos);
-                validMoves.insert(pieceValidMoves.end(), pieceValidMoves.begin(), pieceValidMoves.end());
+                validMoves.insert(validMoves.end(), pieceValidMoves.begin(), pieceValidMoves.end());
             }
         }
     }
@@ -379,7 +379,7 @@ pair<bool, PlayerColor> GameState::getStatus() const
         }
     }
 
-    return make_pair(false, PlayerColor::NONE);   
+    return make_pair(false, PlayerColor::NONE);
 }
 
 /* CHECK VALID STATE
