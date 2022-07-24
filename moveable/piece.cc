@@ -22,7 +22,7 @@ int Piece::getMovedCount() const
     return movedCount;
 }
 
-vector<Move> Piece::getValidMoves(const GameState &g) const
+vector<Move> Piece::getValidMoves(const GameState &g, bool) const
 {
     return vector<Move>{};
 }
@@ -30,6 +30,11 @@ vector<Move> Piece::getValidMoves(const GameState &g) const
 PieceType Piece::getPieceType() const
 {
     return type;
+}
+
+vector<Position> Piece::getAttackedTiles(const GameState &) const
+{
+    return vector<Position>{};
 }
 
 PlayerColor Piece::getOwner() const

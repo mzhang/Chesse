@@ -10,13 +10,3 @@ using namespace std;
 Moveable::Moveable() {}
 
 Moveable::~Moveable() {}
-
-vector<Position> Moveable::getAttackedTiles(const GameState &g) const
-{
-    vector<Position> tiles;
-    for (const Move &move : getValidMoves(g))
-    {
-        tiles.insert(tiles.end(), move.to.begin(), move.to.end());
-    }
-    return tiles;
-}

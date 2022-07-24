@@ -15,9 +15,13 @@ using namespace std;
 
 MoveX::MoveX(unique_ptr<Moveable> component, int maxSteps) : Decorator{std::move(component)}, maxSteps{maxSteps} {}
 
-vector<Move> MoveX::getValidMoves(const GameState &g) const
+vector<Move> MoveX::getValidMoves(const GameState &g, bool checkChildren) const
 {
-    vector<Move> moves = Decorator::getValidMoves(g);
+    vector<Move> moves{};
+    if (checkChildren)
+    {
+        moves = Decorator::getValidMoves(g, true);
+    }
     PlayerColor playerColor = Decorator::getOwner();
 
     Position currentPos = getPosition();

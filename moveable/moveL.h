@@ -17,7 +17,7 @@ struct MoveL : public Decorator
 public:
     explicit MoveL(std::unique_ptr<Moveable>);
 
-    std::vector<Move> getValidMoves(const GameState &) const override;
+    std::vector<Move> getValidMoves(const GameState &, bool) const override;
     std::unique_ptr<Moveable> clone() const override;
 
     MoveL(const MoveL &);

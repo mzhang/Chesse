@@ -19,7 +19,7 @@ struct MoveDiagPos : public Decorator
 public:
     MoveDiagPos(std::unique_ptr<Moveable>, int maxSteps = 1);
 
-    std::vector<Move> getValidMoves(const GameState &) const override;
+    std::vector<Move> getValidMoves(const GameState &, bool) const override;
     std::unique_ptr<Moveable> clone() const override;
 
     MoveDiagPos(const MoveDiagPos &);

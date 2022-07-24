@@ -18,17 +18,22 @@ using namespace std;
 PawnRules::PawnRules(unique_ptr<Moveable> component, int enpassantRank, int promotionRank, int promotedMaxSteps) : Decorator{std::move(component)}, enpassantRank{enpassantRank}, promotionRank{promotionRank}, isPromoted{false}, promotedMaxSteps{promotedMaxSteps} {}
 PawnRules::PawnRules(const PawnRules &o) : Decorator{o}, enpassantRank{o.enpassantRank}, promotionRank{o.promotionRank}, isPromoted{o.isPromoted}, promotedMaxSteps{o.promotedMaxSteps} {}
 
-vector<Position> PawnRules::getAttackedTiles(const GameState &g) const {
+vector<Position> PawnRules::getAttackedTiles(const GameState &g) const
+{
     Position currentPos = Decorator::getPosition();
     vector<Position> tiles = Decorator::getAttackedTiles(g);
-    tiles.emplace_back(Position{currentPos.x-1, currentPos.y+1});
-    tiles.emplace_back(Position{currentPos.x+1, currentPos.y+1});
+    tiles.emplace_back(Position{currentPos.x - 1, currentPos.y + 1});
+    tiles.emplace_back(Position{currentPos.x + 1, currentPos.y + 1});
     return tiles;
 }
 
-vector<Move> PawnRules::getValidMoves(const GameState &g) const
+vector<Move> PawnRules::getValidMoves(const GameState &g, bool checkChildren) const
 {
-    vector<Move> moves = Decorator::getValidMoves(g);
+    vector<Move> moves{};
+    if (checkChildren)
+    {
+        moves = Decorator::getValidMoves(g, true);
+    }
     PlayerColor player = Decorator::getOwner();
     Position currentPos = Decorator::getPosition();
 

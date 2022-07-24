@@ -19,9 +19,13 @@ vector<Position> Castle::getAttackedTiles(const GameState &g) const
     return Decorator::getAttackedTiles(g);
 }
 
-vector<Move> Castle::getValidMoves(const GameState &g) const
+vector<Move> Castle::getValidMoves(const GameState &g, bool checkChildren) const
 {
-    vector<Move> moves = Decorator::getValidMoves(g);
+    vector<Move> moves{};
+    if (checkChildren)
+    {
+        moves = Decorator::getValidMoves(g, true);
+    }
     PlayerColor player = Decorator::getOwner();
     Position currentPos = getPosition();
 

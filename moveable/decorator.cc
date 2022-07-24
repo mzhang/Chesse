@@ -22,14 +22,19 @@ PieceType Decorator::getPieceType() const
     return component->getPieceType();
 }
 
-vector<Move> Decorator::getValidMoves(const GameState &gameState) const
+vector<Move> Decorator::getValidMoves(const GameState &gameState, bool checkChildren) const
 {
-    return component->getValidMoves(gameState);
+    return component->getValidMoves(gameState, checkChildren);
 }
 
 vector<Position> Decorator::getAttackedTiles(const GameState &gameState) const
 {
-    return component->getAttackedTiles(gameState);
+    vector<Position> tiles = component->getAttackedTiles(gameState);
+    for (const Move &move : getValidMoves(gameState, false))
+    {
+        tiles.insert(tiles.end(), move.to.begin(), move.to.end());
+    }
+    return tiles;
 }
 
 Position Decorator::getPosition() const
