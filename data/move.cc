@@ -56,6 +56,10 @@ ostream &operator<<(ostream &os, const Move &m)
         {
             os << " to capture the piece at " << m.capturePositions[i];
         }
+        if (i < (int)m.from.size() - 1)
+        {
+            os << ", ";
+        }
     }
     return os;
 }
