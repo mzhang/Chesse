@@ -2,6 +2,7 @@
 #include <utility>
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
 #include "game.h"
 #include "gameState.h"
@@ -46,7 +47,7 @@ bool GameState::isValidMove(const Move &m) const
 
     const Moveable &piece = board->getPiece(m.from[0]);
     vector<Move> validMoves = piece.getValidMoves(*this);
-    return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end() && !checkDetection(piece.getOwner(), m);
+    return std::find(validMoves.begin(), validMoves.end(), m) != validMoves.end() && !isInCheckAfterMove(piece.getOwner(), m);
 }
 
 // Precondition: move accounts for all side effects
@@ -56,58 +57,65 @@ void GameState::makeMove(const Move &m, bool headless)
     lastMove = m;
 }
 
-bool GameState::checkDetection(PlayerColor pc, Move m, bool flipped) const
+bool GameState::isInCheck(const PlayerColor &pc) const
 {
-    // TODO: Make this more efficient, use getValidMoves (PlayerColor) - but without checking recursively for check
-
-    // Copy gamestate, make move, check for check
-    GameState tmp{*this};
-    tmp.board->makeMove(m, true);
-
-    // TextDisplay td;
-    // td.update(tmp, m);
-
-    // Find our king
-    Position kingPos;
-    for (int i = 0; i < tmp.board->getWidth(); ++i)
+    vector<Position> kingPos{};
+    for (int i = 0; i < board->getWidth(); i++)
     {
-        for (int j = 0; j < tmp.board->getHeight(); ++j)
+        for (int j = 0; j < board->getHeight(); j++)
         {
             Position pos{i, j};
-            if (!tmp.board->isEmpty(pos) &&
-                tmp.board->getPiece(pos).getPieceType() == PieceType::KING &&
-                (flipped ? tmp.board->getPiece(pos).getOwner() != pc : tmp.board->getPiece(pos).getOwner() == pc))
+            if (!isEmpty(pos) && getPieceType(pos) == PieceType::KING && isOwner(pos, pc))
             {
-                kingPos = pos;
-                break;
+                kingPos.emplace_back(pos);
             }
         }
     }
+    return isInCheck(pc, kingPos);
+}
 
-    // Check if king is in check
-    for (int i = 0; i < tmp.board->getWidth(); ++i)
+bool GameState::isInCheck(const PlayerColor &pc, const vector<Position> &positions) const
+{
+    vector<Position> enemySightlines = getEnemySightlines(pc);
+    for (const Position &pos : positions)
     {
-        for (int j = 0; j < tmp.board->getHeight(); ++j)
+        if (std::find(enemySightlines.begin(), enemySightlines.end(), pos) != enemySightlines.end())
         {
-            Position pos{i, j};
-            if (!tmp.board->isEmpty(pos) &&
-                (flipped ? tmp.board->getPiece(pos).getOwner() == pc : tmp.board->getPiece(pos).getOwner() != pc))
+            return true;
+        }
+    }
+    return false;
+}
+
+bool GameState::isInCheckAfterMove(const PlayerColor &pc, const Move &m) const
+{
+    GameState tmp{*this};
+    tmp.board->makeMove(m, true);
+    return tmp.isInCheck(pc);
+}
+
+vector<Position> GameState::getEnemySightlines(const PlayerColor &pc) const
+{
+    vector<Position> sightline;
+    for (int r = 0; r < board->getHeight(); r++)
+    {
+        for (int c = 0; c < board->getWidth(); c++)
+        {
+            Position pos{r, c};
+            if (!isEmpty(pos) && !isOwner(pos, pc))
             {
-                vector<Move> validMoves = tmp.board->getPiece(pos).getValidMoves(tmp);
-                for (auto &potential_move : validMoves)
+                vector<Move> pieceMoves = board->getPiece(pos).getValidMoves(*this);
+                for (const Move &m : pieceMoves)
                 {
-                    // Search for king as to
-                    if (std::find(potential_move.to.begin(), potential_move.to.end(), kingPos) != potential_move.to.end())
+                    for (const Position &p : m.to)
                     {
-                        cout << "DEBUG: Check detected" << endl;
-                        return true;
+                        sightline.emplace_back(p);
                     }
                 }
             }
         }
     }
-
-    return false;
+    return sightline;
 }
 
 vector<Move> GameState::getValidMoves(const Position &pos) const
@@ -122,11 +130,22 @@ vector<Move> GameState::getValidMoves(const Position &pos) const
     }
 
     const Moveable &piece = board->getPiece(pos);
-    vector<Move> validMoves = piece.getValidMoves(*this);
+
+    vector<Move> validMoves;
+    vector<Move> pieceSightlines = piece.getValidMoves(*this);
+
+    for (auto &move : pieceSightlines)
+    {
+        if (!isInCheckAfterMove(board->getOwner(pos), move))
+        {
+            validMoves.push_back(move);
+        }
+    }
+
     return validMoves;
 }
 
-vector<Move> GameState::getValidMoves(PlayerColor playerColor) const
+vector<Move> GameState::getValidMoves(PlayerColor pc) const
 {
     vector<Move> validMoves;
     for (int i = 0; i < board->getWidth(); i++)
@@ -134,20 +153,10 @@ vector<Move> GameState::getValidMoves(PlayerColor playerColor) const
         for (int j = 0; j < board->getHeight(); j++)
         {
             Position pos{i, j};
-            if (isEmpty(pos))
-                continue;
-            if (board->getPiece(pos).getOwner() == playerColor)
+            if (!isEmpty(pos) && isOwner(pos, pc))
             {
-                vector<Move> pieceValid = getValidMoves(pos);
-                vector<Move> check_checked;
-                for (auto &move : pieceValid)
-                {
-                    if (!checkDetection(playerColor, move))
-                    {
-                        check_checked.push_back(move);
-                    }
-                }
-                validMoves.insert(validMoves.end(), check_checked.begin(), check_checked.end());
+                vector<Move> pieceValidMoves = getValidMoves(pos);
+                validMoves.insert(pieceValidMoves.end(), pieceValidMoves.begin(), pieceValidMoves.end());
             }
         }
     }
@@ -158,9 +167,7 @@ GameState::~GameState() {}
 
 bool GameState::isOwner(const Position p, const PlayerColor playerColor) const
 {
-    if (!isInBounds(p))
-        return false;
-    if (isEmpty(p))
+    if (!isInBounds(p) || isEmpty(p))
         return false;
     return board->getOwner(p) == playerColor;
 }

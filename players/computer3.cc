@@ -2,6 +2,7 @@
 #include "../game/gameState.h"
 #include "../data/move.h"
 #include "../game/board.h"
+#include "../data/playerColor.h"
 
 #include <vector>
 #include <random>
@@ -27,7 +28,7 @@ bool Computer3::isCapturingMove(const GameState &state, const Move &move)
 
 bool Computer3::isCheckingMove(const GameState &state, const Move &move)
 {
-    return state.checkDetection(playerColor, move, true);
+    return state.isInCheckAfterMove(PlayerColorUtils::getNext(playerColor), move);
 }
 
 int Computer3::isPositionAtRisk(const GameState &state, const Position &p)

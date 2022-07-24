@@ -36,7 +36,11 @@ public:
     std::vector<Move> getValidMoves(const Position &pos) const;
     std::vector<Move> getValidMoves(PlayerColor) const;
     void makeMove(const Move &m, bool);
-    bool checkDetection(PlayerColor, Move, bool = false) const;
+
+    bool isInCheck(const PlayerColor &) const;
+    bool isInCheck(const PlayerColor &, const std::vector<Position> &) const;
+    bool isInCheckAfterMove(const PlayerColor &, const Move &) const;
+    std::vector<Position> getEnemySightlines(const PlayerColor &) const;
 
     PieceType getPieceType(const Position &p) const;
 
