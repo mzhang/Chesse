@@ -18,10 +18,10 @@ ostream &operator<<(ostream &os, const PlayerColor &c)
     switch (c)
     {
     case PlayerColor::WHITE:
-        os << "WHITE";
+        os << "White";
         break;
     case PlayerColor::BLACK:
-        os << "BLACK";
+        os << "Black";
         break;
     case PlayerColor::NONE:
         os << "NONE";
@@ -32,11 +32,11 @@ ostream &operator<<(ostream &os, const PlayerColor &c)
 
 PlayerColor PlayerColorUtils::fromString(const std::string &s)
 {
-    if (s == "WHITE")
+    if (s == "white")
     {
         return PlayerColor::WHITE;
     }
-    else if (s == "BLACK")
+    else if (s == "black")
     {
         return PlayerColor::BLACK;
     }
