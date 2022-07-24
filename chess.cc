@@ -28,8 +28,6 @@ void Chess::start(bool useDisplay)
             Game game{boardWidth, boardHeight, useDisplay, players};
             PlayerColor winner = game.play();
 
-            cout << winner << " wins!" << endl;
-
             if (winner == PlayerColor::NONE)
             {
                 for (const pair<PlayerColor, string> &player : players)
@@ -39,6 +37,7 @@ void Chess::start(bool useDisplay)
             }
             else
             {
+                cout << winner << " wins!" << endl;
                 playerScores[winner] += 1;
             }
         }
