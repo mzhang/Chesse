@@ -23,8 +23,7 @@ void Chess::start(bool useDisplay)
             cin >> player1 >> player2;
             unordered_map<PlayerColor, string> players{
                 {PlayerColor::WHITE, player1},
-                {PlayerColor::BLACK, player2}
-            };
+                {PlayerColor::BLACK, player2}};
 
             Game game{boardWidth, boardHeight, useDisplay, players};
             PlayerColor winner = game.play();
@@ -42,31 +41,6 @@ void Chess::start(bool useDisplay)
             {
                 playerScores[winner] += 1;
             }
-        }
-        else if (cmd == "custom")
-        {
-            // TODO: allow custom setup such as modifying board size
-
-            string custom_cmd;
-            // Commands can be
-            // - size <width> <height>
-
-            while (cin >> custom_cmd)
-            {
-                if (custom_cmd == "size")
-                {
-                    string boardWidth, boardHeight;
-                    cin >> boardWidth >> boardHeight;
-                    // TODO: implement
-                }
-                else
-                {
-                    cout << "Unknown command: " << custom_cmd << endl;
-                    break;
-                }
-            }
-
-            break;
         }
         else
         {
