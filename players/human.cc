@@ -35,4 +35,6 @@ Move Human::doNextMove(const GameState &g)
 
         cout << "Invalid move, please try again" << endl;
     }
+
+    return Move{};
 }
