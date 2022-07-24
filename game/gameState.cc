@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
+#include <map>
 
 #include "game.h"
 #include "gameState.h"
@@ -22,6 +23,8 @@ using namespace std;
 GameState::GameState(int boardWidth, int boardHeight) : board{make_unique<Board>(boardWidth, boardHeight)}, currentPlayer{PlayerColor::WHITE} {}
 
 GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer} {}
+
+GameState::~GameState() {}
 
 void GameState::swap(GameState &o)
 {
@@ -163,8 +166,6 @@ vector<Move> GameState::getValidMoves(PlayerColor pc) const
     return validMoves;
 }
 
-GameState::~GameState() {}
-
 bool GameState::isOwner(const Position p, const PlayerColor playerColor) const
 {
     if (!isInBounds(p) || isEmpty(p))
@@ -280,9 +281,108 @@ void GameState::setup(const Game &g)
     }
 }
 
-/* CHECK VALID STATE
+// when you make a move, you're deciding the fate of both players
+// ie. a move can make you win or lose
+pair<bool, PlayerColor> GameState::getStatus() const
+{
+    vector<PlayerColor> players{PlayerColor::BLACK, PlayerColor::WHITE};
 
-// // Check that there are two kings on the board
+    map<PlayerColor, int> pieceCount;
+    map<PlayerColor, int> kingCount;
+
+    for (int r = 0; r < board->getHeight(); r++)
+    {
+        for (int c = 0; c < board->getWidth(); c++)
+        {
+            Position pos{r, c};
+            if (!isEmpty(pos))
+            {
+                pieceCount[board->getOwner(pos)]++;
+                if (board->getPieceType(pos) == PieceType::KING)
+                {
+                    kingCount[board->getOwner(pos)]++;
+                }
+            }
+        }
+    }
+
+    // stalemate if all players have no pieces left or both have no kings left
+    bool piecesLeft = false;
+    bool notJustKings = false;
+    for (PlayerColor pc : players)
+    {
+        if (pieceCount[pc] != 0)
+        {
+            piecesLeft = true;
+        }
+        if (kingCount[pc] != pieceCount[pc])
+        {
+            notJustKings = true;
+        }
+    }
+    if (!piecesLeft || !notJustKings)
+    {
+        return make_pair(true, PlayerColor::NONE);
+    }
+
+    map<PlayerColor, int> validMoveCount;
+    map<PlayerColor, bool> inCheck;
+    for (PlayerColor pc : players)
+    {
+        validMoveCount[pc] = getValidMoves(pc).size();
+        inCheck[pc] = isInCheck(pc);
+    }
+
+    // stalemate if all players are in check
+    bool notAllInCheck = false;
+    for (PlayerColor pc : players)
+    {
+        if (!inCheck[pc])
+        {
+            notAllInCheck = true;
+        }
+    }
+    if (!notAllInCheck)
+    {
+        return make_pair(true, PlayerColor::NONE);
+    }
+
+    // stalemate if no players have valid moves
+    bool notAllOutOfMoves = false;
+    for (PlayerColor pc : players)
+    {
+        if (validMoveCount[pc] != 0)
+        {
+            notAllOutOfMoves = true;
+        }
+    }
+    if (!notAllOutOfMoves)
+    {
+        return make_pair(true, PlayerColor::NONE);
+    }
+
+    // stalemate if a player has no valid moves and is not in check
+    for (PlayerColor pc : players)
+    {
+        if (validMoveCount[pc] == 0 && !inCheck[pc])
+        {
+            return make_pair(true, pc);
+        }
+    }
+
+    // checkmate if a player has no valid moves and is in check
+    for (PlayerColor pc : players)
+    {
+        if (validMoveCount[pc] == 0 && inCheck[pc])
+        {
+            return make_pair(true, PlayerColorUtils::getNext(pc));
+        }
+    }
+
+    return make_pair(false, PlayerColor::NONE);   
+}
+
+/* CHECK VALID STATE
             // bool one_white_king = false;
             // bool one_black_king = false;
             // bool duplicate_kings = false;

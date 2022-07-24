@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <utility>
 #include "../data/move.h"
 
 class Game;
@@ -45,6 +46,8 @@ public:
     PieceType getPieceType(const Position &p) const;
 
     void switchPlayers();
+
+    std::pair<bool, PlayerColor> getStatus() const;
 
     friend std::istream &operator>>(std::istream &is, GameState &g);
 };
