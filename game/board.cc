@@ -91,7 +91,7 @@ PieceType Board::getPieceType(const Position &p) const
     return isEmpty(p) ? PieceType::NONE : board[p.y][p.x]->getPieceType();
 }
 
-void Board::makeMove(Move move)
+void Board::makeMove(Move move, bool headless)
 {
     // pre: the move is valid
 
@@ -120,7 +120,7 @@ void Board::makeMove(Move move)
     for (int i = 0; i < (int)move.from.size(); ++i)
     {
         setPiece(move.to[i], std::move(from[i]));
-        board[move.to[i].y][move.to[i].x]->onMove(move, move.to[i]);
+        board[move.to[i].y][move.to[i].x]->onMove(move, move.to[i], headless);
     }
 }
 

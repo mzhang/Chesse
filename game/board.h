@@ -29,7 +29,7 @@ public:
     Board(Board &&);
     Board &operator=(Board &&);
 
-    void makeMove(Move);
+    void makeMove(Move, bool);
 
     void addPiece(std::unique_ptr<Moveable>, const Position &);
     std::unique_ptr<Moveable> popPiece(Position &);

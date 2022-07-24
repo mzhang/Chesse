@@ -18,7 +18,7 @@ struct PawnRules : public Decorator
     bool isPromoted;
     int promotedMaxSteps;
 
-    void promote();
+    void promote(bool);
 
 public:
     PawnRules(std::unique_ptr<Moveable>, int enpassantRank, int promotionRank, int promotedMaxSteps);
@@ -27,7 +27,7 @@ public:
     std::vector<Move> getValidMoves(const GameState &) const override;
     std::unique_ptr<Moveable> clone() const override;
 
-    void onMove(const Move &, const Position &) override;
+    void onMove(const Move &, const Position &, bool) override;
 };
 
 #endif

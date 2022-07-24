@@ -31,6 +31,6 @@ public:
     std::vector<Move> getValidMoves(const GameState &) const override;
     std::unique_ptr<Moveable> clone() const override;
 
-    void onMove(const Move &move, const Position &pos) override;
+    void onMove(const Move &move, const Position &pos, bool) override;
 };
 #endif

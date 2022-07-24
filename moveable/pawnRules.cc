@@ -16,7 +16,7 @@
 using namespace std;
 
 PawnRules::PawnRules(unique_ptr<Moveable> component, int enpassantRank, int promotionRank, int promotedMaxSteps) : Decorator{std::move(component)}, enpassantRank{enpassantRank}, promotionRank{promotionRank}, isPromoted{false}, promotedMaxSteps{promotedMaxSteps} {}
-PawnRules::PawnRules(const PawnRules &o) : Decorator{o}, enpassantRank{o.enpassantRank}, promotionRank{o.promotionRank} {}
+PawnRules::PawnRules(const PawnRules &o) : Decorator{o}, enpassantRank{o.enpassantRank}, promotionRank{o.promotionRank}, isPromoted{o.isPromoted}, promotedMaxSteps{o.promotedMaxSteps} {}
 
 vector<Move> PawnRules::getValidMoves(const GameState &g) const
 {
@@ -100,20 +100,27 @@ vector<Move> PawnRules::getValidMoves(const GameState &g) const
     return moves;
 }
 
-void PawnRules::onMove(const Move &m, const Position &pos)
+void PawnRules::onMove(const Move &m, const Position &pos, bool headless)
 {
     if (pos.y == promotionRank && !isPromoted)
     {
         isPromoted = true;
-        promote();
+        promote(headless);
     }
-    Decorator::onMove(m, pos);
+    Decorator::onMove(m, pos, headless);
 }
 
-void PawnRules::promote()
+void PawnRules::promote(bool headless)
 {
     PlayerColor player = Decorator::getOwner();
     Position currentPos = Decorator::getPosition();
+
+    if (headless)
+    {
+        Decorator::setComponent(PieceFactory::createPiece(currentPos, PieceType::QUEEN, player, promotedMaxSteps, promotedMaxSteps));
+        return;
+    }
+
     vector<PieceType> validPromotions = {PieceType::QUEEN, PieceType::ROOK, PieceType::BISHOP, PieceType::KNIGHT};
 
     cout << "Choose a promotion for the piece at " << currentPos << ":" << endl;
@@ -125,6 +132,7 @@ void PawnRules::promote()
 
     string pieceType;
     cin >> pieceType;
+
     pair<PieceType, PlayerColor> promotion = PieceTypeUtils::fromString(pieceType);
 
     while (find(validPromotions.begin(), validPromotions.end(), promotion.first) == validPromotions.end() || promotion.second != player)
@@ -133,9 +141,8 @@ void PawnRules::promote()
         cin >> pieceType;
         promotion = PieceTypeUtils::fromString(pieceType);
     }
-    PieceType type = PieceTypeUtils::fromString(pieceType).first;
 
-    Decorator::setComponent(PieceFactory::createPiece(currentPos, type, player, promotedMaxSteps, promotedMaxSteps));
+    Decorator::setComponent(PieceFactory::createPiece(currentPos, promotion.first, player, promotedMaxSteps, promotedMaxSteps));
 }
 
 unique_ptr<Moveable> PawnRules::clone() const

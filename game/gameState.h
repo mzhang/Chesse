@@ -15,7 +15,7 @@ class GameState
 {
 public:
     std::unique_ptr<Board> board;
-    PlayerColor currentPlayer; // white = 0; black = 1
+    PlayerColor currentPlayer;
     Move lastMove;
 
     GameState(int, int);
@@ -33,7 +33,7 @@ public:
     bool isEmpty(const Position p) const;
     std::vector<Move> getValidMoves(const Position &pos) const;
     std::vector<Move> getValidMoves(PlayerColor) const;
-    void makeMove(const Move &m);
+    void makeMove(const Move &m, bool);
     bool checkDetection(PlayerColor, Move, bool = false) const;
 
     PieceType getPieceType(const Position &p) const;
