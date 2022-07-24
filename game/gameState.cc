@@ -184,6 +184,11 @@ PieceType GameState::getPieceType(const Position &p) const
     return board->getPieceType(p);
 }
 
+int GameState::getMovedCount(const Position &p) const
+{
+    return board->getMovedCount(p);
+}
+
 void GameState::switchPlayers()
 {
     currentPlayer = PlayerColorUtils::getNext(currentPlayer);

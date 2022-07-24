@@ -31,6 +31,8 @@ public:
     bool isInBounds(const Position p) const;
     bool isOwner(const Position p, const PlayerColor) const;
     bool isEmpty(const Position p) const;
+    int getMovedCount(const Position &p) const;
+
     std::vector<Move> getValidMoves(const Position &pos) const;
     std::vector<Move> getValidMoves(PlayerColor) const;
     void makeMove(const Move &m, bool);
