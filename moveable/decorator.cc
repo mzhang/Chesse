@@ -27,6 +27,11 @@ vector<Move> Decorator::getValidMoves(const GameState &gameState) const
     return component->getValidMoves(gameState);
 }
 
+vector<Position> Decorator::getAttackedTiles(const GameState &gameState) const
+{
+    return component->getAttackedTiles(gameState);
+}
+
 Position Decorator::getPosition() const
 {
     return component->getPosition();
