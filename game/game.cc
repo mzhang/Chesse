@@ -1,4 +1,5 @@
 #include <memory>
+#include <utility>
 #include <iostream>
 
 #include "game.h"
@@ -43,31 +44,35 @@ PlayerColor Game::play(const string &player1, const string &player2)
             Move move = players[state.currentPlayer]->nextMove(state);
             // post: move is valid
 
-            history.addMove(move, state);
-            if (state.isValidMove(move))
-            {
-                state.makeMove(move, players[state.currentPlayer]->isHeadless());
-                state.switchPlayers();
-                updateOutputs(move);
-            }
-            else
+            if (!state.isValidMove(move))
             {
                 cout << "Invalid move" << endl;
+                continue;
             }
+            history.addMove(move, state);
+            state.makeMove(move, players[state.currentPlayer]->isHeadless());
+
+            pair<bool, PlayerColor> gameEnded = state.getStatus();
+            if (gameEnded.first)
+            {
+                cout << (gameEnded.second == PlayerColor::NONE ? "Stalemate! " : "Checkmate! ");
+                return gameEnded.second;
+            }
+
+            state.switchPlayers();
+            updateOutputs(move);
         }
         else if (cmd == "undo")
         {
             // Get last gamestate from history and replace gamestate if available
-            if (!history.empty())
+            if (history.empty())
             {
-                auto move_state = history.pop_back();
-                state = move_state.second;
-                updateOutputs(move_state.first);
+                cout << "No moves to undo" << endl;
+                continue;
             }
-            else
-            {
-                cout << "No moves to undo." << endl;
-            }
+            pair<Move, GameState> move_state = history.pop_back();
+            state = move_state.second;
+            updateOutputs(move_state.first);
         }
         else if (cmd == "valid")
         {
@@ -97,7 +102,7 @@ PlayerColor Game::play(const string &player1, const string &player2)
         {
             cout << "Invalid command" << endl;
         }
-        cout << "DEBUG: Command complete! It's now player " << state.currentPlayer << "'s turn" << endl;
+        cout << "DEBUG: Command complete! " << state.currentPlayer << " to play." << endl;
     }
 
     return PlayerColor::NONE;

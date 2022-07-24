@@ -12,7 +12,7 @@ class Game;
 class Chess
 {
     const int playerCount = 2;
-    std::unordered_map<PlayerColor, int> playerScores;
+    std::unordered_map<PlayerColor, float> playerScores;
 
     const int boardWidth = 8;
     const int boardHeight = 8;

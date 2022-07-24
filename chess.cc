@@ -20,11 +20,23 @@ void Chess::start(bool useDisplay)
         if (cmd == "game")
         {
             cin >> player1 >> player2;
+            
             Game game{boardWidth, boardHeight, useDisplay};
             PlayerColor winner = game.play(player1, player2);
-            if (winner != PlayerColor::NONE)
+
+            cout << winner << " wins!" << endl;
+
+            if (winner == PlayerColor::NONE)
             {
-                playerScores[winner]++;
+                vector<PlayerColor> players{PlayerColor::BLACK, PlayerColor::WHITE};
+                for (const PlayerColor &player : players)
+                {
+                    playerScores[player] += 0.5;
+                }
+            }
+            else
+            {
+                playerScores[winner] += 1;
             }
         }
         else if (cmd == "custom")
