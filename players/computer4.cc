@@ -52,7 +52,7 @@ pair<int, Move> Computer4::searchMoves(const GameState &g, int depth, int curren
         boardCount++;
 
         int updatedEval = currentEval + evaluateMove(newState, move);
-        newState.makeMove(move);
+        newState.makeMove(move, isHeadless());
         pair<float, Move> evaluation = searchMoves(newState, depth - 1, updatedEval, alpha, beta, !maximizingPlayer);
 
         if (maximizingPlayer)
