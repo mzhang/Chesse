@@ -33,19 +33,27 @@ vector<Move> Castle::getValidMoves(const GameState &g) const
             continue;
 
         int direction = castlePartner.x - currentPos.x > 0 ? 1 : -1;
-        Position p = currentPos;
 
-        bool pathValid = true;
-        while (++p.x < castlePartner.x)
+        Position p = Position{currentPos.x + direction, currentPos.y};
+        vector<Position> path{};
+
+        while (g.isInBounds(p) && g.isEmpty(p) && p != castlePartner)
         {
-            if (!(g.isInBounds(p) && g.isEmpty(p)))
+            path.push_back(p);
+            p = Position{p.x + direction, p.y};
+        }
+        for (const Position &p : path)
+        {
+            if (!g.isEmpty(p))
             {
-                pathValid = false;
-                break;
+                continue;
             }
         }
-        if (!pathValid)
+        if (g.isInCheck(player, path))
+        {
             continue;
+        }
+
         Position partnerPos = Position{currentPos.x + direction, currentPos.y};
         Position finalPos = Position{currentPos.x + 2 * direction, currentPos.y};
         moves.push_back(Move{vector<Position>{currentPos, castlePartner}, vector<Position>{finalPos, partnerPos}});
