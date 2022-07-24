@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <unordered_map>
+#include <utility>
 #include "chess.h"
 #include "./game/game.h"
 #include "./data/playerColor.h"
@@ -20,18 +21,21 @@ void Chess::start(bool useDisplay)
         if (cmd == "game")
         {
             cin >> player1 >> player2;
-            
-            Game game{boardWidth, boardHeight, useDisplay};
-            PlayerColor winner = game.play(player1, player2);
+            unordered_map<PlayerColor, string> players{
+                {PlayerColor::WHITE, player1},
+                {PlayerColor::BLACK, player2}
+            };
+
+            Game game{boardWidth, boardHeight, useDisplay, players};
+            PlayerColor winner = game.play();
 
             cout << winner << " wins!" << endl;
 
             if (winner == PlayerColor::NONE)
             {
-                vector<PlayerColor> players{PlayerColor::BLACK, PlayerColor::WHITE};
-                for (const PlayerColor &player : players)
+                for (const pair<PlayerColor, string> &player : players)
                 {
-                    playerScores[player] += 0.5;
+                    playerScores[player.first] += 0.5;
                 }
             }
             else

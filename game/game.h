@@ -25,9 +25,9 @@ class Game
 
 public:
     Game();
-    Game(int, int, bool);
+    Game(int, int, bool, std::unordered_map<PlayerColor, std::string>);
     ~Game();
-    PlayerColor play(const std::string &, const std::string &); // returns winning player
+    PlayerColor play(); // returns winning player
 
     void updateOutputs(const Move &m = Move()) const;
     std::unique_ptr<Player> getPlayer(const std::string &, PlayerColor) const;

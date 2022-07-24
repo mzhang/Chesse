@@ -15,22 +15,23 @@
 
 using namespace std;
 
-Game::Game(int boardWidth, int boardHeight, bool useDisplay) : state{boardWidth, boardHeight}, history{state}
+Game::Game(int boardWidth, int boardHeight, bool useDisplay, unordered_map<PlayerColor, string> playerStrings) : state{boardWidth, boardHeight}, history{state}
 {
     outputs.push_back(make_unique<TextDisplay>());
     if (useDisplay)
     {
         outputs.push_back(make_unique<Visualizer>(state));
     }
+    for (const pair<PlayerColor, string>& player : playerStrings)
+    {
+        players[player.first] = getPlayer(player.second, player.first);
+    }
 }
 
 Game::~Game() {}
 
-PlayerColor Game::play(const string &player1, const string &player2)
+PlayerColor Game::play()
 {
-    players[PlayerColor::WHITE] = getPlayer(player1, PlayerColor::WHITE);
-    players[PlayerColor::BLACK] = getPlayer(player2, PlayerColor::BLACK);
-
     string cmd;
     cout << "DEBUG: Chess game start!" << endl;
     while (cin >> cmd)
