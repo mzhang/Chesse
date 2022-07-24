@@ -91,6 +91,11 @@ PieceType Board::getPieceType(const Position &p) const
     return isEmpty(p) ? PieceType::NONE : board[p.y][p.x]->getPieceType();
 }
 
+int Board::getMovedCount(const Position &p) const
+{
+    return isEmpty(p) ? 0 : board[p.y][p.x]->getMovedCount();
+}
+
 void Board::makeMove(Move move, bool headless)
 {
     // pre: the move is valid

@@ -39,6 +39,7 @@ public:
     PlayerColor getOwner(const Position &) const;
     PieceType getPieceType(const Position &) const;
     bool isEmpty(const Position &) const;
+    int getMovedCount(const Position &) const;
 
     int getWidth() const;
     int getHeight() const;
