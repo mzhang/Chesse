@@ -27,12 +27,15 @@ vector<Move> Decorator::getValidMoves(const GameState &gameState, bool checkChil
     return component->getValidMoves(gameState, checkChildren);
 }
 
-vector<Position> Decorator::getAttackedTiles(const GameState &gameState) const
+vector<Position> Decorator::getAttackedTiles(const GameState &gameState, bool checkSelf) const
 {
     vector<Position> tiles = component->getAttackedTiles(gameState);
-    for (const Move &move : getValidMoves(gameState, false))
+    if (checkSelf)
     {
-        tiles.insert(tiles.end(), move.to.begin(), move.to.end());
+        for (const Move &move : getValidMoves(gameState, false))
+        {
+            tiles.insert(tiles.end(), move.to.begin(), move.to.end());
+        }
     }
     return tiles;
 }

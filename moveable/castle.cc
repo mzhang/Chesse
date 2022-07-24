@@ -14,9 +14,9 @@ using namespace std;
 Castle::Castle(unique_ptr<Moveable> component, vector<Position> partnerPositions) : Decorator{std::move(component)}, partnerPositions{partnerPositions} {}
 Castle::Castle(const Castle &o) : Decorator{o}, partnerPositions{o.partnerPositions} {}
 
-vector<Position> Castle::getAttackedTiles(const GameState &g) const
+vector<Position> Castle::getAttackedTiles(const GameState &g, bool) const
 {
-    return Decorator::getAttackedTiles(g);
+    return Decorator::getAttackedTiles(g, false);
 }
 
 vector<Move> Castle::getValidMoves(const GameState &g, bool checkChildren) const

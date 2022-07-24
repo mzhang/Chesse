@@ -32,7 +32,7 @@ PieceType Piece::getPieceType() const
     return type;
 }
 
-vector<Position> Piece::getAttackedTiles(const GameState &) const
+vector<Position> Piece::getAttackedTiles(const GameState &, bool) const
 {
     return vector<Position>{};
 }

@@ -26,7 +26,7 @@ public:
     PieceType getPieceType() const override;
     PlayerColor getOwner() const override;
     virtual std::vector<Move> getValidMoves(const GameState &, bool) const override;
-    virtual std::vector<Position> getAttackedTiles(const GameState &) const override;
+    virtual std::vector<Position> getAttackedTiles(const GameState &, bool) const override;
 
     int getMovedCount() const;
     virtual void onMove(const Move &, const Position &, bool) override;

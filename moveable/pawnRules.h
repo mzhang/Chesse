@@ -24,7 +24,7 @@ public:
     PawnRules(std::unique_ptr<Moveable>, int enpassantRank, int promotionRank, int promotedMaxSteps);
     PawnRules(const PawnRules &);
 
-    std::vector<Position> getAttackedTiles(const GameState &) const override;
+    std::vector<Position> getAttackedTiles(const GameState &, bool) const override;
     std::vector<Move> getValidMoves(const GameState &, bool) const override;
     std::unique_ptr<Moveable> clone() const override;
 
