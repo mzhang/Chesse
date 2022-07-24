@@ -18,6 +18,7 @@ struct Castle : public Decorator
     std::vector<Position> partnerPositions;
 
 public:
+    std::vector<Position> getAttackedTiles(const GameState &) const override;
     Castle(std::unique_ptr<Moveable>, std::vector<Position>);
     Castle(const Castle &);
 

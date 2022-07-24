@@ -107,14 +107,8 @@ vector<Position> GameState::getEnemySightlines(const PlayerColor &pc) const
             Position pos{r, c};
             if (!isEmpty(pos) && !isOwner(pos, pc))
             {
-                vector<Move> pieceMoves = board->getPiece(pos).getValidMoves(*this);
-                for (const Move &m : pieceMoves)
-                {
-                    for (const Position &p : m.to)
-                    {
-                        sightline.emplace_back(p);
-                    }
-                }
+                vector<Position> attackedTiles = board->getPiece(pos).getAttackedTiles(*this);
+                sightline.insert(sightline.end(), attackedTiles.begin(), attackedTiles.end());
             }
         }
     }
