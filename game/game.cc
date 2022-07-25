@@ -33,12 +33,19 @@ Game::~Game() {}
 PlayerColor Game::play()
 {
     string cmd;
-    cout << "DEBUG: Chess game start!" << endl;
     while (cin >> cmd)
     {
         if (cmd == "setup")
         {
             state.setup(*this);
+
+            // we may end setup mode in stalemate
+            pair<bool, PlayerColor> gameEnded = state.getStatus();
+            if (gameEnded.first)
+            {
+                cout << (gameEnded.second == PlayerColor::NONE ? "Stalemate! " : "Checkmate! ");
+                return gameEnded.second;
+            }
         }
         else if (cmd == "move")
         {
@@ -61,6 +68,12 @@ PlayerColor Game::play()
             }
 
             state.switchPlayers();
+
+            if (state.isInCheck(state.currentPlayer))
+            {
+                cout << state.currentPlayer << " is in check!" << endl;
+            }
+
             updateOutputs(move);
         }
         else if (cmd == "undo")
@@ -111,7 +124,6 @@ PlayerColor Game::play()
         {
             cout << "Invalid command" << endl;
         }
-        cout << "DEBUG: Command complete! " << state.currentPlayer << " to play." << endl;
     }
 
     return PlayerColor::NONE;

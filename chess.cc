@@ -34,6 +34,7 @@ void Chess::start(bool useDisplay)
                 {
                     playerScores[player.first] += 0.5;
                 }
+                cout << endl;
             }
             else
             {

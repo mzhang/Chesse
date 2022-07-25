@@ -288,8 +288,7 @@ void GameState::setup(const Game &g)
     }
 }
 
-// when you make a move, you're deciding the fate of both players
-// ie. a move can make you win or lose
+// we return pair<gameIsOver, winner>
 pair<bool, PlayerColor> GameState::getStatus() const
 {
     vector<PlayerColor> players{PlayerColor::BLACK, PlayerColor::WHITE};
@@ -373,7 +372,7 @@ pair<bool, PlayerColor> GameState::getStatus() const
     {
         if (validMoveCount[pc] == 0 && !inCheck[pc])
         {
-            return make_pair(true, pc);
+            return make_pair(true, PlayerColor::NONE);
         }
     }
 
