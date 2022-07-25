@@ -11,7 +11,7 @@ struct Move;
 class GameState;
 enum class PlayerColor;
 
-struct Moveable
+class Moveable
 {
 protected:
 public:

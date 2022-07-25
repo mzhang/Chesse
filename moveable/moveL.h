@@ -12,7 +12,7 @@ struct Move;
 class Piece;
 struct Moveable;
 
-struct MoveL : public Decorator
+class MoveL : public Decorator
 {
 public:
     explicit MoveL(std::unique_ptr<Moveable>);

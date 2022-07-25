@@ -11,7 +11,7 @@ struct Move;
 class Piece;
 struct Moveable;
 
-struct PawnRules : public Decorator
+class PawnRules : public Decorator
 {
     int enpassantRank;
     int promotionRank;

@@ -13,7 +13,7 @@ struct Move;
 class Piece;
 struct Moveable;
 
-struct Castle : public Decorator
+class Castle : public Decorator
 {
     std::vector<Position> partnerPositions;
 

@@ -12,7 +12,7 @@ struct Move;
 class Piece;
 struct Moveable;
 
-struct MoveDiagNeg : public Decorator
+class MoveDiagNeg : public Decorator
 {
     int maxSteps;
 
