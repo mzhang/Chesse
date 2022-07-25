@@ -165,7 +165,7 @@ vector<Move> GameState::getValidMoves(PlayerColor pc) const
 
 int GameState::getMovedCount(const Position &pos) const
 {
-    if (isInBounds(pos) || isEmpty(pos))
+    if (!isInBounds(pos) || isEmpty(pos))
     {
         return 0;
     }

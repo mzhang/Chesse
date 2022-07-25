@@ -17,10 +17,10 @@ Computer4::Computer4(PlayerColor color) : Player{color}
 
 Move Computer4::doNextMove(const GameState &g)
 {
-    int searchDepth = 4;
+    int searchDepth = 3;
 
     boardCount = 0;
-    pair<float, Move> evaluation = searchMoves(g, searchDepth, evaluateBoard(g), negativeInfinity, positiveInfinity, true);
+    pair<float, Move> evaluation = searchMoves(g, searchDepth, negativeInfinity, positiveInfinity, true);
 
     cout << "Evaluated " << boardCount << " boards" << endl;
     cout << "Best evaluation: " << evaluation.first << endl;
@@ -30,18 +30,16 @@ Move Computer4::doNextMove(const GameState &g)
 
 // Use alpha-beta pruning to find the best move
 // Algorithm is based on pseudocode from Wikipedia (https://en.wikipedia.org/wiki/Alpha–beta_pruning)
-// Additionally, we pass in the evaluation for the current board state. This lets evaluate moves instead of board states
-// This also avoids having to deal with invalid board states 
-pair<int, Move> Computer4::searchMoves(const GameState &g, int depth, int currentEval, int alpha, int beta, bool maximizingPlayer)
+pair<int, Move> Computer4::searchMoves(const GameState &g, int depth, int alpha, int beta, bool maximizingPlayer)
 {
     if (depth == 0)
-        return make_pair(currentEval, Move{});
+        return make_pair(evaluateBoard(g), Move{});
 
     // We order the moves to improve amount of branches pruned
     vector<Move> validMoves = orderMoves(g.getValidMoves(g.currentPlayer));
 
     if (validMoves.size() == 0)
-        return make_pair(currentEval, Move{});
+        return make_pair(evaluateBoard(g), Move{});
 
     Move currentBestMove;
     int currentBestScore = maximizingPlayer ? negativeInfinity : positiveInfinity;
@@ -51,9 +49,8 @@ pair<int, Move> Computer4::searchMoves(const GameState &g, int depth, int curren
         GameState newState = g;
         boardCount++;
 
-        int updatedEval = currentEval + evaluateMove(newState, move);
         newState.makeMove(move, isHeadless());
-        pair<float, Move> evaluation = searchMoves(newState, depth - 1, updatedEval, alpha, beta, !maximizingPlayer);
+        pair<float, Move> evaluation = searchMoves(newState, depth - 1, alpha, beta, !maximizingPlayer);
 
         if (maximizingPlayer)
         {
@@ -83,6 +80,7 @@ pair<int, Move> Computer4::searchMoves(const GameState &g, int depth, int curren
     return make_pair(currentBestScore, currentBestMove);
 }
 
+// TODO: improve
 vector<Move> Computer4::orderMoves(const vector<Move> &moves)
 {
     vector<Move> orderedMoves;
@@ -107,7 +105,19 @@ int Computer4::evaluateBoard(const GameState &g)
 {
     int evaluation = 0;
 
-    // TODO: check if king is in check
+    pair<bool, PlayerColor> gameEnded = g.getStatus();
+    if (gameEnded.first) {
+        if (gameEnded.second == PlayerColor::NONE) {
+            return 0;
+        }
+        else {
+            return gameEnded.second == playerColor ? positiveInfinity : negativeInfinity;
+        }
+    }
+
+    if (g.isInCheck(playerColor)) { // not in checkmate, but in check
+        evaluation -= 50;
+    }
 
     for (int y = 0; y < 8; y++)
     {
@@ -118,31 +128,6 @@ int Computer4::evaluateBoard(const GameState &g)
             int positionValue = getPositionValue(pos, pieceType);
             evaluation += g.isOwner(pos, playerColor) ? positionValue : -positionValue;
         }
-    }
-
-    return evaluation;
-}
-
-int Computer4::evaluateMove(const GameState &g, const Move &m)
-{
-    int evaluation = 0;
-
-    // TODO: checkmate/stalemate/etc.
-
-    for (auto pos : m.capturePositions)
-    {
-        PieceType capturedPiece = g.getPieceType(pos);
-        int pieceValue = getPieceValue(capturedPiece) + getPositionValue(pos, capturedPiece);
-        evaluation += !g.isOwner(pos, playerColor) ? pieceValue : -pieceValue;
-    }
-
-    // TODO: promotion
-
-    for (int i = 0; i < (int)m.from.size(); ++i)
-    {
-        PieceType pieceType = g.getPieceType(m.from[i]);
-        int newPositionValue = getPositionValue(m.to[i], pieceType) - getPositionValue(m.from[i], pieceType);
-        evaluation += g.isOwner(m.from[i], playerColor) ? newPositionValue : -newPositionValue;
     }
 
     return evaluation;
