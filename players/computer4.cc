@@ -6,6 +6,7 @@
 #include "computer4.h"
 #include "../game/gameState.h"
 #include "../data/move.h"
+#include "../data/completedMove.h"
 #include "../game/board.h"
 #include "../data/playerColor.h"
 
@@ -18,9 +19,10 @@ Computer4::Computer4(PlayerColor color) : Player{color}
 Move Computer4::doNextMove(const GameState &g)
 {
     int searchDepth = 3;
+    GameState testState{g};
 
     boardCount = 0;
-    pair<float, Move> evaluation = searchMoves(g, searchDepth, negativeInfinity, positiveInfinity, true);
+    pair<float, Move> evaluation = searchMoves(testState, searchDepth, negativeInfinity, positiveInfinity, true);
 
     cout << "Evaluated " << boardCount << " boards" << endl;
     cout << "Best evaluation: " << evaluation.first << endl;
@@ -30,7 +32,7 @@ Move Computer4::doNextMove(const GameState &g)
 
 // Use alpha-beta pruning to find the best move
 // Algorithm is based on pseudocode from Wikipedia (https://en.wikipedia.org/wiki/Alpha–beta_pruning)
-pair<int, Move> Computer4::searchMoves(const GameState &g, int depth, int alpha, int beta, bool maximizingPlayer)
+pair<int, Move> Computer4::searchMoves(GameState &g, int depth, int alpha, int beta, bool maximizingPlayer)
 {
     if (depth == 0)
         return make_pair(evaluateBoard(g), Move{});
@@ -46,11 +48,11 @@ pair<int, Move> Computer4::searchMoves(const GameState &g, int depth, int alpha,
 
     for (auto move : validMoves)
     {
-        GameState newState = g;
         boardCount++;
-
-        newState.makeMove(move, isHeadless());
-        pair<float, Move> evaluation = searchMoves(newState, depth - 1, alpha, beta, !maximizingPlayer);
+        Move lastMove = g.lastMove;
+        CompletedMove completedMove = g.makeMove(move, isHeadless());
+        pair<float, Move> evaluation = searchMoves(g, depth - 1, alpha, beta, !maximizingPlayer);
+        g.undoMove(std::move(completedMove), lastMove);
 
         if (maximizingPlayer)
         {

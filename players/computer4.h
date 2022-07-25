@@ -83,7 +83,7 @@ class Computer4 : public Player
     int evaluateMove(const GameState &, const Move &); // evaluate a specific move
     int evaluateBoard(const GameState &); // evaluate the board
     Move doNextMove(const GameState &) override;
-    std::pair<int, Move> searchMoves(const GameState &, int, int, int, bool);
+    std::pair<int, Move> searchMoves(GameState &, int, int, int, bool);
 
 public:
     explicit Computer4(PlayerColor);

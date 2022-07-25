@@ -13,6 +13,7 @@
 #include "../moveable/moveable.h"
 #include "../moveable/pieceFactory.h"
 #include "../data/playerColor.h"
+#include "../data/completedMove.h"
 
 #include "../outputs/textDisplay.h"
 
@@ -54,10 +55,16 @@ bool GameState::isValidMove(const Move &m) const
 }
 
 // Precondition: move accounts for all side effects
-void GameState::makeMove(const Move &m, bool headless)
+CompletedMove GameState::makeMove(const Move &m, bool headless)
 {
-    board->makeMove(m, headless);
     lastMove = m;
+    return board->makeMove(m, headless);
+}
+
+void GameState::undoMove(CompletedMove &&m, const Move &previousMove)
+{
+    board->undoMove(std::move(m));
+    lastMove = previousMove;
 }
 
 bool GameState::isInCheck(const PlayerColor &pc) const
