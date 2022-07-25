@@ -74,21 +74,7 @@ bool GameState::isInCheck(const PlayerColor &pc) const
             }
         }
     }
-    return isInCheck(pc, kingPos);
-}
-
-// todo: rename this function to isInSightlines
-bool GameState::isInCheck(const PlayerColor &pc, const vector<Position> &positions) const
-{
-    vector<Position> enemySightlines = getEnemySightlines(pc);
-    for (const Position &pos : positions)
-    {
-        if (std::find(enemySightlines.begin(), enemySightlines.end(), pos) != enemySightlines.end())
-        {
-            return true;
-        }
-    }
-    return false;
+    return numberOfTilesAttacked(pc, kingPos) > 0;
 }
 
 // getEnemySightlines is expensive so we pass in vector to minimize calls

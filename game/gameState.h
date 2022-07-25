@@ -43,7 +43,6 @@ public:
     void makeMove(const Move &m, bool);
 
     bool isInCheck(const PlayerColor &) const;
-    bool isInCheck(const PlayerColor &, const std::vector<Position> &) const;
     int numberOfTilesAttacked(const PlayerColor &, const std::vector<Position> &) const;
     bool isInCheckAfterMove(const PlayerColor &, const Move &) const;
     std::vector<Position> getEnemySightlines(const PlayerColor &) const;
