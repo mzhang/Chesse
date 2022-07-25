@@ -44,20 +44,12 @@ PlayerColor Game::play()
         {
             Move move = players[state.currentPlayer]->nextMove(state);
 
-            // reject malformed moves
-            if (move.from.size() == 0 || move.to.size() == 0 || move.from.size() != move.to.size() || move.from == move.to)
+            // make sure there's no malformed moves. These should never happen, but just in case.
+            if (move.from.size() == 0 || move.to.size() == 0 || move.from.size() != move.to.size() || move.from == move.to || !state.isValidMove(move))
             {
-                cout << "Invalid move" << endl;
-                continue;
+                throw runtime_error("Malformed move after nextMove called. Was there some malformed move in getValidMoves?");
             }
-
-            // post: move is valid
-
-            if (!state.isValidMove(move))
-            {
-                cout << "Invalid move" << endl;
-                continue;
-            }
+            
             history.addMove(move, state);
             state.makeMove(move, players[state.currentPlayer]->isHeadless());
 

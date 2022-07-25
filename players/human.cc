@@ -32,7 +32,7 @@ Move Human::doNextMove(const GameState &g)
 
         for (Move m : validMoves)
         {
-            if (move.isSubset(m))
+            if (move.isSubset(m) && g.isOwner(from, playerColor))
             {
                 return m;
             }
