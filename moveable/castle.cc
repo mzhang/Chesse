@@ -58,7 +58,7 @@ vector<Move> Castle::getValidMoves(const GameState &g, bool checkChildren) const
                 continue;
             }
         }
-        if (g.isInCheck(player, path))
+        if (g.numberOfTilesAttacked(player, path) > 0)
         {
             continue;
         }

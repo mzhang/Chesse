@@ -23,7 +23,7 @@ void Visualizer::initializeSDL()
     }
 }
 
-Visualizer::Visualizer(const GameState &state)
+Visualizer::Visualizer(const GameState &state, int boardWidth, int boardHeight) : boardWidth(boardWidth), boardHeight(boardHeight)
 {
     // TODO: fix SDL memory leak
     // Initialize SDL and create a screen
@@ -35,9 +35,9 @@ Visualizer::Visualizer(const GameState &state)
     ChessDrawing::draw_axes(*screen);
 
     // Draw all pieces
-    for (int r = 0; r < 8; r++)
+    for (int r = 0; r < boardHeight; r++)
     {
-        for (int c = 0; c < 8; c++)
+        for (int c = 0; c < boardWidth; c++)
         {
             Position p{r, c};
             draw_position(state, p);
@@ -50,19 +50,19 @@ Visualizer::Visualizer(const GameState &state)
 void Visualizer::draw_position(const GameState &b, const Position &position)
 {
     ChessDrawing::clear_square(*screen, position.x, position.y);
-    PieceType pieceType = b.board->getPieceType(position);
+    PieceType pieceType = b.getPieceType(position);
     if (pieceType != PieceType::NONE)
     {
-        PlayerColor owner = b.board->getOwner(position);
+        PlayerColor owner = b.getOwner(position);
         ChessDrawing::draw_chesspiece(*screen, position.x, position.y, pieceType, owner);
     }
 }
 
-
 void Visualizer::doUpdate(const GameState &b, const Move &m)
 {
     // clear the valid move display
-    for (auto move : validMoves) {
+    for (auto move : validMoves)
+    {
         for (auto p : move.to)
         {
             ChessDrawing::clear_square(*screen, p.x, p.y);
@@ -87,7 +87,8 @@ void Visualizer::doUpdate(const GameState &b, const Move &m)
 void Visualizer::doDisplayValidMoves(const GameState &g, const vector<Move> &moves)
 {
     // clear the valid move display
-    for (auto move : validMoves) {
+    for (auto move : validMoves)
+    {
         for (auto p : move.to)
         {
             ChessDrawing::clear_square(*screen, p.x, p.y);

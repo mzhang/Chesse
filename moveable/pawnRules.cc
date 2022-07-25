@@ -70,7 +70,7 @@ vector<Move> PawnRules::getValidMoves(const GameState &g, bool checkChildren) co
 
     if (currentPos.y + 1 == enpassantRank && g.isInBounds(left) &&
         !g.isOwner(left, player) && !g.isEmpty(left) && g.getPieceType(left) == PieceType::PAWN &&
-        g.board->getPiece(left).getMovedCount() == 1)
+        g.getMovedCount(right) == 1)
     {
         bool lastMovedPawn = false;
         vector<Position> lastMoveTo = g.lastMove.to;
@@ -91,7 +91,7 @@ vector<Move> PawnRules::getValidMoves(const GameState &g, bool checkChildren) co
     // same for right
     if (currentPos.y + 1 == enpassantRank && g.isInBounds(right) &&
         !g.isOwner(right, player) && !g.isEmpty(right) && g.getPieceType(right) == PieceType::PAWN &&
-        g.board->getPiece(right).getMovedCount() == 1)
+        g.getMovedCount(right) == 1)
     {
         bool lastMovedPawn = false;
         vector<Position> lastMoveTo = g.lastMove.to;

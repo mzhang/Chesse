@@ -18,7 +18,7 @@ bool Computer3::isCapturingMove(const GameState &state, const Move &move)
     cout << move.capturePositions.size() << endl;
     for (auto targetPos : move.capturePositions)
     {
-        if (!state.board->isEmpty(targetPos) && state.board->getOwner(targetPos) != playerColor)
+        if (!state.isEmpty(targetPos) && state.getOwner(targetPos) != playerColor)
         {
             return true;
         }
@@ -31,66 +31,16 @@ bool Computer3::isCheckingMove(const GameState &state, const Move &move)
     return state.isInCheckAfterMove(PlayerColorUtils::getNext(playerColor), move);
 }
 
-int Computer3::isPositionAtRisk(const GameState &state, const Position &p)
-{
-    for (int i = 0; i < state.board->getWidth(); i++)
-    {
-        for (int j = 0; j < state.board->getHeight(); j++)
-        {
-            Position pos{i, j};
-            if (!state.board->isEmpty(pos) && state.board->getOwner(pos) != playerColor)
-            {
-                // Get valid moves and see if any of them are to the position p
-                vector<Move> validMoves = state.getValidMoves(pos);
-                for (auto move : validMoves)
-                {
-                    // Iterate through each of the values in capturepositions and see if it is the same as p
-                    for (auto to : move.capturePositions)
-                    {
-                        if (to == p)
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return false;
-}
-
 bool Computer3::avoidsCapture(const GameState &state, const Move &move)
 {
-    // Copy gamestate, make move
+    int attackedCount = state.numberOfTilesAttacked(playerColor, move.capturePositions);
+
     GameState newState{state};
-
-    // Count number of pieces at risk
-    int num_pieces_in_check = 0;
-    for (auto source : move.from)
-    {
-        // Check if the square at this position is threatened by any enemy piece
-        if (isPositionAtRisk(newState, source))
-        {
-            num_pieces_in_check++;
-        }
-    }
-
-    // Make move on new state
     newState.makeMove(move, isHeadless());
+    int newAttackedCount = newState.numberOfTilesAttacked(playerColor, move.capturePositions);
 
-    // Count number of pieces at risk
-    int num_pieces_in_check_after = 0;
-    for (auto source : move.from)
-    {
-        // Check if the square at this position is threatened by any enemy piece
-        if (isPositionAtRisk(newState, source))
-        {
-            num_pieces_in_check_after++;
-        }
-    }
-
-    cout << "num_pieces_in_check: " << num_pieces_in_check << "num_pieces_in_check_after: " << num_pieces_in_check_after << endl;
-    return num_pieces_in_check > num_pieces_in_check_after;
+    cout << "Number of pieces attacked before: " << attackedCount << "Number of pieces attacked after: " << newAttackedCount << endl;
+    return attackedCount > newAttackedCount;
 }
 
 Move Computer3::doNextMove(const GameState &state)

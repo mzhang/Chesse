@@ -17,10 +17,10 @@ using namespace std;
 
 Game::Game(int boardWidth, int boardHeight, bool useDisplay, unordered_map<PlayerColor, string> playerStrings) : state{boardWidth, boardHeight}, history{state}
 {
-    outputs.push_back(make_unique<TextDisplay>());
+    outputs.push_back(make_unique<TextDisplay>(boardWidth, boardHeight));
     if (useDisplay)
     {
-        outputs.push_back(make_unique<Visualizer>(state));
+        outputs.push_back(make_unique<Visualizer>(state, boardWidth, boardHeight));
     }
     for (const pair<PlayerColor, string> &player : playerStrings)
     {

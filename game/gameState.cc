@@ -74,20 +74,22 @@ bool GameState::isInCheck(const PlayerColor &pc) const
             }
         }
     }
-    return isInCheck(pc, kingPos);
+    return numberOfTilesAttacked(pc, kingPos) > 0;
 }
 
-bool GameState::isInCheck(const PlayerColor &pc, const vector<Position> &positions) const
+// getEnemySightlines is expensive so we pass in vector to minimize calls
+int GameState::numberOfTilesAttacked(const PlayerColor &pc, const vector<Position> &positions) const
 {
+    int numAttacked = 0;
     vector<Position> enemySightlines = getEnemySightlines(pc);
     for (const Position &pos : positions)
     {
         if (std::find(enemySightlines.begin(), enemySightlines.end(), pos) != enemySightlines.end())
         {
-            return true;
+            ++numAttacked;
         }
     }
-    return false;
+    return numAttacked;
 }
 
 bool GameState::isInCheckAfterMove(const PlayerColor &pc, const Move &m) const
@@ -160,11 +162,28 @@ vector<Move> GameState::getValidMoves(PlayerColor pc) const
     return validMoves;
 }
 
+int GameState::getMovedCount(const Position &pos) const
+{
+    if (isInBounds(pos) || isEmpty(pos))
+    {
+        return 0;
+    }
+    return board->getMovedCount(pos);
+}
+
+// todo: kill this
 bool GameState::isOwner(const Position p, const PlayerColor playerColor) const
 {
     if (!isInBounds(p) || isEmpty(p))
         return false;
     return board->getOwner(p) == playerColor;
+}
+
+PlayerColor GameState::getOwner(const Position &p) const
+{
+    if (!isInBounds(p) || isEmpty(p))
+        return PlayerColor::NONE;
+    return board->getOwner(p);
 }
 
 bool GameState::isEmpty(const Position p) const
@@ -184,11 +203,6 @@ PieceType GameState::getPieceType(const Position &p) const
     if (!isInBounds(p))
         return PieceType::NONE;
     return board->getPieceType(p);
-}
-
-int GameState::getMovedCount(const Position &p) const
-{
-    return board->getMovedCount(p);
 }
 
 void GameState::switchPlayers()

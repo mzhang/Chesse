@@ -9,30 +9,41 @@
 
 using namespace std;
 
+TextDisplay::TextDisplay(int boardWidth, int boardHeight) : boardWidth{boardWidth}, boardHeight{boardHeight} {}
+
 void TextDisplay::doUpdate(const GameState &g, const Move &)
 {
-    for (int y = g.board->getHeight() - 1; y >= 0; --y) { // we print in reverse order because we want to print the bottom row first
-        cout << (y+1) << " ";
-        for (int x = 0; x < g.board->getWidth(); ++x) {
+    for (int y = boardHeight- 1; y >= 0; --y)
+    { // we print in reverse order because we want to print the bottom row first
+        cout << (y + 1) << " ";
+        for (int x = 0; x < boardWidth; ++x)
+        {
             Position p{x, y};
-            if (g.board->isEmpty(p)) {
-                if (isBlackTile(p)) {
+            if (g.isEmpty(p))
+            {
+                if (isBlackTile(p))
+                {
                     cout << "_";
-                } else {
+                }
+                else
+                {
                     cout << " ";
                 }
-            } else {
-                const Moveable &piece = g.board->getPiece(p);
-                cout << PieceTypeUtils::toString(piece.getPieceType(), piece.getOwner());
+            }
+            else
+            {
+                cout << PieceTypeUtils::toString(g.getPieceType(p), g.getOwner(p));
             }
         }
         cout << endl;
     }
 
-    cout << endl << "  ";
+    cout << endl
+         << "  ";
 
     char col = 'a';
-    for (int x = 0; x < g.board->getWidth(); ++x) {
+    for (int x = 0; x < boardWidth; ++x)
+    {
         cout << col;
         col++;
     }
