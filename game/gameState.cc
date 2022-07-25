@@ -199,7 +199,7 @@ bool GameState::isInBounds(const Position p) const
 
 PieceType GameState::getPieceType(const Position &p) const
 {
-    if (!isInBounds(p))
+    if (!isInBounds(p) || isEmpty(p))
         return PieceType::NONE;
     return board->getPieceType(p);
 }
@@ -219,7 +219,10 @@ void GameState::setup(const Game &g)
     {
         if (cmd == "done")
         {
-            // // TODO: make sure that neither king is in check, etc
+            if (!checkValidState()) {
+                cout << "Invalid board state, cannot exit setup" << endl;
+                continue;
+            }
             break;
         }
         else if (cmd == "standard")
@@ -286,6 +289,62 @@ void GameState::setup(const Game &g)
             cout << "Invalid command" << endl;
         }
     }
+}
+
+bool GameState::checkValidState()
+{
+    // no pawns on first row
+    for (int x = 0; x < board->getWidth(); x++)
+    {
+        if (board->getPieceType({x, 0}) == PieceType::PAWN)
+        {
+            return false;
+        }
+    }
+
+    // no pawns on last row
+    for (int x = 0; x < board->getWidth(); x++)
+    {
+        if (board->getPieceType({x, board->getHeight()-1}) == PieceType::PAWN)
+        {
+            return false;
+        }
+    }
+
+    int blackKingCount = 0;
+    int whiteKingCount = 0;
+    for (int y = 0; y < board->getHeight(); y++)
+    {
+        for (int x = 0; x < board->getWidth(); x++)
+        {
+            Position pos{x, y};
+            if (board->getPieceType(pos) == PieceType::KING)
+            {
+                if (board->getOwner(pos) == PlayerColor::WHITE)
+                {
+                    whiteKingCount++;
+                }
+                else
+                {
+                    blackKingCount++;
+                }
+            }
+        }
+    }
+
+    // both players needs exactly one king
+    if (blackKingCount != 1 || whiteKingCount != 1)
+    {
+        return false;
+    }
+
+    // neither king can be in check
+    if (isInCheck(PlayerColor::WHITE) || isInCheck(PlayerColor::BLACK))
+    {
+        return false;
+    }
+
+    return true;
 }
 
 // we return pair<gameIsOver, winner>
@@ -387,83 +446,6 @@ pair<bool, PlayerColor> GameState::getStatus() const
 
     return make_pair(false, PlayerColor::NONE);
 }
-
-/* CHECK VALID STATE
-            // bool one_white_king = false;
-            // bool one_black_king = false;
-            // bool duplicate_kings = false;
-            // bool valid_kings = true;
-
-            // for (int i = 0; i < board->getWidth(); i++)
-            // {
-            //     for (int j = 0; j < board->getHeight(); j++)
-            //     {
-            //         Position pos{i, j};
-            //         if (board->getPieceType(pos) == PieceType::KING)
-            //         {
-            //             if (board->getOwner(pos) == 0) {
-            //                 // check if there is already a white king
-            //                 if (one_white_king) {
-            //                     cout << "There is more than one white king on the board" << endl;
-            //                 } else {
-            //                     one_white_king = true;
-            //                     duplicate_kings = true;
-            //                 }
-            //             } else {
-            //                 // check if there is already a black king
-            //                 if (one_black_king) {
-            //                     cout << "There is more than one black king on the board" << endl;
-            //                     duplicate_kings = true;
-            //                 } else {
-            //                     one_black_king = true;
-            //                 }
-            //             }
-            //         }
-            //     }
-            // }
-
-            // // Check that there is one white and one black king
-            // if (!one_white_king) {
-            //     cout << "There is no white king on the board" << endl;
-            //     valid_kings = false;
-            // }
-            // if (!one_black_king) {
-            //     cout << "There is no black king on the board" << endl;
-            //     valid_kings = false;
-            // }
-            // // Check that there are no duplicate kings
-            // if (duplicate_kings) {
-            //     cout << "There are duplicate kings on the board" << endl;
-            //     valid_kings = false;
-            // }
-
-            // bool pawnsInRightPos = true;
-            // // Check that there are no pawns on the first row or last row of the board
-            // for (int i = 0; i < board->getWidth(); i++)
-            // {
-            //     Position pos{i, 0};
-            //     Position pos2{i, board->getHeight() - 1};
-            //     if (board->getPieceType(pos) == PieceType::PAWN)
-            //     {
-            //         cout << "Pawns cannot be on the first row" << endl;
-            //         pawnsInRightPos = false;
-            //         break;
-            //     }
-            //     if (board->getPieceType(pos2) == PieceType::PAWN)
-            //     {
-            //         cout << "Pawns cannot be on the last row" << endl;
-            //         pawnsInRightPos = false;
-            //         break;
-            //     }
-            // }
-
-            // if (valid_kings || !pawnsInRightPos) {
-            //     cout << "Please make sure pieces are in valid positions" << endl;
-            // } else {
-            //     break;
-            // }
-
-*/
 
 void GameState::standard_chess_board()
 {
