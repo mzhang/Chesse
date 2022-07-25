@@ -15,7 +15,7 @@ Computer3::Computer3(PlayerColor color) : Player{color}
 
 bool Computer3::isCapturingMove(const GameState &state, const Move &move)
 {
-    cout << move.capturePositions.size() << endl;
+    // cout << move.capturePositions.size() << endl;
     for (auto targetPos : move.capturePositions)
     {
         if (!state.isEmpty(targetPos) && state.getOwner(targetPos) != playerColor)
@@ -39,7 +39,7 @@ bool Computer3::avoidsCapture(const GameState &state, const Move &move)
     newState.makeMove(move, isHeadless());
     int newAttackedCount = newState.numberOfTilesAttacked(playerColor, move.capturePositions);
 
-    cout << "Number of pieces attacked before: " << attackedCount << "Number of pieces attacked after: " << newAttackedCount << endl;
+    // cout << "Number of pieces attacked before: " << attackedCount << "Number of pieces attacked after: " << newAttackedCount << endl;
     return attackedCount > newAttackedCount;
 }
 
@@ -64,7 +64,7 @@ Move Computer3::doNextMove(const GameState &state)
     // If there are no capturing or checking moves, return a random move
     if (preferred_moves.size() == 0)
     {
-        cout << "No capture avoiding, capturing or checking moves" << endl;
+        // cout << "No capture avoiding, capturing or checking moves" << endl;
         std::uniform_int_distribution<int> distribution(0, possible_moves.size() - 1);
         int random_index = distribution(generator);
         return possible_moves[random_index];

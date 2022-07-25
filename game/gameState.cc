@@ -248,7 +248,7 @@ void GameState::setup(const Game &g)
 
             if (!isInBounds(pos))
             {
-                cout << "Invalid position" << endl;
+                cout << "Invalid position! Position: " << pos << endl;
                 continue;
             }
 
@@ -262,7 +262,7 @@ void GameState::setup(const Game &g)
 
             if (!isInBounds(pos))
             {
-                cout << "Invalid position" << endl;
+                cout << "Invalid position! Position: " << pos << endl;
                 continue;
             }
 
@@ -279,14 +279,14 @@ void GameState::setup(const Game &g)
                 {
                     break;
                 }
-                cout << "Invalid colour, use 'black'/'white'" << endl;
+                cout << "Invalid colour; use 'black'/'white'." << endl;
             }
 
             currentPlayer = PlayerColorUtils::fromString(colour);
         }
         else
         {
-            cout << "Invalid command" << endl;
+            cout << "Invalid command! Command: " << cmd << endl;
         }
     }
 }

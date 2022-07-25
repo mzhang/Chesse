@@ -22,8 +22,8 @@ Move Computer4::doNextMove(const GameState &g)
     boardCount = 0;
     pair<float, Move> evaluation = searchMoves(g, searchDepth, negativeInfinity, positiveInfinity, true);
 
-    cout << "Evaluated " << boardCount << " boards" << endl;
-    cout << "Best evaluation: " << evaluation.first << endl;
+    // cout << "Evaluated " << boardCount << " boards" << endl;
+    // cout << "Best evaluation: " << evaluation.first << endl;
 
     return evaluation.second;
 }
