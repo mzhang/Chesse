@@ -13,8 +13,10 @@ class Position;
 
 class Visualizer : public Output
 {
-    std::unique_ptr<Screen> screen;
+    int boardWidth;
+    int boardHeight;
 
+    std::unique_ptr<Screen> screen;
     std::vector<Move> validMoves; // used to clear valid move display after a move is made
 
     static bool SDLIsInitialized;
@@ -22,9 +24,10 @@ class Visualizer : public Output
     void draw_position(const GameState &, const Position &);
     void doUpdate(const GameState &, const Move &) override;
     void doDisplayValidMoves(const GameState &, const std::vector<Move> &) override;
+
 public:
-    explicit Visualizer(const GameState &);
+    Visualizer(const GameState &, int, int);
 
     ~Visualizer();
-}; 
+};
 #endif

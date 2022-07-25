@@ -41,7 +41,7 @@ Board::Board(const Board &o) : width{o.width}, height{o.height}
 {
     resizeBoard();
 
-    //cout << "DEBUG: Board copy constructor. Make sure this is intended" << endl;
+    // cout << "DEBUG: Board copy constructor. Make sure this is intended" << endl;
 
     for (int i = 0; i < height; i++)
     {

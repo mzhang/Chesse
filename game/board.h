@@ -35,11 +35,11 @@ public:
     std::unique_ptr<Moveable> popPiece(Position &);
     void setPiece(Position &, std::unique_ptr<Moveable>);
     const Moveable &getPiece(const Position &) const;
+    int getMovedCount(const Position &) const;
 
     PlayerColor getOwner(const Position &) const;
     PieceType getPieceType(const Position &) const;
     bool isEmpty(const Position &) const;
-    int getMovedCount(const Position &) const;
 
     int getWidth() const;
     int getHeight() const;

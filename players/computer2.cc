@@ -18,7 +18,7 @@ bool Computer2::isCapturingMove(const GameState &state, const Move &move)
     cout << move.capturePositions.size() << endl;
     for (auto targetPos : move.capturePositions)
     {
-        if (!state.board->isEmpty(targetPos) && state.board->getOwner(targetPos) != playerColor)
+        if (!state.isEmpty(targetPos) && state.getOwner(targetPos) != playerColor)
         {
             return true;
         }
