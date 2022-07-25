@@ -77,6 +77,7 @@ bool GameState::isInCheck(const PlayerColor &pc) const
     return numberOfTilesAttacked(pc, kingPos) > 0;
 }
 
+// TODO: rename this to numberOfPiecesAttacking
 // getEnemySightlines is expensive so we pass in vector to minimize calls
 int GameState::numberOfTilesAttacked(const PlayerColor &pc, const vector<Position> &positions) const
 {
@@ -188,8 +189,6 @@ PlayerColor GameState::getOwner(const Position &p) const
 
 bool GameState::isEmpty(const Position p) const
 {
-    if (!isInBounds(p))
-        return true;
     return board->isEmpty(p);
 }
 
