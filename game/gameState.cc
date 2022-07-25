@@ -16,6 +16,14 @@
 
 #include "../outputs/textDisplay.h"
 
+#include "../moveable/moveX.h"
+#include "../moveable/moveY.h"
+#include "../moveable/moveDiagNeg.h"
+#include "../moveable/moveDiagPos.h"
+#include "../moveable/moveL.h"
+#include "../moveable/pawnRules.h"
+#include "../moveable/castle.h"
+
 #include <util.h>
 
 using namespace std;
@@ -219,7 +227,8 @@ void GameState::setup(const Game &g)
     {
         if (cmd == "done")
         {
-            if (!checkValidState()) {
+            if (!checkValidState())
+            {
                 cout << "Invalid board state, cannot exit setup" << endl;
                 continue;
             }
@@ -271,6 +280,74 @@ void GameState::setup(const Game &g)
                 g.updateOutputs(Move{pos, pos});
             }
         }
+        else if (cmd == "*")
+        {
+            // re-decorate a piece with a new rule
+            string newRule;
+            cin >> newRule;
+            Position pos;
+            cin >> pos;
+            if (!isInBounds(pos))
+            {
+                cout << "Invalid position! Position: " << pos << endl;
+                continue;
+            }
+            if (isEmpty(pos))
+            {
+                cout << "Position is empty! Position: " << pos << endl;
+                continue;
+            }
+            unique_ptr<Moveable> piece = board->popPiece(pos);
+            int width = board->getWidth();
+            int height = board->getHeight();
+            PlayerColor owner = piece->getOwner();
+            if (newRule == "moveX")
+            {
+                int maxSteps;
+                cin >> maxSteps;
+                board->addPiece(make_unique<MoveX>(std::move(piece), maxSteps), pos);
+            }
+            else if (newRule == "moveY")
+            {
+                int maxSteps;
+                cin >> maxSteps;
+                board->addPiece(make_unique<MoveY>(std::move(piece), maxSteps), pos);
+            }
+            else if (newRule == "moveDiagNeg")
+            {
+                int maxSteps;
+                cin >> maxSteps;
+                board->addPiece(make_unique<MoveDiagNeg>(std::move(piece), maxSteps), pos);
+            }
+            else if (newRule == "moveDiagPos")
+            {
+                int maxSteps;
+                cin >> maxSteps;
+                board->addPiece(make_unique<MoveDiagPos>(std::move(piece), maxSteps), pos);
+            }
+            else if (newRule == "moveL")
+            {
+                board->addPiece(make_unique<MoveL>(std::move(piece)), pos);
+            }
+            else if (newRule == "pawnRules")
+            {
+                int enpassantRow = owner == PlayerColor::WHITE ? 5 : height - 4;
+                int promoteRow = owner == PlayerColor::WHITE ? height - 1 : 0;
+                board->addPiece(make_unique<PawnRules>(std::move(piece), enpassantRow, promoteRow, width), pos);
+            }
+            else if (newRule == "castle")
+            {
+                vector<Position> partners{Position{0, pos.y}, Position{width - 1, pos.y}};
+                board->addPiece(make_unique<Castle>(std::move(piece), partners), pos);
+            }
+            else
+            {
+                cout << "Invalid rule! Rule: " << newRule << endl;
+                continue;
+            }
+
+            g.updateOutputs(Move{pos, pos});
+        }
         else if (cmd == "=")
         {
             while (cin >> colour)
@@ -305,7 +382,7 @@ bool GameState::checkValidState()
     // no pawns on last row
     for (int x = 0; x < board->getWidth(); x++)
     {
-        if (board->getPieceType({x, board->getHeight()-1}) == PieceType::PAWN)
+        if (board->getPieceType({x, board->getHeight() - 1}) == PieceType::PAWN)
         {
             return false;
         }
