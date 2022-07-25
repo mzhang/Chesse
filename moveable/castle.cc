@@ -43,26 +43,29 @@ vector<Move> Castle::getValidMoves(const GameState &g, bool checkChildren) const
 
         int direction = castlePartner.x - currentPos.x > 0 ? 1 : -1;
 
-        Position p = Position{currentPos.x + direction, currentPos.y};
-        vector<Position> path{currentPos};
+        Position p = Position{currentPos.x, currentPos.y};
+        vector<Position> path{};
 
         while (g.isInBounds(p) && p != castlePartner)
         {
             path.push_back(p);
             p = Position{p.x + direction, p.y};
         }
-        bool pathIsClear = true;
-        for (const Position &pathStep : path)
+        path.push_back(castlePartner);
+
+        bool pathIsEmpty = true;
+        for (int i = 1; i < (int)path.size()-1; ++i)
         {
-            if (!g.isEmpty(pathStep))
+            if (!g.isEmpty(path[i])) // the path is not empty, can't castle
             {
-                pathIsClear = false;
+                pathIsEmpty = false;
             }
         }
-        if (!pathIsClear)
+        if (!pathIsEmpty)
         {
             continue;
         }
+
         if (g.numberOfTilesAttacked(player, path) > 0)
         {
             continue;
@@ -73,7 +76,6 @@ vector<Move> Castle::getValidMoves(const GameState &g, bool checkChildren) const
         if (g.isInBounds(finalPos) && g.isEmpty(finalPos))
         {
             moves.push_back(Move{vector<Position>{currentPos, castlePartner}, vector<Position>{finalPos, partnerPos}});
-            moves.push_back(Move{currentPos, finalPos});
         }
     }
 
