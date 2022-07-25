@@ -142,14 +142,14 @@ void Board::undoMove(CompletedMove &&m)
     {
         // Move objects from end position to starting position
         setPiece(m.move.from[i], popPiece(m.move.to[i]));
-        board[m.move.from[i].y][m.move.from[i].x]->onMove(m.move, m.move.from[i], true);
+        board[m.move.from[i].y][m.move.from[i].x]->onMove(m.move, m.move.from[i], true, -1);
     }
 
     // Put back any captured pieces
     for (size_t i = 0; i < m.capturedPieces.size(); i++)
     {
         setPiece(m.capturedPieces[i].first, std::move(m.capturedPieces[i].second));
-        board[m.capturedPieces[i].first.y][m.capturedPieces[i].first.x]->onMove(m.move, m.capturedPieces[i].first, true);
+        board[m.capturedPieces[i].first.y][m.capturedPieces[i].first.x]->onMove(m.move, m.capturedPieces[i].first, true, -1);
     }
 }
 
