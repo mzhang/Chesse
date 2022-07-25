@@ -86,7 +86,15 @@ PlayerColor Game::play()
         else if (cmd == "valid")
         {
             Position pos;
-            cin >> pos;
+            while (cin >> pos) {
+                if (state.isInBounds(pos))
+                {
+                    break;
+                }
+                
+                cout << "Invalid position" << endl;
+            }
+            
 
             vector<Move> validMoves = state.getValidMoves(pos);
 

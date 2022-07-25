@@ -65,7 +65,8 @@ void Visualizer::doUpdate(const GameState &b, const Move &m)
     for (auto move : validMoves) {
         for (auto p : move.to)
         {
-             ChessDrawing::clear_square(*screen, p.x, p.y);
+            ChessDrawing::clear_square(*screen, p.x, p.y);
+            draw_position(b, p);
         }
     }
     validMoves.clear();
@@ -83,13 +84,14 @@ void Visualizer::doUpdate(const GameState &b, const Move &m)
     screen->update();
 }
 
-void Visualizer::doDisplayValidMoves(const GameState &b, const vector<Move> &moves)
+void Visualizer::doDisplayValidMoves(const GameState &g, const vector<Move> &moves)
 {
     // clear the valid move display
     for (auto move : validMoves) {
         for (auto p : move.to)
         {
-             ChessDrawing::clear_square(*screen, p.x, p.y);
+            ChessDrawing::clear_square(*screen, p.x, p.y);
+            draw_position(g, p);
         }
     }
 

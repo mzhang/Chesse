@@ -37,11 +37,11 @@ std::ostream &operator<<(std::ostream &os, const Position &p)
 std::istream &operator>>(std::istream &is, Position &p)
 {
     char col;
-    int row;
+    char row;
     is >> col >> row;
 
     p.x = col - 'a'; // first column is 'a'
-    p.y = row - 1;   // first row is 1
+    p.y = row - '1';   // first row is 1
 
     return is;
 }
