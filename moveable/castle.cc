@@ -46,17 +46,22 @@ vector<Move> Castle::getValidMoves(const GameState &g, bool checkChildren) const
         Position p = Position{currentPos.x + direction, currentPos.y};
         vector<Position> path{};
 
-        while (g.isInBounds(p) && g.isEmpty(p) && p != castlePartner)
+        while (g.isInBounds(p) && p != castlePartner)
         {
             path.push_back(p);
             p = Position{p.x + direction, p.y};
         }
-        for (const Position &p : path)
+        bool pathIsClear = true;
+        for (const Position &pathStep : path)
         {
-            if (!g.isEmpty(p))
+            if (!g.isEmpty(pathStep))
             {
-                continue;
+                pathIsClear = false;
             }
+        }
+        if (!pathIsClear)
+        {
+            continue;
         }
         if (g.numberOfTilesAttacked(player, path) > 0)
         {
