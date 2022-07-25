@@ -5,12 +5,26 @@ using namespace std;
 
 PlayerColor PlayerColorUtils::getNext(PlayerColor c)
 {
-    return static_cast<PlayerColor>((static_cast<int>(c) + 1) % playerNum);
+    switch (c) {
+        case PlayerColor::WHITE:
+            return PlayerColor::BLACK;
+        case PlayerColor::BLACK:
+            return PlayerColor::WHITE;
+        default:
+            return PlayerColor::NONE;
+    }
 }
 
 PlayerColor PlayerColorUtils::getPrevious(PlayerColor c)
 {
-    return static_cast<PlayerColor>((static_cast<int>(c) - 1) % playerNum);
+    switch (c) {
+        case PlayerColor::WHITE:
+            return PlayerColor::BLACK;
+        case PlayerColor::BLACK:
+            return PlayerColor::WHITE;
+        default:
+            return PlayerColor::NONE;    
+    }
 }
 
 int getInt(PlayerColor c)
