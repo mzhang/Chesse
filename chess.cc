@@ -9,8 +9,9 @@ using namespace std;
 
 Chess::Chess()
 {
+    playerScores[PlayerColor::WHITE] = 0;
+    playerScores[PlayerColor::BLACK] = 0;
 }
-
 Chess::~Chess() {}
 
 void Chess::start(bool useDisplay)

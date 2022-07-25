@@ -56,9 +56,17 @@ PlayerColor Game::play()
             {
                 throw runtime_error("Malformed move after nextMove called. Was there some malformed move in getValidMoves?");
             }
-            
+
             history.addMove(move, state);
             state.makeMove(move, players[state.currentPlayer]->isHeadless());
+
+            state.switchPlayers();
+
+            updateOutputs(move);
+            if (state.isInCheck(state.currentPlayer))
+            {
+                cout << state.currentPlayer << " is in check!" << endl;
+            }
 
             pair<bool, PlayerColor> gameEnded = state.getStatus();
             if (gameEnded.first)
@@ -66,15 +74,6 @@ PlayerColor Game::play()
                 cout << (gameEnded.second == PlayerColor::NONE ? "Stalemate! " : "Checkmate! ");
                 return gameEnded.second;
             }
-
-            state.switchPlayers();
-
-            if (state.isInCheck(state.currentPlayer))
-            {
-                cout << state.currentPlayer << " is in check!" << endl;
-            }
-
-            updateOutputs(move);
         }
         else if (cmd == "undo")
         {
@@ -91,15 +90,15 @@ PlayerColor Game::play()
         else if (cmd == "valid")
         {
             Position pos;
-            while (cin >> pos) {
+            while (cin >> pos)
+            {
                 if (state.isInBounds(pos))
                 {
                     break;
                 }
-                
+
                 cout << "Invalid position" << endl;
             }
-            
 
             vector<Move> validMoves = state.getValidMoves(pos);
 
