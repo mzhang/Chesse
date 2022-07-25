@@ -44,7 +44,7 @@ vector<Move> Castle::getValidMoves(const GameState &g, bool checkChildren) const
         int direction = castlePartner.x - currentPos.x > 0 ? 1 : -1;
 
         Position p = Position{currentPos.x + direction, currentPos.y};
-        vector<Position> path{};
+        vector<Position> path{currentPos};
 
         while (g.isInBounds(p) && p != castlePartner)
         {
