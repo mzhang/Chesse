@@ -149,7 +149,7 @@ void Board::undoMove(CompletedMove &&m)
     for (size_t i = 0; i < m.capturedPieces.size(); i++)
     {
         setPiece(m.capturedPieces[i].first, std::move(m.capturedPieces[i].second));
-        board[m.capturedPieces[i].first.y][m.capturedPieces[i].first.x]->onMove(m.move, m.capturedPieces[i].first, true, -1);
+        board[m.capturedPieces[i].first.y][m.capturedPieces[i].first.x]->onMove(m.move, m.capturedPieces[i].first, true, 0);
     }
 }
 
