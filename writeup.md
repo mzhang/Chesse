@@ -56,7 +56,7 @@ moves via the methods provided by the GameState class for each of the pieces in 
 (Computer1, Computer2, Computer3) rely on taking these moves (and in the case of 2 and 3, calculating preferred moves 
 that can check, avoid capture, capture pieces, etc…) and using a uniform distribution paired with a mersenne twister 
 random integer engine to generate random or semi-random behaviour amongst the filtered options. Our most 
-sophisticated computer is Computer4, which is centered around a minmax algorithm that attempts to maximize the value 
+sophisticated computer is ComputerN, which is centered around a minmax algorithm that attempts to maximize the value 
 of a board position. Board positions are evaluated using handcrafted position and piece weights from the PeSTO 
 evaluation function used by the RofChade chess engine. We also apply an alpha-beta pruning technique to [INSERT 
 EXPLANATION HERE WOLF]
