@@ -16,6 +16,12 @@ Brick::Brick(unique_ptr<Moveable> component) : Decorator{std::move(component)} {
 
 Brick::Brick(const Brick &o) : Decorator{o} {}
 
+vector<Position> Brick::getAttackedTiles(const GameState &g, bool checkChildren) const
+{
+    vector<Position> attackedTiles{};
+    return attackedTiles;
+}
+
 vector<Move> Brick::getValidMoves(const GameState &g, bool checkChildren) const
 {
     vector<Move> moves{};

@@ -18,6 +18,7 @@ public:
     explicit Brick(std::unique_ptr<Moveable>);
     Brick(const Brick &);
 
+    std::vector<Position> getAttackedTiles(const GameState &, bool) const override;
     std::vector<Move> getValidMoves(const GameState &, bool) const override;
     std::unique_ptr<Moveable> clone() const override;
 };

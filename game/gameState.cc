@@ -26,6 +26,8 @@
 #include "../moveable/castle.h"
 #include "../moveable/golem.h"
 #include "../moveable/nuke.h"
+#include "../moveable/brick.h"
+#include "../moveable/checker.h"
 
 #include <util.h>
 
@@ -33,7 +35,10 @@ using namespace std;
 
 GameState::GameState(int boardWidth, int boardHeight) : board{make_unique<Board>(boardWidth, boardHeight)}, currentPlayer{PlayerColor::WHITE} {}
 
-GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer} { /*cout << "DEBUG: GameState copy constructor. Make sure this is intended" << endl;*/ }
+GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer}
+{ 
+    /*cout << "DEBUG: GameState copy constructor. Make sure this is intended" << endl;*/
+}
 
 GameState::~GameState() {}
 
@@ -365,6 +370,15 @@ void GameState::setup(const Game &g)
             {
                 board->addPiece(make_unique<Nuke>(std::move(piece)), pos);
             }
+            else if (newRule == "brick")
+            {
+                board->addPiece(make_unique<Brick>(std::move(piece)), pos);
+            }
+            else if (newRule == "checker")
+            {
+                int promoteRow = owner == PlayerColor::WHITE ? height - 1 : 0;
+                board->addPiece(make_unique<Checker>(std::move(piece), promoteRow), pos);
+            }
             else
             {
                 cout << "Invalid rule! Rule: " << newRule << endl;
@@ -459,7 +473,7 @@ pair<bool, PlayerColor> GameState::getStatus() const
 
     // if (getValidMoves(PlayerColor::WHITE).size() == 0 && getValidMoves(PlayerColor::BLACK).size() == 0)
     // {
-    //     // Return the winner by check 
+    //     // Return the winner by check
     //     return make_pair(true, PlayerColor::NONE);
     // }
 
