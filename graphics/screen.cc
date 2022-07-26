@@ -50,19 +50,23 @@ void Screen::update()
 void Screen::draw_text(short int xloc, short int yloc, unsigned short int w, unsigned short int h, string text, int font_size, Colour c)
 {
   char cwd[1024];
-  getcwd(cwd, sizeof(cwd));
+  if (getcwd(cwd, sizeof(cwd)) == NULL) {
+    cout << "Could not find working directory" << endl;
+  }
   std::string path = cwd;
 
   std::string font_path = path + "/graphics/resources/Roboto-Regular.ttf";
 
   if (TTF_Init() == -1)
   {
-    printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+    cout << "Could not initialize SDL font" << endl;
   }
+  
   TTF_Font *font = TTF_OpenFont(font_path.c_str(), font_size);
   SDL_Surface *textSurface = TTF_RenderText_Solid(font, text.c_str(), SDL_Color{c.r, c.g, c.b, 0});
   if (textSurface == nullptr)
   {
+    TTF_CloseFont(font);
     cerr << "Could not load text surface: " << text << endl;
     return;
   }
@@ -74,15 +78,16 @@ void Screen::draw_text(short int xloc, short int yloc, unsigned short int w, uns
 
 void Screen::draw_image(short int xloc, short int yloc, unsigned short int w, unsigned short int h, const string &image_path)
 {
-  SDL_Surface *optimizedSurface = NULL;
   int imgFlags = IMG_INIT_PNG;
   if (!(IMG_Init(imgFlags) & imgFlags))
   {
-    printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+    cout << "Could not initialize SDL image" << endl;
   }
 
   char cwd[1024];
-  getcwd(cwd, sizeof(cwd));
+  if (getcwd(cwd, sizeof(cwd)) == NULL) {
+    cout << "Could not find working directory" << endl;
+  }
   std::string path = cwd;
 
   string full_path = path + "/graphics/resources/" + image_path;
@@ -92,13 +97,8 @@ void Screen::draw_image(short int xloc, short int yloc, unsigned short int w, un
     cerr << "Could not load asset: " << full_path << endl;
     return;
   }
-  optimizedSurface = SDL_ConvertSurface(loaded_image_surface, screen->format, 0);
-  if (optimizedSurface == NULL)
-  {
-    printf("Unable to optimize image %s! SDL Error: %s\n", full_path.c_str(), SDL_GetError());
-  }
+
   unique_ptr<SDL_Rect> image_rect = unique_ptr<SDL_Rect>{new SDL_Rect{xloc, yloc, w, h}};
   SDL_BlitSurface(loaded_image_surface, nullptr, screen, image_rect.get());
   SDL_FreeSurface(loaded_image_surface);
-  SDL_FreeSurface(optimizedSurface);
 }

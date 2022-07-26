@@ -54,6 +54,7 @@ pair<int, Move> ComputerN::searchMoves(GameState &g, int depth, int alpha, int b
             g.switchPlayers();
             auto evaluation = searchMoves(g, depth - 1, alpha, beta, false);
             g.undoMove(std::move(c), lastMove);
+            g.switchPlayersBack();
             if (evaluation.first > value) {
                 value = evaluation.first;
                 bestMove = move;
@@ -69,10 +70,12 @@ pair<int, Move> ComputerN::searchMoves(GameState &g, int depth, int alpha, int b
         Move bestMove;
 
         for (auto &move : validMoves) {
-            GameState newState = g;
-            newState.makeMove(move, true);
-            newState.switchPlayers();
-            auto evaluation = searchMoves(newState, depth - 1, alpha, beta, true);
+            auto lastMove = g.lastMove;
+            auto c = g.makeMove(move, true);
+            g.switchPlayers();
+            auto evaluation = searchMoves(g, depth - 1, alpha, beta, true);
+            g.undoMove(std::move(c), lastMove);
+            g.switchPlayersBack();
             //cout << "Evaluation: " << evaluation.first << endl;
             if (evaluation.first < value) {
                 value = evaluation.first;
@@ -114,10 +117,10 @@ int ComputerN::evaluateBoard(const GameState &g)
     pair<bool, PlayerColor> gameEnded = g.getStatus();
     if (gameEnded.first) {
         if (gameEnded.second == PlayerColor::NONE) {
-            return 0;
+            return -50;
         }
         else {
-            return gameEnded.second == playerColor ? positiveInfinity / 10 : negativeInfinity / 10;
+            return gameEnded.second == playerColor ? positiveInfinity / 2 : negativeInfinity / 2;
         }
     }
 

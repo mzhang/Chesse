@@ -55,6 +55,7 @@ public:
     PlayerColor getOwner(const Position &p) const;
 
     void switchPlayers();
+    void switchPlayersBack();
 
     std::pair<bool, PlayerColor> getStatus() const;
 

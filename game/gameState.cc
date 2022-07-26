@@ -226,6 +226,11 @@ void GameState::switchPlayers()
     currentPlayer = PlayerColorUtils::getNext(currentPlayer);
 }
 
+void GameState::switchPlayersBack()
+{
+    currentPlayer = PlayerColorUtils::getPrevious(currentPlayer);
+}
+
 void GameState::setup(const Game &g)
 {
     string cmd;

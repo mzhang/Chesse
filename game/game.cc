@@ -87,7 +87,7 @@ PlayerColor Game::play()
             }
             CompletedMove lastMove = history.pop_back();
             state.undoMove(std::move(lastMove), history.getLastMove());
-            state.currentPlayer = PlayerColorUtils::getPrevious(state.currentPlayer);
+            state.switchPlayersBack();
             updateOutputs(lastMove.move);
         }
         else if (cmd == "valid")
