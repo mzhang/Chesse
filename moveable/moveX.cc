@@ -22,8 +22,8 @@ vector<Move> MoveX::getValidMoves(const GameState &g, bool checkChildren) const
     {
         moves = Decorator::getValidMoves(g, true);
     }
+    
     PlayerColor playerColor = Decorator::getOwner();
-
     Position currentPos = getPosition();
     Position pos = currentPos;
 

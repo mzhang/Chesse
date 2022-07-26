@@ -23,6 +23,7 @@
 #include "../moveable/moveL.h"
 #include "../moveable/pawnRules.h"
 #include "../moveable/castle.h"
+#include "../moveable/golem.h"
 
 #include <util.h>
 
@@ -304,24 +305,28 @@ void GameState::setup(const Game &g)
             if (newRule == "moveX")
             {
                 int maxSteps;
+                cout << "What is the maximum range for the piece at " << pos << "?" << endl;
                 cin >> maxSteps;
                 board->addPiece(make_unique<MoveX>(std::move(piece), maxSteps), pos);
             }
             else if (newRule == "moveY")
             {
                 int maxSteps;
+                cout << "What is the maximum range for the piece at " << pos << "?" << endl;
                 cin >> maxSteps;
                 board->addPiece(make_unique<MoveY>(std::move(piece), maxSteps), pos);
             }
             else if (newRule == "moveDiagNeg")
             {
                 int maxSteps;
+                cout << "What is the maximum range for the piece at " << pos << "?" << endl;
                 cin >> maxSteps;
                 board->addPiece(make_unique<MoveDiagNeg>(std::move(piece), maxSteps), pos);
             }
             else if (newRule == "moveDiagPos")
             {
                 int maxSteps;
+                cout << "What is the maximum range for the piece at " << pos << "?" << endl;
                 cin >> maxSteps;
                 board->addPiece(make_unique<MoveDiagPos>(std::move(piece), maxSteps), pos);
             }
@@ -339,6 +344,13 @@ void GameState::setup(const Game &g)
             {
                 vector<Position> partners{Position{0, pos.y}, Position{width - 1, pos.y}};
                 board->addPiece(make_unique<Castle>(std::move(piece), partners), pos);
+            }
+            else if (newRule == "golem")
+            {
+                int maxSteps;
+                cout << "What is the maximum range for the piece at " << pos << "?" << endl;
+                cin >> maxSteps;
+                board->addPiece(make_unique<Golem>(std::move(piece), maxSteps), pos);
             }
             else
             {
