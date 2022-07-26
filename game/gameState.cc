@@ -36,7 +36,7 @@ using namespace std;
 GameState::GameState(int boardWidth, int boardHeight) : board{make_unique<Board>(boardWidth, boardHeight)}, currentPlayer{PlayerColor::WHITE} {}
 
 GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer}
-{ 
+{
     /*cout << "DEBUG: GameState copy constructor. Make sure this is intended" << endl;*/
 }
 

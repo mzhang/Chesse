@@ -27,9 +27,9 @@ vector<Move> Checker::getValidMoves(const GameState &g, bool checkChildren) cons
         moves = Decorator::getValidMoves(g, true);
     }
 
-    int forwardsDir = (player == PlayerColor::WHITE) ? 1 : -1;
-    Position leftDiag = Position{currentPos.x - 1, currentPos.y + forwardsDir};
-    Position rightDiag = Position{currentPos.x + 1, currentPos.y + forwardsDir};
+    int moveDirection = (player == PlayerColor::WHITE) ? 1 : -1;
+    Position leftDiag = Position{currentPos.x - 1, currentPos.y + moveDirection};
+    Position rightDiag = Position{currentPos.x + 1, currentPos.y + moveDirection};
 
     if (g.isInBounds(leftDiag) && g.isEmpty(leftDiag))
     {
@@ -41,24 +41,24 @@ vector<Move> Checker::getValidMoves(const GameState &g, bool checkChildren) cons
         moves.emplace_back(Move{currentPos, rightDiag});
     }
 
-    Position leftDiag2 = Position{currentPos.x - 1, currentPos.y + 2 * forwardsDir};
-    Position rightDiag2 = Position{currentPos.x + 1, currentPos.y + 2 * forwardsDir};
+    Position leftDiag2 = Position{currentPos.x - 1, currentPos.y + 2 * moveDirection};
+    Position rightDiag2 = Position{currentPos.x + 1, currentPos.y + 2 * moveDirection};
 
     if (g.isInBounds(leftDiag) && !g.isOwner(leftDiag, player) && g.isInBounds(leftDiag2) && g.isEmpty(leftDiag2))
     {
-        moves.emplace_back(Move{currentPos, leftDiag, leftDiag2});
+        moves.emplace_back(Move{currentPos, leftDiag2, leftDiag});
     }
 
     if (g.isInBounds(rightDiag) && !g.isOwner(rightDiag, player) && g.isInBounds(rightDiag2) && g.isEmpty(rightDiag2))
     {
-        moves.emplace_back(Move{currentPos, rightDiag, rightDiag2});
+        moves.emplace_back(Move{currentPos, rightDiag2, rightDiag});
     }
 
     if (isPromoted)
     {
-        int backwardsDir = (player == PlayerColor::WHITE) ? -1 : 1;
-        leftDiag = Position{currentPos.x - 1, currentPos.y + backwardsDir};
-        rightDiag = Position{currentPos.x + 1, currentPos.y + backwardsDir};
+        moveDirection = -moveDirection;
+        leftDiag = Position{currentPos.x - 1, currentPos.y + moveDirection};
+        rightDiag = Position{currentPos.x + 1, currentPos.y + moveDirection};
 
         if (g.isInBounds(leftDiag) && g.isEmpty(leftDiag))
         {
@@ -70,17 +70,17 @@ vector<Move> Checker::getValidMoves(const GameState &g, bool checkChildren) cons
             moves.emplace_back(Move{currentPos, rightDiag});
         }
 
-        leftDiag2 = Position{currentPos.x - 1, currentPos.y + 2 * backwardsDir};
-        rightDiag2 = Position{currentPos.x + 1, currentPos.y + 2 * backwardsDir};
+        leftDiag2 = Position{currentPos.x - 1, currentPos.y + 2 * moveDirection};
+        rightDiag2 = Position{currentPos.x + 1, currentPos.y + 2 * moveDirection};
 
         if (g.isInBounds(leftDiag) && !g.isOwner(leftDiag, player) && g.isInBounds(leftDiag2) && g.isEmpty(leftDiag2))
         {
-            moves.emplace_back(Move{currentPos, leftDiag, leftDiag2});
+            moves.emplace_back(Move{currentPos, leftDiag2, leftDiag});
         }
 
         if (g.isInBounds(rightDiag) && !g.isOwner(rightDiag, player) && g.isInBounds(rightDiag2) && g.isEmpty(rightDiag2))
         {
-            moves.emplace_back(Move{currentPos, rightDiag, rightDiag2});
+            moves.emplace_back(Move{currentPos, rightDiag2, rightDiag});
         }
     }
 
