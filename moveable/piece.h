@@ -33,6 +33,6 @@ public:
 
     std::unique_ptr<Moveable> clone() const override;
 
-    void onMove(const Move &move, const Position &pos, bool, int movedCountDelta = 1) override;
+    void onMove(const Move &move, const Position &pos, bool, int movedCountDelta) override;
 };
 #endif

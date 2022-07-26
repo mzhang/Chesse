@@ -203,13 +203,13 @@ vector<Move> Golem::getValidMoves(const GameState &g, bool checkChildren) const
     return moves;
 }
 
-void Golem::onMove(const Move &move, const Position &to, bool headless)
+void Golem::onMove(const Move &move, const Position &to, bool headless, int movedCountDelta)
 {
     if (!isBroken && getMovedCount() >= maxMoves)
     {
         isBroken = true;
     }
-    Decorator::onMove(move, to, headless);
+    Decorator::onMove(move, to, headless, movedCountDelta);
 }
 
 unique_ptr<Moveable> Golem::clone() const

@@ -127,7 +127,7 @@ CompletedMove Board::makeMove(Move move, bool headless)
     for (int i = 0; i < (int)move.from.size(); ++i)
     {
         setPiece(move.to[i], std::move(from[i]));
-        board[move.to[i].y][move.to[i].x]->onMove(move, move.to[i], headless);
+        board[move.to[i].y][move.to[i].x]->onMove(move, move.to[i], headless, 1);
     }
 
     return CompletedMove{move, std::move(capturedPieces)};
