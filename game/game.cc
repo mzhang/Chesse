@@ -10,7 +10,7 @@
 #include "../players/computer1.h"
 #include "../players/computer2.h"
 #include "../players/computer3.h"
-#include "../players/ComputerN.h"
+#include "../players/computerN.h"
 #include "../data/playerColor.h"
 #include "../data/completedMove.h"
 #include "../players/computerFactory.h"

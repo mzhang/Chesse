@@ -12,19 +12,16 @@
 
 using namespace std;
 
-ComputerN::ComputerN(PlayerColor color) : Player{color}
+ComputerN::ComputerN(PlayerColor color, int lookAhead) : Player{color}, lookAhead{lookAhead}
 {
 }
 
 Move ComputerN::doNextMove(const GameState &g)
 {
     GameState newState{g};
-    int searchDepth = 4;
 
-    boardCount = 0;
-    pair<float, Move> evaluation = searchMoves(newState, searchDepth, negativeInfinity, positiveInfinity, true);
+    pair<float, Move> evaluation = searchMoves(newState, lookAhead, negativeInfinity, positiveInfinity, true);
 
-    // cout << "Evaluated " << boardCount << " boards" << endl;
     // cout << "Best evaluation: " << evaluation.first << endl;
 
     return evaluation.second;
