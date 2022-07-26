@@ -45,7 +45,7 @@ void Chess::start(bool useDisplay)
         }
         else
         {
-            cout << "Invalid command" << endl;
+            cout << "Invalid command! Command: " << cmd << endl;
         }
     }
 
