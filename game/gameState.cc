@@ -688,7 +688,7 @@ void GameState::standard_checkers_board() {
     board->addPiece(make_unique<Piece>(3,4, PieceType::KING, PlayerColor::WHITE), Position{3,4});
 
     // Create a piece of type King for black, place in a8
-    board->addPiece(make_unique<Piece>(3,4, PieceType::KING, PlayerColor::BLACK), Position{4,3});
+    board->addPiece(make_unique<Piece>(4,3, PieceType::KING, PlayerColor::BLACK), Position{4,3});
 
     // Add pieces for white
     for (int i = 0; i < 8; i += 2) {
