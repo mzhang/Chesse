@@ -81,6 +81,12 @@ void Visualizer::doUpdate(const GameState &b, const Move &m)
     {
         draw_position(b, position);
     }
+
+    for (auto position : m.capturePositions)
+    {
+        draw_position(b, position);
+    }
+
     screen->update();
 }
 
