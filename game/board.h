@@ -9,6 +9,7 @@ struct Move;
 enum class PieceType;
 class GameState;
 enum class PlayerColor;
+struct CompletedMove;
 
 class Board
 {
@@ -29,11 +30,12 @@ public:
     Board(Board &&);
     Board &operator=(Board &&);
 
-    void makeMove(Move, bool);
+    CompletedMove makeMove(Move, bool);
+    void undoMove(CompletedMove &&);
 
     void addPiece(std::unique_ptr<Moveable>, const Position &);
-    std::unique_ptr<Moveable> popPiece(Position &);
-    void setPiece(Position &, std::unique_ptr<Moveable>);
+    std::unique_ptr<Moveable> popPiece(const Position &);
+    void setPiece(const Position &, std::unique_ptr<Moveable>);
     const Moveable &getPiece(const Position &) const;
     int getMovedCount(const Position &) const;
 

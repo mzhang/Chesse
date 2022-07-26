@@ -2,19 +2,18 @@
 #define GAMEHISTORY_H_
 
 #include <vector>
-#include <utility>
 
-#include "../data/move.h"
+#include "../data/completedMove.h"
 #include "../game/gameState.h"
 
 class GameHistory {
-    std::vector<std::pair<Move, GameState>> history;
+    std::vector<CompletedMove> history;
 public:
-    explicit GameHistory(GameState state);
-    void addMove(Move, GameState);
+    void addMove(CompletedMove &&);
     void printHistory();
     bool empty();
-    std::pair<Move, GameState> pop_back();
+    CompletedMove pop_back();
+    Move getLastMove();
 };
 
 #endif

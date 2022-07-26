@@ -51,7 +51,7 @@ class Computer4 : public Player
                                   {-36, -26, -12, -1, 9, -7, 6, -23},
                                   {-45, -25, -16, -17, 3, 0, -5, -33},
                                   {-44, -16, -20, -9, -1, 11, -6, -71},
-                                  {-19, -13, 1, 17, 16, 7, -37, -26}};
+                                  {-19, -50, 1, 17, 16, 7, -87, -26}};
 
     const int queenValues[8][8] = {{-28, 0, 29, 12, 59, 44, 43, 45},
                                    {-24, -39, -5, 1, -16, 57, 28, 54},
@@ -68,8 +68,8 @@ class Computer4 : public Player
                                   {-17, -20, -12, -27, -30, -25, -14, -36},
                                   {-49, -1, -27, -39, -46, -44, -33, -51},
                                   {-14, -14, -22, -46, -44, -30, -15, -27},
-                                  {1, 7, -8, -64, -43, -16, 9, 8},
-                                  {-15, 36, 12, -54, 8, -28, 24, 14}};
+                                  {1, 7, -8, -64, -100, -16, 9, 8},
+                                  {-15, 36, 12, -54, 8, -28, 100, 14}};
 
     const int negativeInfinity = -1000000;
     const int positiveInfinity = 1000000;
@@ -83,7 +83,7 @@ class Computer4 : public Player
     int evaluateMove(const GameState &, const Move &); // evaluate a specific move
     int evaluateBoard(const GameState &); // evaluate the board
     Move doNextMove(const GameState &) override;
-    std::pair<int, Move> searchMoves(const GameState &, int, int, int, bool);
+    std::pair<int, Move> searchMoves(GameState &, int, int, int, bool);
 
 public:
     explicit Computer4(PlayerColor);

@@ -23,7 +23,7 @@ public:
     virtual std::vector<Move> getValidMoves(const GameState &, bool = true) const = 0;
     virtual std::vector<Position> getAttackedTiles(const GameState &, bool = true) const = 0;
     virtual std::unique_ptr<Moveable> clone() const = 0;
-    virtual void onMove(const Move &, const Position &, bool) = 0;
+    virtual void onMove(const Move &, const Position &, bool, int movedCountDelta = 1) = 0;
     virtual ~Moveable() = 0;
 };
 

@@ -7,6 +7,7 @@
 #include "../moveable/piece.h"
 #include "../data/position.h"
 #include "../data/move.h"
+#include "../data/completedMove.h"
 
 #include "../moveable/moveX.h"
 #include "../moveable/moveY.h"
@@ -96,14 +97,23 @@ int Board::getMovedCount(const Position &p) const
     return isEmpty(p) ? 0 : board[p.y][p.x]->getMovedCount();
 }
 
-void Board::makeMove(Move move, bool headless)
+CompletedMove Board::makeMove(Move move, bool headless)
 {
     // pre: the move is valid
 
     vector<unique_ptr<Moveable>> from; // we need to store the pieces that will move since we may have a second piece overlapping
+    vector<pair<Position, unique_ptr<Moveable>>> capturedPieces;
     for (int i = 0; i < (int)move.from.size(); ++i)
     {
         from.push_back(std::move(board[move.from[i].y][move.from[i].x]));
+    }
+
+    for (int i = 0; i < (int)move.capturePositions.size(); ++i)
+    {
+        if (!isEmpty(move.capturePositions[i]))
+        {
+            capturedPieces.emplace_back(make_pair(move.capturePositions[i], popPiece(move.capturePositions[i])));
+        }
     }
 
     for (int i = 0; i < (int)move.to.size(); ++i)
@@ -114,18 +124,32 @@ void Board::makeMove(Move move, bool headless)
         }
     }
 
-    for (int i = 0; i < (int)move.capturePositions.size(); ++i)
-    {
-        if (!isEmpty(move.capturePositions[i]))
-        {
-            popPiece(move.capturePositions[i]);
-        }
-    }
-
     for (int i = 0; i < (int)move.from.size(); ++i)
     {
         setPiece(move.to[i], std::move(from[i]));
         board[move.to[i].y][move.to[i].x]->onMove(move, move.to[i], headless);
+    }
+
+    return CompletedMove{move, std::move(capturedPieces)};
+}
+
+void Board::undoMove(CompletedMove &&m) 
+{
+    // Undoes the move and places any captured pieces back on the board
+
+    // Move all the pieces back to their original positions
+    for (size_t i = 0; i < m.move.from.size(); i++)
+    {
+        // Move objects from end position to starting position
+        setPiece(m.move.from[i], popPiece(m.move.to[i]));
+        board[m.move.from[i].y][m.move.from[i].x]->onMove(m.move, m.move.from[i], true, -1);
+    }
+
+    // Put back any captured pieces
+    for (size_t i = 0; i < m.capturedPieces.size(); i++)
+    {
+        setPiece(m.capturedPieces[i].first, std::move(m.capturedPieces[i].second));
+        board[m.capturedPieces[i].first.y][m.capturedPieces[i].first.x]->onMove(m.move, m.capturedPieces[i].first, true, 0);
     }
 }
 
@@ -134,12 +158,12 @@ void Board::addPiece(unique_ptr<Moveable> piece, const Position &pos)
     board[pos.y][pos.x] = std::move(piece);
 }
 
-unique_ptr<Moveable> Board::popPiece(Position &p)
+unique_ptr<Moveable> Board::popPiece(const Position &p)
 {
     return std::move(board[p.y][p.x]);
 }
 
-void Board::setPiece(Position &p, unique_ptr<Moveable> piece)
+void Board::setPiece(const Position &p, unique_ptr<Moveable> piece)
 {
     board[p.y][p.x] = std::move(piece);
 }

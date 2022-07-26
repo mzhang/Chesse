@@ -12,6 +12,7 @@ class Board;
 enum class PlayerColor;
 enum class PieceType;
 class Moveable;
+struct CompletedMove;
 
 class GameState
 {
@@ -41,7 +42,8 @@ public:
     std::vector<Move> getValidMoves(const Position &pos) const;
     std::vector<Move> getValidMoves(PlayerColor) const;
 
-    void makeMove(const Move &m, bool);
+    CompletedMove makeMove(const Move &m, bool);
+    void undoMove(CompletedMove &&, const Move &);
 
     bool isInCheck(const PlayerColor &) const;
     int numberOfTilesAttacked(const PlayerColor &, const std::vector<Position> &) const;

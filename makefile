@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -g -std=c++14 -Wall -MMD
+CXXFLAGS = -g -std=c++14 -Wall -MMD -Ofast
 EXEC = chess.out
 OBJECTS = main.o chess.o \
 ./game/board.o ./game/game.o ./game/gameState.o ./game/gameHistory.o \
@@ -9,7 +9,7 @@ OBJECTS = main.o chess.o \
 ./moveable/golem.o ./moveable/nuke.o \
 ./graphics/chessDrawing.o ./graphics/screen.o \
 ./outputs/output.o ./outputs/textDisplay.o ./outputs/visualizer.o \
-./data/pieceType.o ./data/move.o ./data/position.o ./data/playerColor.o \
+./data/pieceType.o ./data/move.o ./data/position.o ./data/playerColor.o ./data/completedMove.o \
 ./players/player.o ./players/human.o ./players/computer1.o ./players/computer2.o ./players/computer3.o ./players/computer4.o
 
 DEPENDS = ${OBJECTS:.o=.d}
