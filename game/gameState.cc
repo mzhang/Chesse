@@ -99,7 +99,6 @@ bool GameState::isInCheck(const PlayerColor &pc) const
     return numberOfTilesAttacked(pc, kingPos) > 0;
 }
 
-// TODO: rename this to numberOfPiecesAttacking
 // getEnemySightlines is expensive so we pass in vector to minimize calls
 int GameState::numberOfTilesAttacked(const PlayerColor &pc, const vector<Position> &positions) const
 {
@@ -143,10 +142,6 @@ vector<Position> GameState::getEnemySightlines(const PlayerColor &pc) const
 
 vector<Move> GameState::getValidMoves(const Position &pos) const
 {
-
-    // TODO: Reconcile this with checking for check
-    // Avoid recursive checking for check
-
     if (isEmpty(pos))
     {
         return vector<Move>{};
@@ -195,7 +190,6 @@ int GameState::getMovedCount(const Position &pos) const
     return board->getMovedCount(pos);
 }
 
-// todo: kill this
 bool GameState::isOwner(const Position p, const PlayerColor playerColor) const
 {
     if (!isInBounds(p) || isEmpty(p))

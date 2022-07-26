@@ -37,7 +37,7 @@ pair<int, Move> ComputerN::searchMoves(GameState &g, int depth, int alpha, int b
     }
      
     // We order the moves to improve amount of branches pruned
-    vector<Move> validMoves = orderMoves(g.getValidMoves(g.currentPlayer)); // TODO: order moves
+    vector<Move> validMoves = orderMoves(g.getValidMoves(g.currentPlayer)); 
 
     if (validMoves.size() == 0) {
         //cout << "ValidMoves 0: " << evaluateBoard(g) << endl;
@@ -87,7 +87,6 @@ pair<int, Move> ComputerN::searchMoves(GameState &g, int depth, int alpha, int b
     }
 }
 
-// TODO: improve
 vector<Move> ComputerN::orderMoves(const vector<Move> &moves)
 {
     vector<Move> orderedMoves;
