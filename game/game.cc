@@ -113,6 +113,9 @@ PlayerColor Game::play()
                 }
             }
         }
+        else if (cmd == "history") {
+            history.printHistory();
+        }
         else if (cmd == "resign")
         {
             state.switchPlayers();
