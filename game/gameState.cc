@@ -13,6 +13,7 @@
 #include "../moveable/moveable.h"
 #include "../moveable/pieceFactory.h"
 #include "../data/playerColor.h"
+#include "../data/completedMove.h"
 
 #include "../outputs/textDisplay.h"
 
@@ -32,7 +33,7 @@ using namespace std;
 
 GameState::GameState(int boardWidth, int boardHeight) : board{make_unique<Board>(boardWidth, boardHeight)}, currentPlayer{PlayerColor::WHITE} {}
 
-GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer} {}
+GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer} { /*cout << "DEBUG: GameState copy constructor. Make sure this is intended" << endl;*/ }
 
 GameState::~GameState() {}
 
@@ -64,10 +65,16 @@ bool GameState::isValidMove(const Move &m) const
 }
 
 // Precondition: move accounts for all side effects
-void GameState::makeMove(const Move &m, bool headless)
+CompletedMove GameState::makeMove(const Move &m, bool headless)
 {
-    board->makeMove(m, headless);
     lastMove = m;
+    return board->makeMove(m, headless);
+}
+
+void GameState::undoMove(CompletedMove &&m, const Move &previousMove)
+{
+    board->undoMove(std::move(m));
+    lastMove = previousMove;
 }
 
 bool GameState::isInCheck(const PlayerColor &pc) const
@@ -105,9 +112,10 @@ int GameState::numberOfTilesAttacked(const PlayerColor &pc, const vector<Positio
 
 bool GameState::isInCheckAfterMove(const PlayerColor &pc, const Move &m) const
 {
-    GameState tmp{*this};
-    tmp.board->makeMove(m, true);
-    return tmp.isInCheck(pc);
+    CompletedMove cm = board->makeMove(m, true);
+    bool inCheck = isInCheck(pc);
+    board->undoMove(std::move(cm));
+    return inCheck;
 }
 
 vector<Position> GameState::getEnemySightlines(const PlayerColor &pc) const
@@ -444,6 +452,17 @@ bool GameState::checkValidState()
 // we return pair<gameIsOver, winner>
 pair<bool, PlayerColor> GameState::getStatus() const
 {
+
+    // Efficiently determine if the game is over and the winner if so
+    // We do this by checking if there are any valid moves for both players
+    // If there are no valid moves for both players, then the game is over
+
+    // if (getValidMoves(PlayerColor::WHITE).size() == 0 && getValidMoves(PlayerColor::BLACK).size() == 0)
+    // {
+    //     // Return the winner by check 
+    //     return make_pair(true, PlayerColor::NONE);
+    // }
+
     vector<PlayerColor> players{PlayerColor::BLACK, PlayerColor::WHITE};
 
     map<PlayerColor, int> pieceCount;

@@ -1,6 +1,7 @@
 #include "computer3.h"
 #include "../game/gameState.h"
 #include "../data/move.h"
+#include "../data/completedMove.h"
 #include "../game/board.h"
 #include "../data/playerColor.h"
 
@@ -36,7 +37,7 @@ bool Computer3::avoidsCapture(const GameState &state, const Move &move)
     int attackedCount = state.numberOfTilesAttacked(playerColor, move.capturePositions);
 
     GameState newState{state};
-    newState.makeMove(move, isHeadless());
+    CompletedMove cm = newState.makeMove(move, isHeadless());
     int newAttackedCount = newState.numberOfTilesAttacked(playerColor, move.capturePositions);
 
     // cout << "Number of pieces attacked before: " << attackedCount << "Number of pieces attacked after: " << newAttackedCount << endl;

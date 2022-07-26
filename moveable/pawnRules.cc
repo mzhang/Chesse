@@ -114,14 +114,14 @@ vector<Move> PawnRules::getValidMoves(const GameState &g, bool checkChildren) co
     return moves;
 }
 
-void PawnRules::onMove(const Move &m, const Position &pos, bool headless)
+void PawnRules::onMove(const Move &m, const Position &pos, bool headless, int movedCountDelta)
 {
     if (pos.y == promotionRank && !isPromoted)
     {
         isPromoted = true;
         promote(headless);
     }
-    Decorator::onMove(m, pos, headless);
+    Decorator::onMove(m, pos, headless, movedCountDelta);
 }
 
 void PawnRules::promote(bool headless)

@@ -60,7 +60,7 @@ PlayerColor Decorator::getOwner() const
     return component->getOwner();
 }
 
-void Decorator::onMove(const Move &move, const Position &endPos, bool headless)
+void Decorator::onMove(const Move &move, const Position &endPos, bool headless, int movedCountDelta)
 {
-    component->onMove(move, endPos, headless);
+    component->onMove(move, endPos, headless, movedCountDelta);
 }

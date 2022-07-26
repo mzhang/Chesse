@@ -1,23 +1,19 @@
 #include "gameHistory.h"
 #include "../data/move.h"
+#include "../data/completedMove.h"
 
 #include <utility>
 
 using namespace std;
 
-GameHistory::GameHistory(GameState state)
-{
-    history.push_back(make_pair(Move(), state));
-}
-
-void GameHistory::addMove(Move move, GameState state) {
-    history.push_back(make_pair(move, state));
+void GameHistory::addMove(CompletedMove &&completedMove) {
+    history.push_back(std::move(completedMove));
 }
 
 void GameHistory::printHistory() {
     // Print every move in the history
-    for (auto move : history) {
-        cout << move.first << endl;
+    for (const CompletedMove &completedMove : history) {
+        cout << completedMove.move << endl;
     }
 }
 
@@ -25,9 +21,16 @@ bool GameHistory::empty() {
     return history.empty();
 }
 
-pair<Move, GameState> GameHistory::pop_back() {
+Move GameHistory::getLastMove() {
+    if (history.empty()) {
+        return Move{};
+    }
+    return history.back().move;
+}
+
+CompletedMove GameHistory::pop_back() {
     // Pop the last move off the history
-    auto last = history.back();
+    auto last = std::move(history.back());
     history.pop_back();
     return last;
 }

@@ -12,10 +12,11 @@
 #include "../players/computer3.h"
 #include "../players/computer4.h"
 #include "../data/playerColor.h"
+#include "../data/completedMove.h"
 
 using namespace std;
 
-Game::Game(int boardWidth, int boardHeight, bool useDisplay, unordered_map<PlayerColor, string> playerStrings) : state{boardWidth, boardHeight}, history{state}
+Game::Game(int boardWidth, int boardHeight, bool useDisplay, unordered_map<PlayerColor, string> playerStrings) : state{boardWidth, boardHeight}
 {
     outputs.push_back(make_unique<TextDisplay>(boardWidth, boardHeight));
     if (useDisplay)
@@ -57,8 +58,8 @@ PlayerColor Game::play()
                 throw runtime_error("Malformed move after nextMove called. Was there some malformed move in getValidMoves?");
             }
 
-            history.addMove(move, state);
-            state.makeMove(move, players[state.currentPlayer]->isHeadless());
+            CompletedMove completedMove = state.makeMove(move, players[state.currentPlayer]->isHeadless());
+            history.addMove(std::move(completedMove));
 
             state.switchPlayers();
 
@@ -83,9 +84,10 @@ PlayerColor Game::play()
                 cout << "No moves to undo." << endl;
                 continue;
             }
-            pair<Move, GameState> move_state = history.pop_back();
-            state = move_state.second;
-            updateOutputs(move_state.first);
+            CompletedMove lastMove = history.pop_back();
+            state.undoMove(std::move(lastMove), history.getLastMove());
+            state.currentPlayer = PlayerColorUtils::getPrevious(state.currentPlayer);
+            updateOutputs(lastMove.move);
         }
         else if (cmd == "valid")
         {

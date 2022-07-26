@@ -47,8 +47,8 @@ unique_ptr<Moveable> Piece::clone() const
     return make_unique<Piece>(*this);
 }
 
-void Piece::onMove(const Move &move, const Position &pos, bool)
+void Piece::onMove(const Move &move, const Position &pos, bool, int movedCountDelta)
 {
     position = pos;
-    ++movedCount;
+    movedCount += movedCountDelta;
 }

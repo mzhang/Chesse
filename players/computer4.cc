@@ -8,6 +8,7 @@
 #include "../data/move.h"
 #include "../game/board.h"
 #include "../data/playerColor.h"
+#include "../data/completedMove.h"
 
 using namespace std;
 
@@ -17,10 +18,11 @@ Computer4::Computer4(PlayerColor color) : Player{color}
 
 Move Computer4::doNextMove(const GameState &g)
 {
-    int searchDepth = 3;
+    GameState newState{g};
+    int searchDepth = 4;
 
     boardCount = 0;
-    pair<float, Move> evaluation = searchMoves(g, searchDepth, negativeInfinity, positiveInfinity, true);
+    pair<float, Move> evaluation = searchMoves(newState, searchDepth, negativeInfinity, positiveInfinity, true);
 
     // cout << "Evaluated " << boardCount << " boards" << endl;
     // cout << "Best evaluation: " << evaluation.first << endl;
@@ -30,14 +32,13 @@ Move Computer4::doNextMove(const GameState &g)
 
 // Use alpha-beta pruning to find the best move
 // Algorithm is based on pseudocode from Wikipedia (https://en.wikipedia.org/wiki/Alpha–beta_pruning)
-pair<int, Move> Computer4::searchMoves(const GameState &g, int depth, int alpha, int beta, bool maximizingPlayer)
+pair<int, Move> Computer4::searchMoves(GameState &g, int depth, int alpha, int beta, bool maximizingPlayer)
 {
     if (depth == 0) {
         //cout << "Depth 0: " << evaluateBoard(g) << endl;
         return make_pair(evaluateBoard(g), Move{});
     }
-        
-
+     
     // We order the moves to improve amount of branches pruned
     vector<Move> validMoves = orderMoves(g.getValidMoves(g.currentPlayer)); // TODO: order moves
 
@@ -51,10 +52,11 @@ pair<int, Move> Computer4::searchMoves(const GameState &g, int depth, int alpha,
         Move bestMove;
 
         for (auto &move : validMoves) {
-            GameState newState = g;
-            newState.makeMove(move, true);
-            newState.switchPlayers();
-            auto evaluation = searchMoves(newState, depth - 1, alpha, beta, false);
+            auto lastMove = g.lastMove;
+            auto c = g.makeMove(move, true);
+            g.switchPlayers();
+            auto evaluation = searchMoves(g, depth - 1, alpha, beta, false);
+            g.undoMove(std::move(c), lastMove);
             if (evaluation.first > value) {
                 value = evaluation.first;
                 bestMove = move;
