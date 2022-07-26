@@ -81,7 +81,7 @@ PlayerColor Game::play()
             // Get last gamestate from history and replace gamestate if available
             if (history.empty())
             {
-                cout << "No moves to undo" << endl;
+                cout << "No moves to undo." << endl;
                 continue;
             }
             CompletedMove lastMove = history.pop_back();
@@ -99,7 +99,7 @@ PlayerColor Game::play()
                     break;
                 }
 
-                cout << "Invalid position" << endl;
+                cout << "Invalid position! Position:" << pos << endl;
             }
 
             vector<Move> validMoves = state.getValidMoves(pos);
@@ -123,7 +123,7 @@ PlayerColor Game::play()
         }
         else
         {
-            cout << "Invalid command" << endl;
+            cout << "Invalid command! Command:" << cmd << endl;
         }
     }
 
@@ -162,7 +162,7 @@ unique_ptr<Player> Game::getPlayer(const string &playerName, PlayerColor playerC
     }
     else
     {
-        cout << "Invalid player name, assuming human" << endl;
+        cout << "Invalid player type entered! Assuming human player." << endl;
         return make_unique<Human>(playerColor);
     }
 }

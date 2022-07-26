@@ -22,8 +22,9 @@ vector<Position> PawnRules::getAttackedTiles(const GameState &g, bool) const
 {
     Position currentPos = Decorator::getPosition();
     vector<Position> tiles = Decorator::getAttackedTiles(g, true);
-    tiles.emplace_back(Position{currentPos.x - 1, currentPos.y + 1});
-    tiles.emplace_back(Position{currentPos.x + 1, currentPos.y + 1});
+    int forwardsDir = (Decorator::getOwner() == PlayerColor::WHITE) ? 1 : -1;
+    tiles.emplace_back(Position{currentPos.x - 1, currentPos.y + forwardsDir});
+    tiles.emplace_back(Position{currentPos.x + 1, currentPos.y + forwardsDir});
     return tiles;
 }
 

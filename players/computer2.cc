@@ -15,7 +15,7 @@ Computer2::Computer2(PlayerColor color) : Player{color}
 
 bool Computer2::isCapturingMove(const GameState &state, const Move &move)
 {
-    cout << move.capturePositions.size() << endl;
+    // cout << move.capturePositions.size() << endl;
     for (auto targetPos : move.capturePositions)
     {
         if (!state.isEmpty(targetPos) && state.getOwner(targetPos) != playerColor)
@@ -52,7 +52,7 @@ Move Computer2::doNextMove(const GameState &state)
     // If there are no capturing or checking moves, return a random move
     if (preferred_moves.size() == 0)
     {
-        cout << "No capturing or checking moves" << endl;
+        // cout << "No capturing or checking moves" << endl;
         std::uniform_int_distribution<int> distribution(0, possible_moves.size() - 1);
         int random_index = distribution(generator);
         return possible_moves[random_index];

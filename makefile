@@ -4,7 +4,9 @@ EXEC = chess.out
 OBJECTS = main.o chess.o \
 ./game/board.o ./game/game.o ./game/gameState.o ./game/gameHistory.o \
 ./moveable/piece.o ./moveable/moveable.o ./moveable/decorator.o ./moveable/pieceFactory.o \
-./moveable/moveX.o ./moveable/moveY.o ./moveable/moveDiagNeg.o ./moveable/moveDiagPos.o ./moveable/moveL.o ./moveable/pawnRules.o ./moveable/castle.o \
+./moveable/moveX.o ./moveable/moveY.o ./moveable/moveDiagNeg.o ./moveable/moveDiagPos.o \
+./moveable/moveL.o ./moveable/pawnRules.o ./moveable/castle.o \
+./moveable/golem.o ./moveable/nuke.o \
 ./graphics/chessDrawing.o ./graphics/screen.o \
 ./outputs/output.o ./outputs/textDisplay.o ./outputs/visualizer.o \
 ./data/pieceType.o ./data/move.o ./data/position.o ./data/playerColor.o ./data/completedMove.o \

@@ -51,8 +51,6 @@ void Chess::start(bool useDisplay)
 
     // print game results
     cout << "Final Score:" << endl;
-    for (auto &p : playerScores)
-    {
-        cout << p.first << ": " << p.second << endl;
-    }
+    cout << "White: " << playerScores[PlayerColor::WHITE] << endl;
+    cout << "Black: " << playerScores[PlayerColor::BLACK] << endl;
 }

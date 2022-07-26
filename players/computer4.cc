@@ -38,7 +38,7 @@ pair<int, Move> Computer4::searchMoves(GameState &g, int depth, int alpha, int b
         //cout << "Depth 0: " << evaluateBoard(g) << endl;
         return make_pair(evaluateBoard(g), Move{});
     }
-        
+     
     // We order the moves to improve amount of branches pruned
     vector<Move> validMoves = orderMoves(g.getValidMoves(g.currentPlayer)); // TODO: order moves
 
@@ -121,7 +121,7 @@ int Computer4::evaluateBoard(const GameState &g)
             return 0;
         }
         else {
-            return gameEnded.second == playerColor ? positiveInfinity : negativeInfinity;
+            return gameEnded.second == playerColor ? positiveInfinity / 10 : negativeInfinity / 10;
         }
     }
 

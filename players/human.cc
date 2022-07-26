@@ -23,7 +23,7 @@ Move Human::doNextMove(const GameState &g)
         // Validate that from and to are valid positions using g.isInBounds()
         if (!(g.isInBounds(from) && g.isInBounds(to)))
         {
-            cout << "Invalid positions, please try again" << endl;
+            cout << "Invalid move! Please re-enter new positions. " << endl;
             continue;
         }
 
@@ -38,7 +38,7 @@ Move Human::doNextMove(const GameState &g)
             }
         }
 
-        cout << "Invalid move, please try again" << endl;
+        cout << "Invalid move! Please re-enter new positions. " << endl;
     }
 
     return Move{};
