@@ -10,9 +10,10 @@
 #include "../players/computer1.h"
 #include "../players/computer2.h"
 #include "../players/computer3.h"
-#include "../players/computer4.h"
+#include "../players/ComputerN.h"
 #include "../data/playerColor.h"
 #include "../data/completedMove.h"
+#include "../players/computerFactory.h"
 
 using namespace std;
 
@@ -158,7 +159,12 @@ unique_ptr<Player> Game::getPlayer(const string &playerName, PlayerColor playerC
     }
     else if (playerName == "computer4")
     {
-        return make_unique<Computer4>(playerColor);
+        return ComputerFactory::createComputer(playerColor, 3);
+    }
+    else if (playerName == "computerN") {
+        int movesLookAhead;
+        cin >> movesLookAhead;
+        return ComputerFactory::createComputer(playerColor, movesLookAhead);
     }
     else
     {

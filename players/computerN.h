@@ -1,5 +1,5 @@
-#ifndef COMPUTER4_H_
-#define COMPUTER4_H_
+#ifndef ComputerN_H_
+#define ComputerN_H_
 
 #include <utility>
 #include <vector>
@@ -12,7 +12,7 @@ enum class PieceType;
 enum class PlayerColor;
 class Move;
 
-class Computer4 : public Player
+class ComputerN : public Player
 {
     // Piece-Square Tables to determine the value of a piece on a given square.
     // These were taken from PESTO's evaluation function (https://www.chessprogramming.org/PeSTO%27s_Evaluation_Function)
@@ -51,7 +51,7 @@ class Computer4 : public Player
                                   {-36, -26, -12, -1, 9, -7, 6, -23},
                                   {-45, -25, -16, -17, 3, 0, -5, -33},
                                   {-44, -16, -20, -9, -1, 11, -6, -71},
-                                  {-19, -50, 1, 17, 16, 7, -87, -26}};
+                                  {-19, -200, 1, 17, 16, 7, -200, -26}};
 
     const int queenValues[8][8] = {{-28, 0, 29, 12, 59, 44, 43, 45},
                                    {-24, -39, -5, 1, -16, 57, 28, 54},
@@ -86,7 +86,7 @@ class Computer4 : public Player
     std::pair<int, Move> searchMoves(GameState &, int, int, int, bool);
 
 public:
-    explicit Computer4(PlayerColor);
+    explicit ComputerN(PlayerColor);
 };
 
-#endif // COMPUTER4_H_
+#endif // ComputerN_H_

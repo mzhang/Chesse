@@ -3,7 +3,7 @@
 #include <utility>
 #include <algorithm>
 
-#include "computer4.h"
+#include "computerN.h"
 #include "../game/gameState.h"
 #include "../data/move.h"
 #include "../game/board.h"
@@ -12,11 +12,11 @@
 
 using namespace std;
 
-Computer4::Computer4(PlayerColor color) : Player{color}
+ComputerN::ComputerN(PlayerColor color) : Player{color}
 {
 }
 
-Move Computer4::doNextMove(const GameState &g)
+Move ComputerN::doNextMove(const GameState &g)
 {
     GameState newState{g};
     int searchDepth = 4;
@@ -32,7 +32,7 @@ Move Computer4::doNextMove(const GameState &g)
 
 // Use alpha-beta pruning to find the best move
 // Algorithm is based on pseudocode from Wikipedia (https://en.wikipedia.org/wiki/Alpha–beta_pruning)
-pair<int, Move> Computer4::searchMoves(GameState &g, int depth, int alpha, int beta, bool maximizingPlayer)
+pair<int, Move> ComputerN::searchMoves(GameState &g, int depth, int alpha, int beta, bool maximizingPlayer)
 {
     if (depth == 0) {
         //cout << "Depth 0: " << evaluateBoard(g) << endl;
@@ -91,7 +91,7 @@ pair<int, Move> Computer4::searchMoves(GameState &g, int depth, int alpha, int b
 }
 
 // TODO: improve
-vector<Move> Computer4::orderMoves(const vector<Move> &moves)
+vector<Move> ComputerN::orderMoves(const vector<Move> &moves)
 {
     vector<Move> orderedMoves;
     for (auto move : moves)
@@ -111,7 +111,7 @@ vector<Move> Computer4::orderMoves(const vector<Move> &moves)
     return orderedMoves;
 }
 
-int Computer4::evaluateBoard(const GameState &g)
+int ComputerN::evaluateBoard(const GameState &g)
 {
     int evaluation = 0;
 
@@ -145,7 +145,7 @@ int Computer4::evaluateBoard(const GameState &g)
     return evaluation;
 }
 
-int Computer4::getPieceValue(PieceType pieceType)
+int ComputerN::getPieceValue(PieceType pieceType)
 {
     switch (pieceType)
     {
@@ -166,7 +166,7 @@ int Computer4::getPieceValue(PieceType pieceType)
     }
 }
 
-int Computer4::getPositionValue(const Position &pos, PieceType pieceType)
+int ComputerN::getPositionValue(const Position &pos, PieceType pieceType)
 {
     const float positionWeight = 0.5f;
     int yPos = playerColor == PlayerColor::WHITE ? pos.y : 7 - pos.y;
