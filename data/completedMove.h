@@ -21,3 +21,4 @@ struct CompletedMove
 };
 
 #endif // COMPLETEDMOVE_H_
+

@@ -75,3 +75,4 @@ unique_ptr<Moveable> MoveX::clone() const
 }
 
 MoveX::MoveX(const MoveX &o) : Decorator{o}, maxSteps{o.maxSteps} {}
+

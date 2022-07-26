@@ -216,3 +216,4 @@ unique_ptr<Moveable> Golem::clone() const
 {
     return make_unique<Golem>(*this);
 }
+

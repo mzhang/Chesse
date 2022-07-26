@@ -22,3 +22,4 @@ struct PlayerColorUtils
 std::ostream &operator<<(std::ostream &os, const PlayerColor &c);
 
 #endif // PLAYERCOLOR_H_
+

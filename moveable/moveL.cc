@@ -137,3 +137,4 @@ unique_ptr<Moveable> MoveL::clone() const
 }
 
 MoveL::MoveL(const MoveL &o) : Decorator{o} {}
+

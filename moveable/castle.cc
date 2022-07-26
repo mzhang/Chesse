@@ -86,3 +86,4 @@ unique_ptr<Moveable> Castle::clone() const
 {
     return make_unique<Castle>(*this);
 }
+

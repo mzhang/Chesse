@@ -54,3 +54,4 @@ unique_ptr<Moveable> Nuke::clone() const
 {
     return make_unique<Nuke>(*this);
 }
+

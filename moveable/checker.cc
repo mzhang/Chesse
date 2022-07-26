@@ -110,3 +110,4 @@ unique_ptr<Moveable> Checker::clone() const
 {
     return make_unique<Checker>(*this);
 }
+

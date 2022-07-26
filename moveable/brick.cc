@@ -32,3 +32,4 @@ unique_ptr<Moveable> Brick::clone() const
 {
     return make_unique<Brick>(*this);
 }
+

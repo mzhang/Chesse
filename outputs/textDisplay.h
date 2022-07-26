@@ -19,3 +19,4 @@ public:
     TextDisplay(int, int);
 };
 #endif
+

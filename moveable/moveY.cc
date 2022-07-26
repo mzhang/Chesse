@@ -74,3 +74,4 @@ unique_ptr<Moveable> MoveY::clone() const
 }
 
 MoveY::MoveY(const MoveY &o) : Decorator{o}, maxSteps{o.maxSteps} {}
+

@@ -52,3 +52,4 @@ void Piece::onMove(const Move &move, const Position &pos, bool, int movedCountDe
     position = pos;
     movedCount += movedCountDelta;
 }
+

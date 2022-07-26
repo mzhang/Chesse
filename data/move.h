@@ -24,3 +24,4 @@ struct Move
 };
 
 #endif // MOVE_H_
+

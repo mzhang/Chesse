@@ -163,3 +163,4 @@ unique_ptr<Moveable> PawnRules::clone() const
 {
     return make_unique<PawnRules>(*this);
 }
+

@@ -78,3 +78,4 @@ unique_ptr<Moveable> MoveDiagPos::clone() const
 }
 
 MoveDiagPos::MoveDiagPos(const MoveDiagPos &o) : Decorator{o}, maxSteps{o.maxSteps} {}
+
