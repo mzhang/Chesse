@@ -24,6 +24,7 @@
 #include "../moveable/pawnRules.h"
 #include "../moveable/castle.h"
 #include "../moveable/golem.h"
+#include "../moveable/nuke.h"
 
 #include <util.h>
 
@@ -352,6 +353,10 @@ void GameState::setup(const Game &g)
                 cin >> maxSteps;
                 board->addPiece(make_unique<Golem>(std::move(piece), maxSteps), pos);
             }
+            else if (newRule == "nuke")
+            {
+                board->addPiece(make_unique<Nuke>(std::move(piece)), pos);
+            }
             else
             {
                 cout << "Invalid rule! Rule: " << newRule << endl;
@@ -469,7 +474,7 @@ pair<bool, PlayerColor> GameState::getStatus() const
         {
             piecesLeft = true;
         }
-        if (kingCount[pc] != pieceCount[pc])
+        if (kingCount[pc] != 0)
         {
             notJustKings = true;
         }
@@ -477,6 +482,17 @@ pair<bool, PlayerColor> GameState::getStatus() const
     if (!piecesLeft || !notJustKings)
     {
         return make_pair(true, PlayerColor::NONE);
+    }
+
+    // player wins if they have a king and the other doesn't
+    // player wins if they have pieces and the other doesn't
+    for (PlayerColor pc : players)
+    {
+        if ((kingCount[pc] > 0 && kingCount[PlayerColorUtils::getNext(pc)] == 0) ||
+            (pieceCount[pc] > 0 && pieceCount[PlayerColorUtils::getNext(pc)] == 0))
+        {
+            return make_pair(true, pc);
+        }
     }
 
     map<PlayerColor, int> validMoveCount;
