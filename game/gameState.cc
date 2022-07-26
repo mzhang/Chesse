@@ -257,6 +257,21 @@ void GameState::setup(const Game &g)
             }
             g.updateOutputs(m);
         }
+        else if (cmd == "checkers") {
+            standard_checkers_board();
+            Move m;
+            // Add the bottom 3 rows and the top two rows to m.from
+            for (int i = 0; i < board->getWidth(); i++)
+            {
+                m.from.push_back({i, 0});
+                m.from.push_back({i, 1});
+                m.from.push_back({i, 2});
+                m.from.push_back({i, board->getHeight() - 1});
+                m.from.push_back({i, board->getHeight() - 2});
+                m.from.push_back({i, board->getHeight() - 3});
+            }
+            g.updateOutputs(m);
+        }
         else if (cmd == "+")
         {
             cin >> pieceType;
@@ -666,4 +681,37 @@ void GameState::standard_chess_board()
     board->addPiece(PieceFactory::createPiece(Position{4, 7}, PieceType::KING, PlayerColor::BLACK,
                                               board->getWidth(), board->getHeight()),
                     Position{4, 7});
+}
+
+void GameState::standard_checkers_board() {
+    // Create a piece of type King for white, place in b1
+    board->addPiece(make_unique<Piece>(1,0, PieceType::KING, PlayerColor::WHITE), Position{1,0});
+
+    // Create a piece of type King for black, place in a8
+    board->addPiece(make_unique<Piece>(0,7, PieceType::KING, PlayerColor::BLACK), Position{0,7});
+
+    // Add pieces for white
+    for (int i = 0; i < 8; i += 2) {
+        board->addPiece(make_unique<Checker>(
+            make_unique<Piece>(i, 0, PieceType::ROOK, PlayerColor::WHITE), 7), Position{i,0});
+
+        board->addPiece(make_unique<Checker>(
+            make_unique<Piece>(i+1, 1, PieceType::ROOK, PlayerColor::WHITE), 7), Position{i+1,1});
+
+        board->addPiece(make_unique<Checker>(
+            make_unique<Piece>(i, 2, PieceType::ROOK, PlayerColor::WHITE), 7), Position{i,2});
+    }
+
+    // Add pieces for black
+    for (int i = 1; i < 8; i += 2) {
+        board->addPiece(make_unique<Checker>(
+            make_unique<Piece>(i, 7, PieceType::ROOK, PlayerColor::BLACK), 0), Position{i,7});
+
+        board->addPiece(make_unique<Checker>(
+            make_unique<Piece>(i-1, 6, PieceType::ROOK, PlayerColor::BLACK), 0), Position{i-1,6});
+
+        board->addPiece(make_unique<Checker>(
+            make_unique<Piece>(i, 5, PieceType::ROOK, PlayerColor::BLACK), 0), Position{i,5});
+    }
+
 }
