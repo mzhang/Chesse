@@ -685,10 +685,10 @@ void GameState::standard_chess_board()
 
 void GameState::standard_checkers_board() {
     // Create a piece of type King for white, place in b1
-    board->addPiece(make_unique<Piece>(1,0, PieceType::KING, PlayerColor::WHITE), Position{1,0});
+    board->addPiece(make_unique<Piece>(3,4, PieceType::KING, PlayerColor::WHITE), Position{3,4});
 
     // Create a piece of type King for black, place in a8
-    board->addPiece(make_unique<Piece>(0,7, PieceType::KING, PlayerColor::BLACK), Position{0,7});
+    board->addPiece(make_unique<Piece>(3,4, PieceType::KING, PlayerColor::BLACK), Position{4,3});
 
     // Add pieces for white
     for (int i = 0; i < 8; i += 2) {
