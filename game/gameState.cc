@@ -260,7 +260,7 @@ void GameState::setup(const Game &g)
         else if (cmd == "checkers") {
             standard_checkers_board();
             Move m;
-            // Add the bottom 3 rows and the top two rows to m.from
+            // Add the bottom 3 rows and the top 3 rows to m.from
             for (int i = 0; i < board->getWidth(); i++)
             {
                 m.from.push_back({i, 0});
@@ -270,6 +270,8 @@ void GameState::setup(const Game &g)
                 m.from.push_back({i, board->getHeight() - 2});
                 m.from.push_back({i, board->getHeight() - 3});
             }
+            m.from.push_back({3,4});
+            m.from.push_back({4,3});
             g.updateOutputs(m);
         }
         else if (cmd == "+")
