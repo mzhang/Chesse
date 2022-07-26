@@ -102,9 +102,10 @@ int GameState::numberOfTilesAttacked(const PlayerColor &pc, const vector<Positio
 
 bool GameState::isInCheckAfterMove(const PlayerColor &pc, const Move &m) const
 {
-    GameState tmp{*this};
-    tmp.board->makeMove(m, true);
-    return tmp.isInCheck(pc);
+    CompletedMove cm = board->makeMove(m, true);
+    bool inCheck = isInCheck(pc);
+    board->undoMove(std::move(cm));
+    return inCheck;
 }
 
 vector<Position> GameState::getEnemySightlines(const PlayerColor &pc) const
