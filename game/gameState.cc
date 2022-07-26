@@ -23,7 +23,7 @@ using namespace std;
 
 GameState::GameState(int boardWidth, int boardHeight) : board{make_unique<Board>(boardWidth, boardHeight)}, currentPlayer{PlayerColor::WHITE} {}
 
-GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer} {}
+GameState::GameState(const GameState &o) : board{make_unique<Board>(*o.board)}, currentPlayer{o.currentPlayer} { /*cout << "DEBUG: GameState copy constructor. Make sure this is intended" << endl;*/ }
 
 GameState::~GameState() {}
 
@@ -358,6 +358,17 @@ bool GameState::checkValidState()
 // we return pair<gameIsOver, winner>
 pair<bool, PlayerColor> GameState::getStatus() const
 {
+
+    // Efficiently determine if the game is over and the winner if so
+    // We do this by checking if there are any valid moves for both players
+    // If there are no valid moves for both players, then the game is over
+
+    // if (getValidMoves(PlayerColor::WHITE).size() == 0 && getValidMoves(PlayerColor::BLACK).size() == 0)
+    // {
+    //     // Return the winner by check 
+    //     return make_pair(true, PlayerColor::NONE);
+    // }
+
     vector<PlayerColor> players{PlayerColor::BLACK, PlayerColor::WHITE};
 
     map<PlayerColor, int> pieceCount;
