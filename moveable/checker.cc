@@ -14,7 +14,7 @@ using namespace std;
 
 Checker::Checker(unique_ptr<Moveable> component, int promotionRank) : Decorator{std::move(component)}, promotionRank{promotionRank}, isPromoted{false} {}
 
-Checker::Checker(const Checker &o) : Decorator{o}, promotionRank{o.promotionRank} {}
+Checker::Checker(const Checker &o) : Decorator{o}, promotionRank{o.promotionRank}, isPromoted{o.isPromoted} {}
 
 vector<Position> Checker::getAttackedTiles(const GameState &g, bool) const
 {
