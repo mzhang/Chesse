@@ -1,8 +1,8 @@
 #ifndef MOVE_L_H_
 #define MOVE_L_H_
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 #include "decorator.h"
 
@@ -12,15 +12,14 @@ struct Move;
 class Piece;
 struct Moveable;
 
-class MoveL : public Decorator
-{
+class MoveL : public Decorator {
 public:
-    explicit MoveL(std::unique_ptr<Moveable>);
+  explicit MoveL(std::unique_ptr<Moveable>);
 
-    std::vector<Move> getValidMoves(const GameState &, bool) const override;
-    std::unique_ptr<Moveable> clone() const override;
+  std::vector<Move> getValidMoves(const GameState &, bool) const override;
+  std::unique_ptr<Moveable> clone() const override;
 
-    MoveL(const MoveL &);
+  MoveL(const MoveL &);
 };
 
 #endif

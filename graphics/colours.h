@@ -1,8 +1,7 @@
 #ifndef SDL_COLORS_H_
 #define SDL_COLORS_H_
 
-struct Colour
-{
+struct Colour {
   unsigned char r, g, b;
 };
 

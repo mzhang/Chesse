@@ -6,13 +6,12 @@
 struct Move;
 class GameState;
 
-class Human : public Player
-{
-    Move doNextMove(const GameState &) override;
+class Human : public Player {
+  Move doNextMove(const GameState &) override;
 
 public:
-    explicit Human(PlayerColor);
-    bool isHeadless() const override;
+  explicit Human(PlayerColor);
+  bool isHeadless() const override;
 };
 
 #endif // HUMAN_H_

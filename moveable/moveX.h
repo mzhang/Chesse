@@ -1,8 +1,8 @@
 #ifndef MOVE_X_H_
 #define MOVE_X_H_
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 #include "decorator.h"
 
@@ -12,17 +12,16 @@ struct Move;
 class Piece;
 struct Moveable;
 
-class MoveX : public Decorator
-{
-    int maxSteps;
+class MoveX : public Decorator {
+  int maxSteps;
 
 public:
-    MoveX(std::unique_ptr<Moveable>, int maxSteps = 1);
+  MoveX(std::unique_ptr<Moveable>, int maxSteps = 1);
 
-    std::vector<Move> getValidMoves(const GameState &, bool) const override;
-    std::unique_ptr<Moveable> clone() const override;
+  std::vector<Move> getValidMoves(const GameState &, bool) const override;
+  std::unique_ptr<Moveable> clone() const override;
 
-    MoveX(const MoveX &);
+  MoveX(const MoveX &);
 };
 
 #endif

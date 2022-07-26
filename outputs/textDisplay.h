@@ -7,16 +7,15 @@
 struct Position;
 class GameState;
 
-class TextDisplay : public Output
-{
-    int boardWidth;
-    int boardHeight;
+class TextDisplay : public Output {
+  int boardWidth;
+  int boardHeight;
 
-    void doUpdate(const GameState &, const Move &) override;
-    void doDisplayValidMoves(const GameState &, const std::vector<Move> &) override;
+  void doUpdate(const GameState &, const Move &) override;
+  void doDisplayValidMoves(const GameState &,
+                           const std::vector<Move> &) override;
 
 public:
-    TextDisplay(int, int);
+  TextDisplay(int, int);
 };
 #endif
-

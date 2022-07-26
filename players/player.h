@@ -6,17 +6,16 @@
 class GameState;
 struct Move;
 
-class Player
-{
-    virtual Move doNextMove(const GameState &) = 0;
+class Player {
+  virtual Move doNextMove(const GameState &) = 0;
 
 protected:
-    PlayerColor playerColor;
+  PlayerColor playerColor;
 
 public:
-    explicit Player(PlayerColor);
-    virtual bool isHeadless() const;
-    Move nextMove(const GameState &);
+  explicit Player(PlayerColor);
+  virtual bool isHeadless() const;
+  Move nextMove(const GameState &);
 };
 
 #endif // COMPUTER_H_

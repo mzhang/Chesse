@@ -7,13 +7,14 @@
 #include "../game/gameState.h"
 
 class GameHistory {
-    std::vector<CompletedMove> history;
+  std::vector<CompletedMove> history;
+
 public:
-    void addMove(CompletedMove &&);
-    void printHistory();
-    bool empty();
-    CompletedMove pop_back();
-    Move getLastMove();
+  void addMove(CompletedMove &&);
+  void printHistory();
+  bool empty();
+  CompletedMove pop_back();
+  Move getLastMove();
 };
 
 #endif

@@ -8,10 +8,10 @@ struct Position;
 enum class PieceType;
 enum class PlayerColor;
 
-class PieceFactory
-{
+class PieceFactory {
 public:
-    static std::unique_ptr<Moveable> createPiece(const Position &, PieceType, PlayerColor, int, int);
+  static std::unique_ptr<Moveable> createPiece(const Position &, PieceType,
+                                               PlayerColor, int, int);
 };
 
 #endif // PIECEFACTORY_H_

@@ -1,8 +1,8 @@
 #ifndef GOLEM_H_
 #define GOLEM_H_
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 #include "decorator.h"
 
@@ -12,17 +12,17 @@ struct Move;
 class Piece;
 struct Moveable;
 
-class Golem : public Decorator
-{
-    int maxMoves;
-    bool isBroken;
-public:
-    Golem(std::unique_ptr<Moveable>, int);
-    Golem(const Golem &);
+class Golem : public Decorator {
+  int maxMoves;
+  bool isBroken;
 
-    std::vector<Move> getValidMoves(const GameState &, bool) const override;
-    std::unique_ptr<Moveable> clone() const override;
-    void onMove(const Move &, const Position &, bool, int) override;
+public:
+  Golem(std::unique_ptr<Moveable>, int);
+  Golem(const Golem &);
+
+  std::vector<Move> getValidMoves(const GameState &, bool) const override;
+  std::unique_ptr<Moveable> clone() const override;
+  void onMove(const Move &, const Position &, bool, int) override;
 };
 
 #endif

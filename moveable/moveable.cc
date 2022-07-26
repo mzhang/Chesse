@@ -1,13 +1,12 @@
-#include <vector>
 #include <memory>
+#include <vector>
 
-#include "moveable.h"
-#include "../data/position.h"
 #include "../data/move.h"
+#include "../data/position.h"
+#include "moveable.h"
 
 using namespace std;
 
 Moveable::Moveable() {}
 
 Moveable::~Moveable() {}
-

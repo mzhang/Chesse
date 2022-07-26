@@ -1,19 +1,11 @@
 #include "player.h"
-#include "../game/gameState.h"
 #include "../data/move.h"
+#include "../game/gameState.h"
 
 using namespace std;
 
-Player::Player(PlayerColor color) : playerColor{color}
-{
-}
+Player::Player(PlayerColor color) : playerColor{color} {}
 
-bool Player::isHeadless() const
-{
-    return true;
-}
+bool Player::isHeadless() const { return true; }
 
-Move Player::nextMove(const GameState &g)
-{
-    return doNextMove(g);
-}
+Move Player::nextMove(const GameState &g) { return doNextMove(g); }
