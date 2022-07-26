@@ -16,6 +16,16 @@ Checker::Checker(unique_ptr<Moveable> component, int promotionRank) : Decorator{
 
 Checker::Checker(const Checker &o) : Decorator{o}, promotionRank{o.promotionRank} {}
 
+vector<Position> Checker::getAttackedTiles(const GameState &g, bool) const
+{
+    Position currentPos = Decorator::getPosition();
+    vector<Position> tiles = Decorator::getAttackedTiles(g, true);
+    int forwardsDir = (Decorator::getOwner() == PlayerColor::WHITE) ? 1 : -1;
+    tiles.emplace_back(Position{currentPos.x - 1, currentPos.y + forwardsDir});
+    tiles.emplace_back(Position{currentPos.x + 1, currentPos.y + forwardsDir});
+    return tiles;
+}
+
 vector<Move> Checker::getValidMoves(const GameState &g, bool checkChildren) const
 {
     vector<Move> moves{};

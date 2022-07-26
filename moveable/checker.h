@@ -21,6 +21,7 @@ public:
     Checker(std::unique_ptr<Moveable>, int);
     Checker(const Checker &);
 
+    std::vector<Position> getAttackedTiles(const GameState &, bool) const override;
     std::vector<Move> getValidMoves(const GameState &, bool) const override;
     std::unique_ptr<Moveable> clone() const override;
     void onMove(const Move &, const Position &, bool, int) override;
