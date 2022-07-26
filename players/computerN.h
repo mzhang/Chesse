@@ -74,7 +74,7 @@ class ComputerN : public Player
     const int negativeInfinity = -1000000;
     const int positiveInfinity = 1000000;
 
-    int boardCount;
+    int lookAhead;
 
     int getPieceValue(PieceType);
     std::vector<Move> orderMoves(const std::vector<Move> &);
@@ -86,7 +86,7 @@ class ComputerN : public Player
     std::pair<int, Move> searchMoves(GameState &, int, int, int, bool);
 
 public:
-    explicit ComputerN(PlayerColor);
+    explicit ComputerN(PlayerColor, int);
 };
 
 #endif // ComputerN_H_
