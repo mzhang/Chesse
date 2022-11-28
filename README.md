@@ -1,6 +1,14 @@
 # Chesse🧀
 
-- ♟️♾️
-- 🤖♾️
-- 🧀
-- 🙉🙊🐵
+On the surface, Chessé may appear to be a standard game of chess. However,  Chessé leverages the decorator pattern to enable a powerful, highly configurable and composable rule system that can radically modify program behaviour at runtime. This enables us to do things such as letting pawns move like queens or even converting our game of chess into a game of checkers! Chessé also comes with advanced features including the ability to find and visualise valid moves for a particular piece, the ability to take back moves, and more! 
+
+## Dynamic Rules: 
+
+A key element of our design is the component responsible for the dynamic rules system. While conventional chess systems create special, static rules for each of the 6 types of pieces in chess, Chessé represents these pieces as a collection of rules that enable its expected behaviours. For example, we build a Castling rule that enables a piece to castle, a MoveX rule that enables a piece to move along the x-axis, and a variety of other such rules that we combine to get different behaviour. Under our system, each of the fundamental chess pieces can be expressed as compositions of rules, and it is easy to build new custom pieces that build upon or modify the behaviour of existing chess pieces. The implementation for this system is discussed throughout this document and the relevant source code can be found under the Moveable directory. Construction of the standard pieces from our rules can be found in the PieceFactory file. 
+
+We use the decorator pattern extensively to enable this configurable behaviour – rules can be applied on top of rules by simply creating a new instance of a rule that holds a reference to the underlying rule/object. This system also means that our chess computers are only reliant on the moves the rule sets deem to be valid. Each computer makes minimal assumptions about the rules and structure of chess itself and could be used in any game that uses this board with similar rules (for example, checkers). 
+
+## Chess Computer: 
+
+Our Player class serves as the interface between either human or computer players and the game itself. All of our chess computers are simply specializations/subclasses of the Player class. Each computer uses methods from the GameState class to find the possible moves for each piece currently in the game. This allows our computers to play any game defined by the rules of the pieces on the board – whether it’s chess, checkers, or something else.  
+Our computer uses the min-max algorithm with alpha beta pruning to evaluate all possible moves within a specified depth (here depth is how many half-moves it looks ahead). Then, it chooses the move that results in the best board position. The board positions are evaluated using handcrafted position and piece weights from the PeSTO evaluation function. 
